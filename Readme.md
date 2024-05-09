@@ -36,14 +36,9 @@ set(AFU_OOCD_ROOT_DIR ${defaultAfuOocdRootDir} CACHE PATH "Path to Infineon Auto
 2. LiveWatch implement cmake/targets/debugger_vsc.cmake     
 ***but looks not work good***
 ```json
-"svdFile": "${workspaceFolder}/misc/tools/svd/@DIE@/@MCU_REV_STRING@/@SERIES@.svd",
-"servertype": "openocd",
-// LiveWatch
-"liveWatch":{"enable": true, "samplesPerSecond": 4},
-"serverpath": "@AFU_OOCD_ROOT_DIR@/bin/openocd.exe",
-"searchDir": [
-    "@AFU_OOCD_ROOT_DIR@/scripts"
-],
+            "runToEntryPoint": "main",
+            //liveWatch
+            "liveWatch": { "enabled": true, "samplesPerSecond": 4 },
 ```
 3. Add multiplite project switch
 

@@ -46,28 +46,28 @@ function(create_vsc_launch_json)
             "armToolchainPath": "@GCC_COMPILER_ROOT_DIR@/bin",
             "svdFile": "${workspaceFolder}/misc/tools/svd/@DIE@/@MCU_REV_STRING@/@SERIES@.svd",
             "servertype": "openocd",
-            //liveWatch
-            "liveWatch":{"enable": true, "samplesPerSecond": 4},
             "serverpath": "@AFU_OOCD_ROOT_DIR@/bin/openocd.exe",
             "searchDir": [
-                "@AFU_OOCD_ROOT_DIR@/scripts"
+            "@AFU_OOCD_ROOT_DIR@/scripts"
             ],
             "configFiles": [
-                "interface/@AFU_OOCD_INTERFACE_CFG_FILE@",
-                "target/@AFU_OOCD_TARGET_CFG_FILE@",
+            "interface/@AFU_OOCD_INTERFACE_CFG_FILE@",
+            "target/@AFU_OOCD_TARGET_CFG_FILE@",
             ],
             "openOCDPreConfigLaunchCommands": [
-                "set ENABLE_ACQUIRE 0" // Ensure regular boot flow (prevent entering of "TEST_MODE")
+            "set ENABLE_ACQUIRE 0" // Ensure regular boot flow (prevent entering of "TEST_MODE")
             ],
             "numberOfProcessors": @TEMPLATE_VAR_NR_OF_CPUS@,
             "targetProcessor": 0,            
             "executable": "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
             "request": "launch",
             "loadFiles": [
-                "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
-@TEMPLATE_VAR_ADDL_LOAD_FILES@
+            "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
+            @TEMPLATE_VAR_ADDL_LOAD_FILES@
             ],
             "runToEntryPoint": "main",
+            //liveWatch
+            "liveWatch": { "enabled": true, "samplesPerSecond": 4 },
 @TEMPLATE_VAR_CHAINED_CFG@            
         },
 ]==])

@@ -42,13 +42,14 @@ cy_stc_gpio_pin_config_t user_led_port_pin_cfg =
     .vrefSel = 0,                                  
     .vohSel = 0,                                   
 };
-
+static uint16_t data_a;
 int main(void)
 {
     __enable_irq();
     float data_i=0.1;
     float data_j=-0.1;
     uint8_t data_h=20;
+    uint16_t data_bb;
     SystemInit();
     
     /* Enable CM4. CY_CORTEX_M4_APPL_ADDR is calculated in linker script, check it in case of problems. */
@@ -61,8 +62,12 @@ int main(void)
     {
         // Wait 0.05 [s]
        Cy_SysTick_DelayInUs(500000);
+       data_a++;
+       data_bb++;
+
 //        Cy_GPIO_Inv(USER_LED_PORT, USER_LED_PIN);
         Cy_GPIO_Set(USER_LED_PORT, USER_LED_PIN);
+        Cy_SysTick_DelayInUs(500000);
         data_j=data_i*data_h;
         Cy_GPIO_Clr(USER_LED_PORT, USER_LED_PIN);
     }
