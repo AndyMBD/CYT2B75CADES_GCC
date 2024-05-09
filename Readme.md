@@ -206,4 +206,4 @@ set(AFU_OOCD_ROOT_DIR ${defaultAfuOocdRootDir} CACHE PATH "Path to Infineon Auto
 └─tools
  └─gcc
 ```
-3.4. Further add more project into workspace, follow step 3.1->3.2->3.3 
+3.4. Further add more project into workspace, Copy source from tviibe1m_examples to tviibe1m and follow step 3.1->3.3 
