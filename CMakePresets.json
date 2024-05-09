@@ -1,0 +1,128 @@
+{
+  "version": 4,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 23,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "default",
+      "hidden": true,
+      "generator": "Ninja Multi-Config",
+      "binaryDir": "build/${presetName}",
+      "cacheVariables": {
+        "MCU_REV": "latest",
+        "LINK": "flash"        
+      }
+    },
+    {
+      "name": "toolchain-gcc",
+      "hidden": true,
+      "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake"
+    },
+    {
+      "name": "tviibe1m-sk",
+      "hidden": true,
+      "cacheVariables": {
+        "DIE": "tviibe1m",
+        "BOARD_REV": "STARTER_KIT_REV3",
+        "DEVICE": "CYT2B75CAE"
+      }
+    },
+    {
+      "name": "led_blink",
+      "hidden": true,
+      "cacheVariables": {
+        "PROJECT_SRC_PATH": "led_blink"
+      }
+    },
+    {
+      "name": "adc_DieTempCalculation",
+      "hidden": true,
+      "cacheVariables": {
+        "PROJECT_SRC_PATH": "adc_DieTempCalculation"
+      }
+    },
+    {
+      "name": "tviibe1m-sk-gcc_led_blink",
+      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc", "led_blink" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) led_blink",
+      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' led_blink (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
+    },
+    {
+      "name": "tviibe1m-sk-gcc_adc_DieTempCalculation",
+      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","adc_DieTempCalculation" ],
+      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) adc_DieTempCalculation",
+      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' adc_DieTempCalculation (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
+    }
+  ],
+
+  "buildPresets": [
+    {
+      "name": "default",
+      "hidden": true
+    },
+    {
+      "name": "cfg-debug",
+      "hidden": true,
+      "configuration" : "Debug"
+    },
+    {
+      "name": "cfg-release",
+      "hidden": true,
+      "configuration" : "Release"
+    },
+    {
+      "name": "cfg-relwithdebinfo",
+      "hidden": true,
+      "configuration" : "RelWithDebInfo"
+    },
+
+    {
+      "name": "tviibe1m-sk-gcc-debug_led_blink",
+      "configurePreset": "tviibe1m-sk-gcc_led_blink",
+      "inherits": [ "default", "cfg-debug" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) led_blink, 'Debug' Cfg",
+      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-debug_adc_DieTempCalculation",
+      "configurePreset":  "tviibe1m-sk-gcc_adc_DieTempCalculation" ,
+      "inherits": [ "default", "cfg-debug" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_DieTempCalculation, 'Debug' Cfg",
+      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+
+    {
+      "name": "tviibe1m-sk-gcc-release_led_blink",
+      "configurePreset": "tviibe1m-sk-gcc_led_blink",
+      "inherits": [ "default", "cfg-release" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) led_blink, 'Release' Cfg",
+      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-release_adc_DieTempCalculation",
+      "configurePreset": "tviibe1m-sk-gcc_adc_DieTempCalculation",
+      "inherits": [ "default", "cfg-release" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_DieTempCalculation, 'Release' Cfg",
+      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+
+    {
+      "name": "tviibe1m-sk-gcc-relwithdebinfo_led_blink",
+      "configurePreset": "tviibe1m-sk-gcc_led_blink",
+      "inherits": [ "default", "cfg-relwithdebinfo" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) led_blink, 'Release w/ Debug Info' Cfg",
+      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-relwithdebinfo_adc_DieTempCalculation",
+      "configurePreset": "tviibe1m-sk-gcc_adc_DieTempCalculation",
+      "inherits": [ "default", "cfg-relwithdebinfo" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_DieTempCalculation, 'Release w/ Debug Info' Cfg",
+      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    }
+
+  ]
+}
