@@ -32,7 +32,7 @@ set(GCC_COMPILER_ROOT_DIR ${defaultGccCompilerRootDir} CACHE PATH "Path to GNU C
 ######################################################################################
 set(DEBUGGER_INTERFACE "kitprog3")#"jlink" "kitprog3"
 
-if(ENV{DEBUGGER_INTERFACE} STREQUAL "jlink")
+if("${DEBUGGER_INTERFACE}" STREQUAL "jlink")
 ######################################################################################
 # JLINK
 ######################################################################################
@@ -41,6 +41,7 @@ set(JLINK_DIR "C:/SW_Tool/SEGGER/JLink_V796")
 set(JLINK_INTERFACE "swd") #jtag cjtag
 
 else()#"kitprog3" and default setting
+
 ######################################################################################
 # Infineon Auto Flash Utility (AFU) / OpenOCD (OOCD)
 ######################################################################################
