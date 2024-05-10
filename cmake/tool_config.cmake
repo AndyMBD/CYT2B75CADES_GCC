@@ -30,14 +30,14 @@ set(GCC_COMPILER_ROOT_DIR ${defaultGccCompilerRootDir} CACHE PATH "Path to GNU C
 ######################################################################################
 # Set Debug tool one from "jlink" "kitprog3" 
 ######################################################################################
-set(DEBUGGER_INTERFACE "kitprog3")#"jlink" "kitprog3"
+set(DEBUGGER_INTERFACE "jlink")#"jlink" "kitprog3"
 
 if("${DEBUGGER_INTERFACE}" STREQUAL "jlink")
 ######################################################################################
 # JLINK
 ######################################################################################
 # set(ENV{MTB_JLINK_DIR} "C:/SW_Tool/SEGGER/JLink_V796")
-set(JLINK_DIR "C:/SW_Tool/SEGGER/JLink_V796")
+set(JLINK_DIR "C:/SW_Tool/SEGGER/JLink")
 set(JLINK_INTERFACE "swd") #jtag cjtag
 
 else()#"kitprog3" and default setting

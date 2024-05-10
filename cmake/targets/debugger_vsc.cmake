@@ -41,7 +41,7 @@ set(jsonMainCpuTemplateString
     "serverpath": "@JLINK_DIR@/JLinkGDBServerCL.exe",
     "interface": "@JLINK_INTERFACE@",
     "serverArgs": ["-speed", "8000"],
-    "jlinkscript":"@CMAKE_SOURCE_DIR@/@DIE@/tools/jlink/Infineon_TraveoT2G_CM7_ResetExample.JLinkScript",
+    //"jlinkscript":"@CMAKE_SOURCE_DIR@/@DIE@/tools/jlink/Infineon_TraveoT2G_CM7_ResetExample.JLinkScript",
     
     "numberOfProcessors": @TEMPLATE_VAR_NR_OF_CPUS@,
     "targetProcessor": 0,            
