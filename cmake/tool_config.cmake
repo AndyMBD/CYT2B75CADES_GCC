@@ -27,28 +27,41 @@ set(defaultGccCompilerRootDir "C:/SW_Tool/arm-gnu-toolchain-13.2.Rel1-mingw-w64-
 endif()
 set(GCC_COMPILER_ROOT_DIR ${defaultGccCompilerRootDir} CACHE PATH "Path to GNU C Compiler root folder used for compiling/debugging")
 
+######################################################################################
+# Set Debug tool one from "jlink" "kitprog3" 
+######################################################################################
+# set(DEBUGGER_INTERFACE "kitprog3")#"jlink" "kitprog3"
 
+# if(ENV{DEBUGGER_INTERFACE} STREQUAL "jlink")
+# ######################################################################################
+# # JLINK
+# ######################################################################################
+# # set(ENV{MTB_JLINK_DIR} "C:/SW_Tool/SEGGER/JLink_V796")
+# set(JLINK_DIR "C:/SW_Tool/SEGGER/JLink_V796")
+# set(JLINK_INTERFACE "swd") #jtag cjtag
 
+# else()#"kitprog3" and default setting
 ######################################################################################
 # Infineon Auto Flash Utility (AFU) / OpenOCD (OOCD)
 ######################################################################################
 set(ENV{SDL_CMAKE_AFU_OOCD_ROOT_DIR} "C:/SW_Tool/Cypress Auto Flash Utility 1.0")
 if(DEFINED ENV{SDL_CMAKE_AFU_OOCD_ROOT_DIR})
-    set(defaultAfuOocdRootDir $ENV{SDL_CMAKE_AFU_OOCD_ROOT_DIR})
+set(defaultAfuOocdRootDir $ENV{SDL_CMAKE_AFU_OOCD_ROOT_DIR})
 else()
-    set(defaultAfuOocdRootDir "C:/SW_Tool/Cypress Auto Flash Utility 1.0")
+set(defaultAfuOocdRootDir "C:/SW_Tool/Cypress Auto Flash Utility 1.0")
 endif()
 set(AFU_OOCD_ROOT_DIR ${defaultAfuOocdRootDir} CACHE PATH "Path to Infineon Auto Flash Utility / OpenOCD")
 
 
 # Specify the hardware interface to be used with AFU/OOCD, typically 'kitprog3.cfg' for Cypress/Infineon MiniProg4/KitProg3 or 'jlink.cfg' for SEGGER J-Link
 if(DEFINED ENV{SDL_CMAKE_AFU_OOCD_INTERFACE_CFG_FILE})
-    set(defaultAfuOocdInterfaceCfgFile $ENV{SDL_CMAKE_AFU_OOCD_INTERFACE_CFG_FILE})
+set(defaultAfuOocdInterfaceCfgFile $ENV{SDL_CMAKE_AFU_OOCD_INTERFACE_CFG_FILE})
 else()
-    set(defaultAfuOocdInterfaceCfgFile "kitprog3.cfg")
+set(defaultAfuOocdInterfaceCfgFile "kitprog3.cfg")
 endif()
 set(AFU_OOCD_INTERFACE_CFG_FILE ${defaultAfuOocdInterfaceCfgFile} CACHE STRING "Infineon Auto Flash Utility / OpenOCD interface configuration file name (typically kitprog3.cfg or jlink.cfg)")
 
+# endif() 
 
 ######################################################################################
 # MCAL / Tresos (only relevant if USE_MCAL is true)
