@@ -38,7 +38,7 @@ cy_stc_gpio_pin_config_t user_led_port_pin_cfg =
     .vohSel = 0,                                   
 };
   float data_i=0.1;
-  float data_j=0.2;
+  float data_j=2;
   static uint16_t data_h;
   uint8_t data_temp[10];
 
@@ -48,7 +48,7 @@ int main(void)
     __enable_irq();
 //   float data_j=0.15;
     SystemInit();
-
+  data_temp[0]=1;
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
     Cy_GPIO_Pin_Init(USER_LED_PORT, USER_LED_PIN, &user_led_port_pin_cfg);
     printf("hellow world");
@@ -64,10 +64,10 @@ int main(void)
         data_cc++;
         Cy_SysTick_DelayInUs(500000);
         printf("hellow world");
-        data_temp[0]    =   data_i*data_h  +   data_j;
-        data_temp[1]    =   data_temp[0]+1;
-        data_temp[2]    =   data_temp[1]+1;
-        data_temp[3]    =   data_temp[2]+1;
+        data_temp[0]    =   data_temp[0]++;
+        data_temp[1]    =   data_temp[0]++;
+        data_temp[2]    =   data_temp[1]++;
+        data_temp[3]    =   data_temp[2]++;
         
         // data_j=data_i*data_h;
         Cy_GPIO_Clr(USER_LED_PORT, USER_LED_PIN);

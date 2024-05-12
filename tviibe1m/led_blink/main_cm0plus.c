@@ -43,6 +43,7 @@ cy_stc_gpio_pin_config_t user_led_port_pin_cfg =
     .vohSel = 0,                                   
 };
 static uint16_t data_a;
+uint16_t data_b;
 int main(void)
 {
     __enable_irq();
@@ -63,6 +64,7 @@ int main(void)
         // Wait 0.05 [s]
        Cy_SysTick_DelayInUs(500000);
        data_a++;
+       data_b++;
        data_bb++;
 
 //        Cy_GPIO_Inv(USER_LED_PORT, USER_LED_PIN);

@@ -33,16 +33,16 @@ set(jsonMainCpuTemplateString
     "name": "@TEMPLATE_VAR_MAIN_CFG_NAME@ (jlink)",
     "type": "cortex-debug",
     "cwd": "${workspaceFolder}",
-    "device": "@DEVICE@",
-    "showDevDebugOutput": "none",
     "armToolchainPath": "@GCC_COMPILER_ROOT_DIR@/bin",
     "svdFile": "${workspaceFolder}/misc/tools/svd/@DIE@/@MCU_REV_STRING@/@SERIES@.svd",
     "servertype": "jlink",
     "serverpath": "@JLINK_DIR@/JLinkGDBServerCL.exe",
+    "device": "@DEVICE@",
     "interface": "@JLINK_INTERFACE@",
     "serverArgs": ["-speed", "8000"],
-    //"jlinkscript":"@CMAKE_SOURCE_DIR@/@DIE@/tools/jlink/Infineon_TraveoT2G_CM7_ResetExample.JLinkScript",
-    
+    "showDevDebugOutput": "raw",
+    //Default start from M0
+    "jlinkscript":"@CMAKE_SOURCE_DIR@/@DIE@/tools/jlink/TRAVEO2_1M_@ARG_EXE_NAME_CM0PLUS@.JLinkScript",
     "numberOfProcessors": @TEMPLATE_VAR_NR_OF_CPUS@,
     "targetProcessor": 0,            
     "executable": "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
@@ -52,7 +52,6 @@ set(jsonMainCpuTemplateString
     @TEMPLATE_VAR_ADDL_LOAD_FILES@
     ],
     "runToEntryPoint": "main",
-    //liveWatch
     "liveWatch": { "enabled": true, "samplesPerSecond": 4 },
     @TEMPLATE_VAR_CHAINED_CFG@            
 },
@@ -64,7 +63,7 @@ set(jsonChainedConfigurationsTemplateString
 "chainedConfigurations": {
     "enabled": true,
     "waitOnEvent": "postInit",
-    "detached": false, // OpenOCD requires false,but who konws for jlink
+    "detached": true, // jlink requires true
     "lifecycleManagedByParent": true,
     "launches": [
     @TEMPLATE_VAR_LAUNCH_ENTRIES@
@@ -83,11 +82,11 @@ set(jsonAppCpuTemplateString
     "cwd": "${workspaceFolder}",
     "servertype": "jlink",
     "targetProcessor": @TEMPLATE_VAR_TARGET_CPU_INDEX@,            
+    "jlinkscript":"@CMAKE_SOURCE_DIR@/@DIE@/tools/jlink/TRAVEO2_1M_@ARG_EXE_NAME_CM4@.JLinkScript",
     "executable": "${command:cmake.getLaunchTargetDirectory}/@TEMPLATE_VAR_SUB_CFG_EXE_NAME@@CMAKE_EXECUTABLE_SUFFIX@",
     "request": "launch", // 'attach' does not work properly, therefore use 'launch' and override the launch commands 
     "overrideLaunchCommands": [],
     "runToEntryPoint": "main",
-    //liveWatch
     "liveWatch": { "enabled": true, "samplesPerSecond": 4 },
     "device": "@DEVICE@",
     "showDevDebugOutput": "none",
