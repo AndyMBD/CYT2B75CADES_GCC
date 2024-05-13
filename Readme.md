@@ -202,3 +202,119 @@ set(AFU_OOCD_ROOT_DIR ${defaultAfuOocdRootDir} CACHE PATH "Path to Infineon Auto
  └─gcc
 ```
 3.4. Further add more project into workspace, Copy source from tviibe1m_examples to tviibe1m and follow step 3.1->3.3 
+
+4. Add Jlink debug support
+   1. Add jlinkscript for CM0 and CM4 to let Jlink known which core it shall connect
+```jlinkscript
+void InitTarget(void) {
+  Report("********************************************");
+  Report("InitTarget for PSoC6 Cortex-M0+ script");
+  CORESIGHT_AddAP(0, CORESIGHT_AHB_AP);  // SYSAP
+  CORESIGHT_AddAP(1, CORESIGHT_AHB_AP);  // AHB-AP used to connect to M0+ core
+  CORESIGHT_AddAP(2, CORESIGHT_AHB_AP);  // AHB-AP used to connect to M4 core
+  CORESIGHT_IndexAHBAPToUse = 1;
+  CPU=CORTEX_M0;
+  Report("********************************************");
+}
+```
+```jlinkscript
+void InitTarget(void) {
+  Report("********************************************");
+  Report("InitTarget for PSoC6 Cortex-M4 script");
+  CORESIGHT_AddAP(0, CORESIGHT_AHB_AP);  // SYSAP
+  CORESIGHT_AddAP(1, CORESIGHT_AHB_AP);  // AHB-AP used to connect to M0+ core
+  CORESIGHT_AddAP(2, CORESIGHT_AHB_AP);  // AHB-AP used to connect to M4 core
+  CORESIGHT_IndexAHBAPToUse = 2;
+  CPU=CORTEX_M4;
+  Report("********************************************");
+}
+```
+   2. Add Jlinkscript support in launch.json on script debugger_vsc.cmake
+```cmake
+# Jlink launch.json setting template
+set(jsonMainCpuTemplateString
+[==[
+{
+    "name": "@TEMPLATE_VAR_MAIN_CFG_NAME@ (jlink)",
+    "type": "cortex-debug",
+    "cwd": "${workspaceFolder}",
+    "armToolchainPath": "@GCC_COMPILER_ROOT_DIR@/bin",
+    "svdFile": "${workspaceFolder}/misc/tools/svd/@DIE@/@MCU_REV_STRING@/@SERIES@.svd",
+    "servertype": "jlink",
+    "serverpath": "@JLINK_DIR@/JLinkGDBServerCL.exe",
+    "device": "@DEVICE@",
+    "interface": "@JLINK_INTERFACE@",
+    "serverArgs": ["-speed", "8000"],
+    "showDevDebugOutput": "raw",
+    //Default start from M0
+    "jlinkscript":"@CMAKE_SOURCE_DIR@/@DIE@/tools/jlink/TRAVEO2_1M_@ARG_EXE_NAME_CM0PLUS@.JLinkScript",
+    "numberOfProcessors": @TEMPLATE_VAR_NR_OF_CPUS@,
+    "targetProcessor": 0,            
+    "executable": "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
+    "request": "launch",
+    "loadFiles": [
+    "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
+    @TEMPLATE_VAR_ADDL_LOAD_FILES@
+    ],
+    "runToEntryPoint": "main",
+    "liveWatch": { "enabled": true, "samplesPerSecond": 4 },
+    @TEMPLATE_VAR_CHAINED_CFG@            
+},
+]==])
+
+
+set(jsonChainedConfigurationsTemplateString
+[==[
+"chainedConfigurations": {
+    "enabled": true,
+    "waitOnEvent": "postInit",
+    "detached": true, // jlink requires true
+    "lifecycleManagedByParent": true,
+    "launches": [
+    @TEMPLATE_VAR_LAUNCH_ENTRIES@
+    ]
+},
+]==])
+
+set(jsonAppCpuTemplateString
+[==[
+{
+    "name": "@TEMPLATE_VAR_SUB_CFG_NAME@ (jlink)",
+    "type": "cortex-debug",
+    "presentation": {
+        "hidden": true,
+    },
+    "cwd": "${workspaceFolder}",
+    "servertype": "jlink",
+    "targetProcessor": @TEMPLATE_VAR_TARGET_CPU_INDEX@,            
+    "jlinkscript":"@CMAKE_SOURCE_DIR@/@DIE@/tools/jlink/TRAVEO2_1M_@ARG_EXE_NAME_CM4@.JLinkScript",
+    "executable": "${command:cmake.getLaunchTargetDirectory}/@TEMPLATE_VAR_SUB_CFG_EXE_NAME@@CMAKE_EXECUTABLE_SUFFIX@",
+    "request": "launch", // 'attach' does not work properly, therefore use 'launch' and override the launch commands 
+    "overrideLaunchCommands": [],
+    "runToEntryPoint": "main",
+    "liveWatch": { "enabled": true, "samplesPerSecond": 4 },
+    "device": "@DEVICE@",
+    "showDevDebugOutput": "none",
+},
+]==])
+
+
+set(jsonLoadFileEntryTemplateString
+[==[
+"${command:cmake.getLaunchTargetDirectory}/@TEMPLATE_VAR_LOAD_FILE_EXE_NAME@@CMAKE_EXECUTABLE_SUFFIX@",
+]==])
+
+set(jsonLaunchEntryTemplateString
+[==[
+{
+    "name": "@TEMPLATE_VAR_LAUNCH_CFG_NAME@ (jlink)",
+},
+]==])
+    
+```
+TODO:
+1. Jlink debug Attach
+2. Jlink erase_all
+3. Jlink prog_all
+4. Jlink Prog_cm0plus
+5. Jlink Prog_cm4
