@@ -312,6 +312,11 @@ set(jsonLaunchEntryTemplateString
 ]==])
     
 ```
+5. add elf size information output after build in executable.cmake
+```cmake
+            COMMAND     echo "-----------${ARG_EXE_NAME}${CMAKE_EXECUTABLE_SUFFIX}--------------------"
+            COMMAND     ${TOOLCHAIN_EXE_INFO} ${CMAKE_BINARY_DIR}/$<CONFIG>/${ARG_EXE_NAME}${CMAKE_EXECUTABLE_SUFFIX}
+```
 TODO:
 1. Jlink debug Attach
 2. Jlink erase_all

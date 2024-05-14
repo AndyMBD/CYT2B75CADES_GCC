@@ -30,6 +30,7 @@ set(TOOLCHAIN_INCLUDE_DIRS
 
 # The tool provided by the toolchain (or any other tool) that is used to convert the ELF file to an S-Record file
 set(TOOLCHAIN_ELF_CONVERTER "${GCC_COMPILER_ROOT_DIR}/bin/arm-none-eabi-objcopy.exe" CACHE STRING "")
+set(TOOLCHAIN_EXE_INFO "${GCC_COMPILER_ROOT_DIR}/bin/arm-none-eabi-size.exe" CACHE STRING "")
 
 ######################################################################################
 # Build config dependent flags

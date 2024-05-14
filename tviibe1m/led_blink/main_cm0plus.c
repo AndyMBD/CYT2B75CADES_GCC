@@ -11,7 +11,9 @@
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 #include "cy_project.h"
 #include "cy_device_headers.h"
 
@@ -44,21 +46,32 @@ cy_stc_gpio_pin_config_t user_led_port_pin_cfg =
 };
 static uint16_t data_a;
 uint16_t data_b;
+typedef struct DEMO
+{
+  uint16_t x,y;
+  uint32_t (*func)(uint16_t x,uint16_t y); //函数指针
+}DEMO_t;
+uint32_t add(uint16_t x,uint16_t y);
+uint32_t product(uint16_t x,uint16_t y);
+uint32_t data_temp[10];
 int main(void)
 {
-    __enable_irq();
+    DEMO_t demo;
     float data_i=0.1;
-    float data_j=-0.1;
+    float data_j=0;
     uint8_t data_h=20;
-    uint16_t data_bb;
+    uint16_t data_bb=0;
     SystemInit();
-    
+    __enable_irq();
+     /* Initializing console uart interface */
+    Cy_Semihosting_InitAll(CY_USB_SCB_UART_TYPE, 115200, NULL, false);
     /* Enable CM4. CY_CORTEX_M4_APPL_ADDR is calculated in linker script, check it in case of problems. */
     Cy_SysEnableApplCore(CY_CORTEX_M4_APPL_ADDR);
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
     Cy_GPIO_Pin_Init(USER_LED_PORT, USER_LED_PIN, &user_led_port_pin_cfg);
 
+    printf("-------------------------------\n\r");
     for(;;)
     {
         // Wait 0.05 [s]
@@ -72,9 +85,28 @@ int main(void)
         Cy_SysTick_DelayInUs(500000);
         data_j=data_i*data_h;
         Cy_GPIO_Clr(USER_LED_PORT, USER_LED_PIN);
+        demo.func=product;
+        data_temp[0]=demo.func(3,4);
+        printf("-------------------------------\n\r");
+        printf("demo.func(3,4)=%ld\n",data_temp[0]);
+        printf("-------------------------------\n\r");
+        demo.func=add;
+        data_temp[1]=demo.func(3,4);
+        printf("-------------------------------\n\r");
+        printf("demo.func(3,4)=%ld\n",data_temp[1]);
+        printf("-------------------------------\n\r");
     }
 }
 
 
+uint32_t add(uint16_t x,uint16_t y)
+{
+    return x+y;
+}
+uint32_t product(uint16_t x,uint16_t y)
+{
+    return x*y;
+}
+ 
 
 /* [] END OF FILE */
