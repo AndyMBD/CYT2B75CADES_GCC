@@ -137,6 +137,32 @@
       "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","gpio_led" ],
       "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) gpio_led",
       "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' gpio_led (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
+    },
+    {
+      "name": "canfd_Classic_CAN",
+      "hidden": true,
+      "cacheVariables": {
+        "PROJECT_SRC_PATH": "canfd_Classic_CAN"
+      }
+    },
+    {
+      "name": "tviibe1m-sk-gcc_canfd_Classic_CAN",
+      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","canfd_Classic_CAN" ],
+      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) canfd_Classic_CAN",
+      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' canfd_Classic_CAN (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
+    },
+    {
+      "name": "canfd_UseAsCANFDMode",
+      "hidden": true,
+      "cacheVariables": {
+        "PROJECT_SRC_PATH": "canfd_UseAsCANFDMode"
+      }
+    },
+    {
+      "name": "tviibe1m-sk-gcc_canfd_UseAsCANFDMode",
+      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","canfd_UseAsCANFDMode" ],
+      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) canfd_UseAsCANFDMode",
+      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' canfd_UseAsCANFDMode (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
     }
   ],
 
@@ -330,6 +356,48 @@
       "configurePreset": "tviibe1m-sk-gcc_gpio_led",
       "inherits": [ "default", "cfg-relwithdebinfo" ],
       "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_led 'Release w/ Debug Info' Cfg",
+      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-debug_canfd_Classic_CAN",
+      "configurePreset":  "tviibe1m-sk-gcc_canfd_Classic_CAN" ,
+      "inherits": [ "default", "cfg-debug" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_Classic_CAN 'Debug' Cfg",
+      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-release_canfd_Classic_CAN",
+      "configurePreset": "tviibe1m-sk-gcc_canfd_Classic_CAN",
+      "inherits": [ "default", "cfg-release" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_Classic_CAN 'Release' Cfg",
+      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-relwithdebinfo_canfd_Classic_CAN",
+      "configurePreset": "tviibe1m-sk-gcc_canfd_Classic_CAN",
+      "inherits": [ "default", "cfg-relwithdebinfo" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_Classic_CAN 'Release w/ Debug Info' Cfg",
+      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-debug_canfd_UseAsCANFDMode",
+      "configurePreset":  "tviibe1m-sk-gcc_canfd_UseAsCANFDMode" ,
+      "inherits": [ "default", "cfg-debug" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_UseAsCANFDMode 'Debug' Cfg",
+      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-release_canfd_UseAsCANFDMode",
+      "configurePreset": "tviibe1m-sk-gcc_canfd_UseAsCANFDMode",
+      "inherits": [ "default", "cfg-release" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_UseAsCANFDMode 'Release' Cfg",
+      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-relwithdebinfo_canfd_UseAsCANFDMode",
+      "configurePreset": "tviibe1m-sk-gcc_canfd_UseAsCANFDMode",
+      "inherits": [ "default", "cfg-relwithdebinfo" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_UseAsCANFDMode 'Release w/ Debug Info' Cfg",
       "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
     }
 
