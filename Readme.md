@@ -317,6 +317,80 @@ set(jsonLaunchEntryTemplateString
             COMMAND     echo "-----------${ARG_EXE_NAME}${CMAKE_EXECUTABLE_SUFFIX}--------------------"
             COMMAND     ${TOOLCHAIN_EXE_INFO} ${CMAKE_BINARY_DIR}/$<CONFIG>/${ARG_EXE_NAME}${CMAKE_EXECUTABLE_SUFFIX}
 ```
+7. ***CY_USE_PSVP*** **tviibe1m** ***STARTER_KIT_REV3*** ***CYT2B75CAE*** is define from CMakeLists.txt and CMakePresets.json
+   1. CY_MCU_${MCU_REV_STRING}
+   2. ${DIE} **tviibe1m** 
+   ```c
+    // in cy_project.h
+      #elif defined (tviibe1m)
+      #include "bb_bsp_tviibe1m.h"
+   ```
+   3. ${BOARD_REV} **STARTER_KIT_REV3**
+```c
+    //in bb_bsp_tviibe1m.h
+    #elif defined (STARTER_KIT_REV3)
+    #include "bb_bsp_tviibe1m_starter_kit.h"
+```
+   1. CY_USE_PSVP define and device define <br>
+      1. CY_USE_PSVP
+```cmake
+option(PSVP "Targets are built for PSVP" OFF) # PSVP: FPGA based pre-silicon validation platform
+
+ CY_USE_PSVP=$<BOOL:${PSVP}>
+```
+```c
+   //in bb_bsp_tviibe1m_starter_kit.h
+  // tviibe1m - 100-LQFP Package devices  
+  #if (CY_USE_PSVP == 0) && ( defined(CYT2B75BAS) || defined(CYT2B75BAE) || \
+                              defined(CYT2B75CAS) || defined(CYT2B75CAE) )
+```
+   1. DIE define as ***CYT2B75CAE***
+      
+```json
+ {
+      "name": "tviibe1m-sk",
+      "hidden": true,
+      "cacheVariables": {
+        "DIE": "tviibe1m",
+        "BOARD_REV": "STARTER_KIT_REV3",
+        "DEVICE": "CYT2B75CAE"
+      }
+    },
+```
+```cmake
+# Generic compiler/assember defines (check CMake files that create executable or library targets for further specific defines)
+set(COMPILER_DEFINES
+    ${DIE}
+    ${SERIES}
+    ${DEVICE}
+    CY_MCU_${MCU_REV_STRING}
+    CY_USE_PSVP=$<BOOL:${PSVP}>
+    ${BOARD}
+    ${BOARD_REV}
+    _LINK_${LINK}_
+    $<$<BOOL:${USE_RTOS}>:USE_RTOS>
+    $<$<BOOL:${USE_ETHSTACK}>:USE_ETHSTACK>
+    $<$<BOOL:${USE_MCAL}>:USE_MCAL>
+)
+```
+```cmake
+[cmake] -- Latest MCU revision detected: D
+[cmake] -- ============================================================
+[cmake] -- T2G SDL - CMake Configuration
+[cmake] -- ------------------------------------------------------------
+[cmake] -- Toolchain         = gcc
+[cmake] -- DIE               = tviibe1m
+[cmake] -- MCU revision      = D
+[cmake] -- Device            = CYT2B75CAE
+[cmake] -- Link location     = flash
+[cmake] -- PSVP              = OFF
+[cmake] -- Board             = 
+[cmake] -- Board revision    = STARTER_KIT_REV3
+[cmake] -- Use RTOS          = ON
+[cmake] -- Use ETH Stack     = OFF
+[cmake] -- Use MCAL          = OFF
+[cmake] -- ============================================================
+```
 TODO:
 1. Jlink debug Attach
 2. Jlink erase_all

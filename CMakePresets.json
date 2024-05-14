@@ -85,6 +85,58 @@
       "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","adc_OneChannelConversion_SwTrigger" ],
       "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) adc_OneChannelConversion_SwTrigger",
       "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' adc_OneChannelConversion_SwTrigger (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
+    },
+    {
+      "name": "lin_slave",
+      "hidden": true,
+      "cacheVariables": {
+        "PROJECT_SRC_PATH": "lin_slave"
+      }
+    },
+    {
+      "name": "tviibe1m-sk-gcc_lin_slave",
+      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","lin_slave" ],
+      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) lin_slave",
+      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' lin_slave (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
+    },
+    {
+      "name": "gpio_button",
+      "hidden": true,
+      "cacheVariables": {
+        "PROJECT_SRC_PATH": "gpio_button"
+      }
+    },
+    {
+      "name": "tviibe1m-sk-gcc_gpio_button",
+      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","gpio_button" ],
+      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) gpio_button",
+      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' gpio_button (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
+    },
+    {
+      "name": "gpio_interrupt",
+      "hidden": true,
+      "cacheVariables": {
+        "PROJECT_SRC_PATH": "gpio_interrupt"
+      }
+    },
+    {
+      "name": "tviibe1m-sk-gcc_gpio_interrupt",
+      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","gpio_interrupt" ],
+      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) gpio_interrupt",
+      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' gpio_interrupt (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
+    },
+    {
+      "name": "gpio_led",
+      "hidden": true,
+      "cacheVariables": {
+        "PROJECT_SRC_PATH": "gpio_led"
+      }
+    },
+    {
+      "name": "tviibe1m-sk-gcc_gpio_led",
+      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","gpio_led" ],
+      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) gpio_led",
+      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' gpio_led (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
     }
   ],
 
@@ -194,6 +246,90 @@
       "configurePreset": "tviibe1m-sk-gcc_adc_OneChannelConversion_SwTrigger",
       "inherits": [ "default", "cfg-relwithdebinfo" ],
       "displayName": "CYTVII-B-E-1M-SK (GCC) adc_OneChannelConversion_SwTrigger 'Release w/ Debug Info' Cfg",
+      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-debug_lin_slave",
+      "configurePreset":  "tviibe1m-sk-gcc_lin_slave" ,
+      "inherits": [ "default", "cfg-debug" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_lin_slave 'Debug' Cfg",
+      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-release_lin_slave",
+      "configurePreset": "tviibe1m-sk-gcc_lin_slave",
+      "inherits": [ "default", "cfg-release" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_lin_slave 'Release' Cfg",
+      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-relwithdebinfo_lin_slave",
+      "configurePreset": "tviibe1m-sk-gcc_lin_slave",
+      "inherits": [ "default", "cfg-relwithdebinfo" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_lin_slave 'Release w/ Debug Info' Cfg",
+      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-debug_gpio_button",
+      "configurePreset":  "tviibe1m-sk-gcc_gpio_button" ,
+      "inherits": [ "default", "cfg-debug" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_button 'Debug' Cfg",
+      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-release_gpio_button",
+      "configurePreset": "tviibe1m-sk-gcc_gpio_button",
+      "inherits": [ "default", "cfg-release" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_button 'Release' Cfg",
+      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-relwithdebinfo_gpio_button",
+      "configurePreset": "tviibe1m-sk-gcc_gpio_button",
+      "inherits": [ "default", "cfg-relwithdebinfo" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_button 'Release w/ Debug Info' Cfg",
+      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-debug_gpio_interrupt",
+      "configurePreset":  "tviibe1m-sk-gcc_gpio_interrupt" ,
+      "inherits": [ "default", "cfg-debug" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_interrupt 'Debug' Cfg",
+      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-release_gpio_interrupt",
+      "configurePreset": "tviibe1m-sk-gcc_gpio_interrupt",
+      "inherits": [ "default", "cfg-release" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_interrupt 'Release' Cfg",
+      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-relwithdebinfo_gpio_interrupt",
+      "configurePreset": "tviibe1m-sk-gcc_gpio_interrupt",
+      "inherits": [ "default", "cfg-relwithdebinfo" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_interrupt 'Release w/ Debug Info' Cfg",
+      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-debug_gpio_led",
+      "configurePreset":  "tviibe1m-sk-gcc_gpio_led" ,
+      "inherits": [ "default", "cfg-debug" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_led 'Debug' Cfg",
+      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-release_gpio_led",
+      "configurePreset": "tviibe1m-sk-gcc_gpio_led",
+      "inherits": [ "default", "cfg-release" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_led 'Release' Cfg",
+      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-relwithdebinfo_gpio_led",
+      "configurePreset": "tviibe1m-sk-gcc_gpio_led",
+      "inherits": [ "default", "cfg-relwithdebinfo" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_led 'Release w/ Debug Info' Cfg",
       "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
     }
 
