@@ -30,7 +30,7 @@ set(GCC_COMPILER_ROOT_DIR ${defaultGccCompilerRootDir} CACHE PATH "Path to GNU C
 ######################################################################################
 # Set Debug tool one from "jlink" "kitprog3" 
 ######################################################################################
-set(DEBUGGER_INTERFACE "jlink")#"jlink" "kitprog3"
+set(DEBUGGER_INTERFACE "kitprog3")#"jlink" "kitprog3"
 
 if("${DEBUGGER_INTERFACE}" STREQUAL "jlink")
 ######################################################################################

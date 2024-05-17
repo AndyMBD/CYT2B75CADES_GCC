@@ -284,3 +284,4 @@ if(USE_MCAL)
     include(${CMAKE_SOURCE_DIR}/cmake/targets/util_tresos.cmake)
     create_tresos_utility_targets()
 endif()
+# {altium

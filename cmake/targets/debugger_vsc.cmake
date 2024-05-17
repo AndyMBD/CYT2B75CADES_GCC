@@ -24,6 +24,7 @@ function(create_vsc_launch_json)
     
     
     set(LAUNCH_JSON_CONTENT) # explicit init, this string will be used in the end to configure the launch.json template file
+    set(SETTINGS_JSON_CONTENT) # explicit init, this string will be used in the end to configure the launch.json template file
     
     if("${DEBUGGER_INTERFACE}" STREQUAL "jlink")
 # Jlink launch.json setting template
@@ -199,7 +200,20 @@ set(jsonLaunchEntryTemplateString
 ]==])
 endif()
 
-
+set(jsonSettingsTemplateString
+[==[
+{
+    "files.exclude": {
+        "**/.git": true,
+        
+    },
+    "search.exclude": {
+        "@CMAKE_SOURCE_DIR@/common/": false,
+        "@CMAKE_SOURCE_DIR@/@DIE@/hdr/": false,
+        "@PATH_DIE_SRC@/": true,
+    }
+}
+]==])
 
 ######################################################################################
 # Misc
@@ -361,6 +375,23 @@ else()
     message(STATUS "Creating Visual Studio Code debugger launch configuration")
     message(STATUS "  Writing file ${configureFileDst}")
     configure_file(${configureFileSrc} ${configureFileDst} @ONLY)
+    
+    ######################################################################################
+    # Create actual settings.json file
+    ######################################################################################
+    # Now that all relevant template vars have there right value, the current main configuration can be added to the var
+    # that represents the final file launch.json content.
+
+    # string(CONFIGURE ${jsonSettingsTemplateString} tempString @ONLY)
+    # string(APPEND SETTINGS_JSON_CONTENT ${tempString})
+
+    # set(configureFileName settings.json)
+    # set(configureFileSrc  ${CMAKE_SOURCE_DIR}/cmake/template_files/dbg_vsc/${configureFileName})
+    # set(configureFileDst  ${CMAKE_SOURCE_DIR}/.vscode/${configureFileName})    
+
+    # message(STATUS "Creating Visual Studio Code debugger launch configuration")
+    # message(STATUS "  Writing file ${configureFileDst}")
+    # configure_file(${configureFileSrc} ${configureFileDst} @ONLY)
 
 endfunction()
 
