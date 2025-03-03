@@ -19,11 +19,11 @@
 ######################################################################################
 # ARM GNU Toolchain (e.g. GCC for building, GDB for debugging with VS Code, ...)
 ######################################################################################
-set(ENV{SDL_CMAKE_GCC_COMPILER_ROOT_DIR} "C:/SW_Tool/arm-gnu-toolchain-13.2.rel1-mingw-w64-i686-arm-none-eabi")
+set(ENV{SDL_CMAKE_GCC_COMPILER_ROOT_DIR} "C:/msys64/ucrt64")
 if(DEFINED ENV{SDL_CMAKE_GCC_COMPILER_ROOT_DIR})
 set(defaultGccCompilerRootDir $ENV{SDL_CMAKE_GCC_COMPILER_ROOT_DIR})
 else()
-set(defaultGccCompilerRootDir "C:/SW_Tool/arm-gnu-toolchain-13.2.Rel1-mingw-w64-i686-arm-none-eabi")
+set(defaultGccCompilerRootDir "C:/msys64/ucrt64")
 endif()
 set(GCC_COMPILER_ROOT_DIR ${defaultGccCompilerRootDir} CACHE PATH "Path to GNU C Compiler root folder used for compiling/debugging")
 
