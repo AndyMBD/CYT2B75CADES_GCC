@@ -248,6 +248,9 @@ cy_en_mdma_status_t Cy_MDMA_Chnl_Init(volatile stc_DMAC_t *pstcMDMA, uint32_t ch
 
     if ((pstcMDMA != NULL) && (chnlConfig != NULL))
     {
+        /* Initialize the X/Y indices (which are undefined after reset) */
+        pstcMDMA->CH[chNum].unIDX.u32Register    =  0;
+
         /* Set current descriptor */
         pstcMDMA->CH[chNum].unCURR.u32Register   =  (uint32_t)chnlConfig->MDMA_Descriptor;
 

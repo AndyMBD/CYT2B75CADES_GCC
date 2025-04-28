@@ -36,6 +36,10 @@ Feature Overview:
 | 7.6.0           | CHEY   | Add Lauterbach/IAR debugger targets, MCAL integration support, ENV var support for tool config, Ethernet stack integration, SREC generation                    |
 | 7.7.0           | CHEY   | Improved/Fixed MCAL support (fix cmdline length limit issue, add some default defines)                                                                         |
 | 7.8.0           | CHEY   | Add GCC toolchain and VS Code OpenOCD based debug support, IAR debug templates update (v9.30.1), add CYTVII-B-E-1M-SK to presets, add tviibh16m (preliminary)  |
+| 7.9.0           | CHEY   | Add KIT_T2G_TVII_C-2D-4M_LITE as supported preset target (tviic2d4m-lk)                                                                                        |
+| 8.0.0           | CHEY   | Catch some more special cases in MCAL integration wrapper Makefile, IAR debug now supports I-jet and CMSIS-DAP via new tool_config option IAR_DEBUG_HW_ADAPTER |
+| 8.1.0           | CHEY   | Add BOARD define for tviic2d6m to make it build with update BSP header files                                                                                   |
+| 8.2.0           | CHEY   | Pass CPU/FPU type to GHS linker (avoids wrong toolchain lib), enable GCC section GC, enable MinSizeRel build config, add SchM_I2c and SchM_Uart MCAL stub files|
 
 ## CMake_Readme.md
 
@@ -45,6 +49,10 @@ Feature Overview:
 | 7.6.0           | CHEY   | Major updates (Advanced Usage, MCAL, ...)                                                                                                        |
 | 7.7.0           | CHEY   | none                                                                                                                                             |
 | 7.8.0           | CHEY   | Updates related to GCC, VS Code debugging and tviibh16m (quad CM7) support, some restructuring and minor edits                                   |
+| 7.9.0           | CHEY   | Update preset lists                                                                                                                              |
+| 8.0.0           | CHEY   | Add note about Tresos project name variable                                                                                                      |
+| 8.1.0           | CHEY   | none (Changelog update only)                                                                                                                     |
+| 8.2.0           | CHEY   | Some updates due to enabling MinSizeRel                                                                                                          |
 
 # Introduction
 
@@ -141,6 +149,7 @@ Available configure presets:
   "tviibh8m-gcc"     - T2G-B-H-8M (GCC)
   "tviibh16m-gcc"    - T2G-B-H-16M (GCC)
   "tviic2d4m-gcc"    - T2G-C-2D-4M (GCC)
+  "tviic2d4m-lk-gcc" - KIT_T2G_TVII_C-2D-4M_LITE (GCC)
   "tviic2d6m-gcc"    - T2G-C-2D-6M (GCC)
   "tviic2d6mddr-gcc" - T2G-C-2D-6M-DDR (GCC)
   "tviice4m-gcc"     - T2G-C-E-4M (GCC)
@@ -153,6 +162,7 @@ Available configure presets:
   "tviibh8m-ghs"     - T2G-B-H-8M (GHS)
   "tviibh16m-ghs"    - T2G-B-H-16M (GHS)
   "tviic2d4m-ghs"    - T2G-C-2D-4M (GHS)
+  "tviic2d4m-lk-ghs" - KIT_T2G_TVII_C-2D-4M_LITE (GHS)
   "tviic2d6m-ghs"    - T2G-C-2D-6M (GHS)
   "tviic2d6mddr-ghs" - T2G-C-2D-6M-DDR (GHS)
   "tviice4m-ghs"     - T2G-C-E-4M (GHS)
@@ -165,6 +175,7 @@ Available configure presets:
   "tviibh8m-iar"     - T2G-B-H-8M (IAR)
   "tviibh16m-iar"    - T2G-B-H-16M (IAR)
   "tviic2d4m-iar"    - T2G-C-2D-4M (IAR)
+  "tviic2d4m-lk-iar" - KIT_T2G_TVII_C-2D-4M_LITE (IAR)
   "tviic2d6m-iar"    - T2G-C-2D-6M (IAR)
   "tviic2d6mddr-iar" - T2G-C-2D-6M-DDR (IAR)
   "tviice4m-iar"     - T2G-C-E-4M (IAR)
@@ -273,8 +284,7 @@ The available build configurations for the Traveo T2G SDL match the official one
 | Debug                    | Project is built without optimizations (or only those that do not affect debuggability). Debug information/symbols is/are of course included in the generated artifacts. |
 | Release                  | Project is built with speed optimizations. Chosen options match the ones used by Infineon commercial SW products for Traveo T2G.                                         |
 | RelWithDebInfo           | Same as *Release* but artifacts include debug information/sysmbols. Debuggability may be negatively affected though (e.g. re-ordered or removed code).                   |
-
-Note: There is a 4th build configuration called *MinSizeRel* which is a release configuration with size optimizations and the toolchain options are prepared for it, but it is not enabled by CMake by default. 
+| MinSizeRel               | Project is built with size optimizations.                                                                                                                                |
 
 The build artifacts for the different build configurations of a preset will end up in an identically named subfolder of the build output folder (`./build/<cfg-preset-name>`)
 
@@ -299,6 +309,7 @@ Available build presets:
   "tviibh8m-gcc"                    - T2G-B-H-8M (GCC), 'Debug' Cfg
   "tviibh16m-gcc"                   - T2G-B-H-16M (GCC), 'Debug' Cfg
   "tviic2d4m-gcc"                   - T2G-C-2D-4M (GCC), 'Debug' Cfg
+  "tviic2d4m-lk-gcc"                - KIT_T2G_TVII_C-2D-4M_LITE (GCC), 'Debug' Cfg
   "tviic2d6m-gcc"                   - T2G-C-2D-6M (GCC), 'Debug' Cfg
   "tviic2d6mddr-gcc"                - T2G-C-2D-6M-DDR (GCC), 'Debug' Cfg
   "tviice4m-gcc"                    - T2G-C-E-4M (GCC), 'Debug' Cfg
@@ -311,6 +322,7 @@ Available build presets:
   "tviibh8m-ghs"                    - T2G-B-H-8M (GHS), 'Debug' Cfg
   "tviibh16m-ghs"                   - T2G-B-H-16M (GHS), 'Debug' Cfg
   "tviic2d4m-ghs"                   - T2G-C-2D-4M (GHS), 'Debug' Cfg
+  "tviic2d4m-lk-ghs"                - KIT_T2G_TVII_C-2D-4M_LITE (GHS), 'Debug' Cfg
   "tviic2d6m-ghs"                   - T2G-C-2D-6M (GHS), 'Debug' Cfg
   "tviic2d6mddr-ghs"                - T2G-C-2D-6M-DDR (GHS), 'Debug' Cfg
   "tviice4m-ghs"                    - T2G-C-E-4M (GHS), 'Debug' Cfg
@@ -323,6 +335,7 @@ Available build presets:
   "tviibh8m-iar"                    - T2G-B-H-8M (IAR), 'Debug' Cfg
   "tviibh16m-iar"                   - T2G-B-H-16M (IAR), 'Debug' Cfg
   "tviic2d4m-iar"                   - T2G-C-2D-4M (IAR), 'Debug' Cfg
+  "tviic2d4m-lk-iar"                - KIT_T2G_TVII_C-2D-4M_LITE (IAR), 'Debug' Cfg
   "tviic2d6m-iar"                   - T2G-C-2D-6M (IAR), 'Debug' Cfg
   "tviic2d6mddr-iar"                - T2G-C-2D-6M-DDR (IAR), 'Debug' Cfg
   "tviice4m-iar"                    - T2G-C-E-4M (IAR), 'Debug' Cfg
@@ -337,6 +350,7 @@ Available build presets:
   "tviibh8m-gcc-release"            - T2G-B-H-8M (GCC), 'Release' Cfg
   "tviibh16m-gcc-release"           - T2G-B-H-16M (GCC), 'Release' Cfg
   "tviic2d4m-gcc-release"           - T2G-C-2D-4M (GCC), 'Release' Cfg
+  "tviic2d4m-lk-gcc-release"        - KIT_T2G_TVII_C-2D-4M_LITE (GCC), 'Release' Cfg
   "tviic2d6m-gcc-release"           - T2G-C-2D-6M (GCC), 'Release' Cfg
   "tviic2d6mddr-gcc-release"        - T2G-C-2D-6M-DDR (GCC), 'Release' Cfg
   "tviice4m-gcc-release"            - T2G-C-E-4M (GCC), 'Release' Cfg
@@ -349,6 +363,7 @@ Available build presets:
   "tviibh8m-ghs-release"            - T2G-B-H-8M (GHS), 'Release' Cfg
   "tviibh16m-ghs-release"           - T2G-B-H-16M (GHS), 'Release' Cfg
   "tviic2d4m-ghs-release"           - T2G-C-2D-4M (GHS), 'Release' Cfg
+  "tviic2d4m-lk-ghs-release"        - KIT_T2G_TVII_C-2D-4M_LITE (GHS), 'Release' Cfg
   "tviic2d6m-ghs-release"           - T2G-C-2D-6M (GHS), 'Release' Cfg
   "tviic2d6mddr-ghs-release"        - T2G-C-2D-6M-DDR (GHS), 'Release' Cfg
   "tviice4m-ghs-release"            - T2G-C-E-4M (GHS), 'Release' Cfg
@@ -361,6 +376,7 @@ Available build presets:
   "tviibh8m-iar-release"            - T2G-B-H-8M (IAR), 'Release' Cfg
   "tviibh16m-iar-release"           - T2G-B-H-16M (IAR), 'Release' Cfg
   "tviic2d4m-iar-release"           - T2G-C-2D-4M (IAR), 'Release' Cfg
+  "tviic2d4m-lk-iar-release"        - KIT_T2G_TVII_C-2D-4M_LITE (IAR), 'Release' Cfg
   "tviic2d6m-iar-release"           - T2G-C-2D-6M (IAR), 'Release' Cfg
   "tviic2d6mddr-iar-release"        - T2G-C-2D-6M-DDR (IAR), 'Release' Cfg
   "tviice4m-iar-release"            - T2G-C-E-4M (IAR), 'Release' Cfg
@@ -375,6 +391,7 @@ Available build presets:
   "tviibh8m-gcc-relwithdebinfo"     - T2G-B-H-8M (GCC), 'Release w/ Debug Info' Cfg
   "tviibh16m-gcc-relwithdebinfo"    - T2G-B-H-16M (GCC), 'Release w/ Debug Info' Cfg
   "tviic2d4m-gcc-relwithdebinfo"    - T2G-C-2D-4M (GCC), 'Release w/ Debug Info' Cfg
+  "tviic2d4m-lk-gcc-relwithdebinfo" - KIT_T2G_TVII_C-2D-4M_LITE (GCC), 'Release w/ Debug Info' Cfg
   "tviic2d6m-gcc-relwithdebinfo"    - T2G-C-2D-6M (GCC), 'Release w/ Debug Info' Cfg
   "tviic2d6mddr-gcc-relwithdebinfo" - T2G-C-2D-6M-DDR (GCC), 'Release w/ Debug Info' Cfg
   "tviice4m-gcc-relwithdebinfo"     - T2G-C-E-4M (GCC), 'Release w/ Debug Info' Cfg
@@ -387,6 +404,7 @@ Available build presets:
   "tviibh8m-ghs-relwithdebinfo"     - T2G-B-H-8M (GHS), 'Release w/ Debug Info' Cfg
   "tviibh16m-ghs-relwithdebinfo"    - T2G-B-H-16M (GHS), 'Release w/ Debug Info' Cfg
   "tviic2d4m-ghs-relwithdebinfo"    - T2G-C-2D-4M (GHS), 'Release w/ Debug Info' Cfg
+  "tviic2d4m-lk-ghs-relwithdebinfo" - KIT_T2G_TVII_C-2D-4M_LITE (GHS), 'Release w/ Debug Info' Cfg
   "tviic2d6m-ghs-relwithdebinfo"    - T2G-C-2D-6M (GHS), 'Release w/ Debug Info' Cfg
   "tviic2d6mddr-ghs-relwithdebinfo" - T2G-C-2D-6M-DDR (GHS), 'Release w/ Debug Info' Cfg
   "tviice4m-ghs-relwithdebinfo"     - T2G-C-E-4M (GHS), 'Release w/ Debug Info' Cfg
@@ -399,11 +417,53 @@ Available build presets:
   "tviibh8m-iar-relwithdebinfo"     - T2G-B-H-8M (IAR), 'Release w/ Debug Info' Cfg
   "tviibh16m-iar-relwithdebinfo"    - T2G-B-H-16M (IAR), 'Release w/ Debug Info' Cfg
   "tviic2d4m-iar-relwithdebinfo"    - T2G-C-2D-4M (IAR), 'Release w/ Debug Info' Cfg
+  "tviic2d4m-lk-iar-relwithdebinfo" - KIT_T2G_TVII_C-2D-4M_LITE (IAR), 'Release w/ Debug Info' Cfg
   "tviic2d6m-iar-relwithdebinfo"    - T2G-C-2D-6M (IAR), 'Release w/ Debug Info' Cfg
   "tviic2d6mddr-iar-relwithdebinfo" - T2G-C-2D-6M-DDR (IAR), 'Release w/ Debug Info' Cfg
   "tviice4m-iar-relwithdebinfo"     - T2G-C-E-4M (IAR), 'Release w/ Debug Info' Cfg
   "tviibe1m-diab-relwithdebinfo"    - T2G-B-E-1M (DIAB), 'Release w/ Debug Info' Cfg
   "tviibe1m-sk-diab-relwithdebinfo" - CYTVII-B-E-1M-SK (DIAB), 'Release w/ Debug Info' Cfg
+  "tviibe1m-gcc-minsizerel"         - T2G-B-E-1M (GCC), 'MinSizeRel' Cfg
+  "tviibe1m-sk-gcc-minsizerel"      - CYTVII-B-E-1M-SK (GCC), 'MinSizeRel' Cfg
+  "tviibe2m-gcc-minsizerel"         - T2G-B-E-2M (GCC), 'MinSizeRel' Cfg
+  "tviibe4m-gcc-minsizerel"         - T2G-B-E-4M (GCC), 'MinSizeRel' Cfg
+  "tviibe512k-gcc-minsizerel"       - T2G-B-E-512K (GCC), 'MinSizeRel' Cfg
+  "tviibh4m-gcc-minsizerel"         - T2G-B-H-4M (GCC), 'MinSizeRel' Cfg
+  "tviibh8m-gcc-minsizerel"         - T2G-B-H-8M (GCC), 'MinSizeRel' Cfg
+  "tviibh16m-gcc-minsizerel"        - T2G-B-H-16M (GCC), 'MinSizeRel' Cfg
+  "tviic2d4m-gcc-minsizerel"        - T2G-C-2D-4M (GCC), 'MinSizeRel' Cfg
+  "tviic2d4m-lk-gcc-minsizerel"     - KIT_T2G_TVII_C-2D-4M_LITE (GCC), 'MinSizeRel' Cfg
+  "tviic2d6m-gcc-minsizerel"        - T2G-C-2D-6M (GCC), 'MinSizeRel' Cfg
+  "tviic2d6mddr-gcc-minsizerel"     - T2G-C-2D-6M-DDR (GCC), 'MinSizeRel' Cfg
+  "tviice4m-gcc-minsizerel"         - T2G-C-E-4M (GCC), 'MinSizeRel' Cfg
+  "tviibe1m-ghs-minsizerel"         - T2G-B-E-1M (GHS), 'MinSizeRel' Cfg
+  "tviibe1m-sk-ghs-minsizerel"      - CYTVII-B-E-1M-SK (GHS), 'MinSizeRel' Cfg
+  "tviibe2m-ghs-minsizerel"         - T2G-B-E-2M (GHS), 'MinSizeRel' Cfg
+  "tviibe4m-ghs-minsizerel"         - T2G-B-E-4M (GHS), 'MinSizeRel' Cfg
+  "tviibe512k-ghs-minsizerel"       - T2G-B-E-512K (GHS), 'MinSizeRel' Cfg
+  "tviibh4m-ghs-minsizerel"         - T2G-B-H-4M (GHS), 'MinSizeRel' Cfg
+  "tviibh8m-ghs-minsizerel"         - T2G-B-H-8M (GHS), 'MinSizeRel' Cfg
+  "tviibh16m-ghs-minsizerel"        - T2G-B-H-16M (GHS), 'MinSizeRel' Cfg
+  "tviic2d4m-ghs-minsizerel"        - T2G-C-2D-4M (GHS), 'MinSizeRel' Cfg
+  "tviic2d4m-lk-ghs-minsizerel"     - KIT_T2G_TVII_C-2D-4M_LITE (GHS), 'MinSizeRel' Cfg
+  "tviic2d6m-ghs-minsizerel"        - T2G-C-2D-6M (GHS), 'MinSizeRel' Cfg
+  "tviic2d6mddr-ghs-minsizerel"     - T2G-C-2D-6M-DDR (GHS), 'MinSizeRel' Cfg
+  "tviice4m-ghs-minsizerel"         - T2G-C-E-4M (GHS), 'MinSizeRel' Cfg
+  "tviibe1m-iar-minsizerel"         - T2G-B-E-1M (IAR), 'MinSizeRel' Cfg
+  "tviibe1m-sk-iar-minsizerel"      - CYTVII-B-E-1M-SK (IAR), 'MinSizeRel' Cfg
+  "tviibe2m-iar-minsizerel"         - T2G-B-E-2M (IAR), 'MinSizeRel' Cfg
+  "tviibe4m-iar-minsizerel"         - T2G-B-E-4M (IAR), 'MinSizeRel' Cfg
+  "tviibe512k-iar-minsizerel"       - T2G-B-E-512K (IAR), 'MinSizeRel' Cfg
+  "tviibh4m-iar-minsizerel"         - T2G-B-H-4M (IAR), 'MinSizeRel' Cfg
+  "tviibh8m-iar-minsizerel"         - T2G-B-H-8M (IAR), 'MinSizeRel' Cfg
+  "tviibh16m-iar-minsizerel"        - T2G-B-H-16M (IAR), 'MinSizeRel' Cfg
+  "tviic2d4m-iar-minsizerel"        - T2G-C-2D-4M (IAR), 'MinSizeRel' Cfg
+  "tviic2d4m-lk-iar-minsizerel"     - KIT_T2G_TVII_C-2D-4M_LITE (IAR), 'MinSizeRel' Cfg
+  "tviic2d6m-iar-minsizerel"        - T2G-C-2D-6M (IAR), 'MinSizeRel' Cfg
+  "tviic2d6mddr-iar-minsizerel"     - T2G-C-2D-6M-DDR (IAR), 'MinSizeRel' Cfg
+  "tviice4m-iar-minsizerel"         - T2G-C-E-4M (IAR), 'MinSizeRel' Cfg
+  "tviibe1m-diab-minsizerel"        - T2G-B-E-1M (DIAB), 'MinSizeRel' Cfg
+  "tviibe1m-sk-diab-minsizerel"     - CYTVII-B-E-1M-SK (DIAB), 'MinSizeRel' Cfg
 ```
 
 So in summary you should see the same preset options available like during the configuration stage but each of them appearing in 3 flavors supporting the 3 build configurations:
@@ -413,6 +473,7 @@ So in summary you should see the same preset options available like during the c
 | *preset_name*                | *Debug* build configuration. Build preset name does not have a suffix because this is assumed to be the most commonly used build configuration for Traveo T2G SDL. |
 | *preset_name*-release        | *Release* build configuration                                                                                                                                      |
 | *preset_name*-relwithdebinfo | *RelWithDebInfo* build configuration                                                                                                                               |
+| *preset_name*-minsizerel     | *MinSizeRel* build configuration                                                                                                                                   |
 
 Of course, only presets can be chosen for building for which the configuration stage had been run already.
 
@@ -686,7 +747,7 @@ Copy everything in `./tviibe1m/src/examples/mcal/Dio_Gpt_Icu_Mcu_Port` to `./tvi
 
 ### Tool configuration
 
-All relevant variables in `./cmake/tool_config.cmake` or the corresponding environment variables need to be properly setup. Refer the corresponding chapter in this Readme for more information about this file and chapter *CMake variables related to MCAL* for more descriptions about the variables
+All relevant variables in `./cmake/tool_config.cmake` or the corresponding environment variables need to be properly setup. Refer the corresponding chapter in this Readme for more information about this file and chapter *CMake variables related to MCAL* for more descriptions about the variables. Please note that `MCAL_VAR_TRESOS_PROJECT_NAME` which holds the Tresos project name is hard-coded in the device configuration file `./cmake/t2g_device_config/<die-name>.cmake`.
 
 ## CMake configuration phase
 

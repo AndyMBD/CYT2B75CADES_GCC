@@ -15,6 +15,9 @@
 
 #include "cy_flash.h"
 
+/** Look-up Table to map cy_en_flash_programrow_datasize_t to actual programming size in bytes, used for D-Cache cleaning */
+static const uint16_t programSizeBytesLut[] = { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }; 
+
 /*******************************************************************************
 * Function Name: Cy_Flash_CallSromApiForFlashWrite
 ****************************************************************************//**
@@ -129,6 +132,10 @@ cy_en_flashdrv_status_t Cy_Flash_ProgramRow(cy_un_flash_context_t* context, cons
     apiArgs.ProgramRow.arg1.interruptMask  = config->intrMask;
     apiArgs.ProgramRow.arg2.dstAddr        = (uint32_t)config->destAddr;
     apiArgs.ProgramRow.arg3.srcAddr        = (uint32_t)config->dataAddr;
+    
+    // Clean area in SRAM with data to be programmed in case current core has a D-Cache, so that CM0+ SROM handler reads correct data
+    // Cleaning of actual SROM scratch area is done later by cy_srom driver
+    Cy_SysLib_CleanCoreDCacheByAddr((void *)config->dataAddr, programSizeBytesLut[config->dataSize]);
 
     /* Call SROM API driver and process response */
     return Cy_Flash_CallSromApiForFlashWrite(&apiArgs, block);
@@ -155,12 +162,21 @@ cy_en_flashdrv_status_t Cy_Flash_ProgramRow(cy_un_flash_context_t* context, cons
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_Checksum(cy_un_flash_context_t* context, const cy_stc_flash_checksum_config_t *config, uint32_t* cheksumPtr)
 {
-    /* Checks whether the input parameters are valid */
-    if (config->rowId >= CY_FLASH_NUMBER_ROWS)
+    uint32_t getRowNum = 0xFFFFFFFF;
+    
+    /* Checks whether the flash address is okay */
+    if (Cy_Flash_BoundsCheck(config->rowAddr) == CY_FLASH_OUT_OF_BOUNDS)
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
-
+        
+    /* Get and check the row numer from the address */
+    getRowNum = Cy_Flash_GetRowId(config->rowAddr);
+    if (getRowNum != config->rowId)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+  
     /* Prepares arguments to be passed to SROM API */
     un_srom_api_args_t apiArgs = { 0ul };
     if(CPUSS_FLASH_SIZE >= 4096u)
@@ -503,6 +519,42 @@ en_flash_bounds_t Cy_Flash_BoundsCheck(uint32_t flashAddr)
 }
 
 /*******************************************************************************
+* Function Name: Cy_Flash_GetRowId
+****************************************************************************//**
+*
+* Returns the row id for the requested row address.
+*
+* \param config Address to be checked
+*
+* \return 1 - out of bound, 0 - in flash bounds
+*
+*******************************************************************************/
+uint32_t Cy_Flash_GetRowId(uint32_t rowAddress)
+{
+    uint32_t result = 0xFFFFFFFF;
+    uint32_t flashSize = CPUSS_FLASH_SIZE*1024;
+    uint32_t wflashSize = CPUSS_WFLASH_SIZE*1024;
+
+    if ((rowAddress >= CY_WFLASH_LG_SBM_BASE) && (rowAddress < (CY_WFLASH_LG_SBM_BASE + wflashSize)))
+    {
+        result = (CY_FLASH_CHECKSUM_WORK << 16) |
+                 ((rowAddress - CY_WFLASH_LG_SBM_BASE) / CY_FLASH_SIZEOF_ROW);
+    }
+    else if ((rowAddress >= SFLASH_BASE) && (rowAddress < (SFLASH_BASE + SFLASH_SECTION_SIZE)))
+    {
+        result = (CY_FLASH_CHECKSUM_SUPERVISORY << 16) |
+                 ((rowAddress - SFLASH_BASE) / CY_FLASH_SIZEOF_ROW);
+    }
+    else if ((rowAddress >= CY_FLASH_LG_SBM_BASE) && (rowAddress < (CY_FLASH_LG_SBM_BASE + flashSize)))
+    {
+        result = (CY_FLASH_CHECKSUM_MAIN << 16) |
+                 ((rowAddress - CY_FLASH_LG_SBM_BASE) / CY_FLASH_SIZEOF_ROW);
+    }
+
+    return (result);
+}
+
+/*******************************************************************************
 * Function Name: Cy_Flash_ProcessOpcode
 ****************************************************************************//**
 *
@@ -766,7 +818,7 @@ cy_en_flashdrv_status_t Cy_Flash_ConfigureFMIntr(cy_un_flash_context_t* context,
 {
     /* Prepares arguments to be passed to SROM API */
     un_srom_api_args_t apiArgs = { 0ul };
-    apiArgs.ConfigFmIntr.arg0.opcode = CY_SROM_OP_FLASH_FM_STATUS;
+    apiArgs.ConfigFmIntr.arg0.opcode = CY_SROM_OP_FLASH_FM_INTR;
     apiArgs.ConfigFmIntr.arg0.option = (uint32_t)option;
 
     /* Call SROM API with blocking mode */
@@ -1157,8 +1209,23 @@ cy_en_flashdrv_status_t Cy_Flash_ProgramRow1(cy_un_flash_context_t* context, con
 *******************************************************************************/
 cy_en_flashdrv_status_t Cy_Flash_Checksum1(cy_un_flash_context_t* context, const cy_stc_flash_checksum_config_t *config, uint32_t* cheksumPtr)
 {
-    /* Checks whether the input parameters are valid */
-    if (config->rowId >= CY_FLASH_NUMBER_ROWS)
+    uint32_t getRowNum = 0xFFFFFFFF;
+    
+    /* Checks whether the flash address is okay */
+    if (Cy_Flash_BoundsCheck(config->rowAddr) == CY_FLASH_OUT_OF_BOUNDS)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+        
+    /* Get and check the row numer from the address */
+    getRowNum = Cy_Flash_GetRowId(config->rowAddr);
+    if (getRowNum != config->rowId)
+    {
+        return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
+    }
+    
+    /* Not applicable for flash controller 1 */
+    if (config->whole == CY_FLASH_CHECKSUM_WHOLE)
     {
         return CY_FLASH_DRV_INVALID_INPUT_PARAMETERS;
     }
@@ -1594,7 +1661,7 @@ cy_en_flashdrv_status_t Cy_Flash_ConfigureFMIntr1(cy_un_flash_context_t* context
 {
     /* Prepares arguments to be passed to SROM API */
     un_srom_api_args_t apiArgs = { 0ul };
-    apiArgs.ConfigFmIntr.arg0.opcode = CY_SROM_OP_FLASH_FM_STATUS2;    
+    apiArgs.ConfigFmIntr.arg0.opcode = CY_SROM_OP_FLASH_FM_INTR2;    
     apiArgs.ConfigFmIntr.arg0.option = (uint32_t)option;
 
     /* Call SROM API with blocking mode */

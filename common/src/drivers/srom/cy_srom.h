@@ -36,10 +36,12 @@ typedef enum
 {
     CY_SROM_OP_SILICON_ID               = (0x00ul),
     CY_SROM_OP_READ_FUSE_BYTE           = (0x03ul),
+    CY_SROM_OP_READ_FUSE_BYTE_MARGIN    = (0x2Bul),
     CY_SROM_OP_READ_UNIQUE_ID           = (0x1Ful),
     CY_SROM_OP_SWITCH_REGULATOR         = (0x11ul),
-    CY_SROM_OP_LoadRegulatorTrim        = (0x16ul),
+    CY_SROM_OP_LOAD_REGULATOR_TRIM      = (0x16ul),
     CY_SROM_OP_CONFIGURE_REGULATOR      = (0x15ul),
+    CY_SROM_OP_BLOW_FUSE_BIT            = (0x01ul),
     CY_SROM_OP_FLASH_PROGRAM_ROW        = (0x06ul),
     CY_SROM_OP_FLASH_PROGRAM_ROW2       = (0x09ul),
     CY_SROM_OP_FLASH_CHECKSUM           = (0x0Bul),
@@ -371,6 +373,83 @@ typedef struct
 } cy_stc_rd_efuse_byte_resps_t;
 
 
+/*********************************/
+/*** Read Fuse Byte Margin Structures ***/
+/*********************************/
+
+/** Value for the marginal control while reading eFuse */
+typedef enum
+{
+    CY_SROM_READ_MARGIN_RES_LOW         = 0,
+    CY_SROM_READ_MARGIN_RES_NOMINAL     = 1,
+    CY_SROM_READ_MARGIN_RES_HIGH        = 2,
+} cy_en_srom_read_margin_control_t;
+
+/* Request Message */
+typedef struct
+{
+    uint32_t           : 8;
+    uint32_t eFuseAddr : 12;
+    uint32_t marginCtl : 4;
+    uint32_t Opcode    : 8;
+} cy_stc_rd_efuse_byte_margin_arg0_t;
+
+typedef struct
+{
+    cy_stc_rd_efuse_byte_margin_arg0_t  arg0;
+    uint32_t                            resv[3];
+} cy_stc_rd_efuse_byte_margin_args_t;
+
+/* Response Message */
+typedef struct
+{
+    uint32_t ReadByte   : 8;
+    uint32_t            : 20;
+    uint32_t StatusCode : 4;
+} cy_stc_rd_efuse_byte_margin_resp0_t;
+
+typedef struct
+{
+    cy_stc_rd_efuse_byte_margin_resp0_t resp0;
+    uint32_t                            resv[3];
+} cy_stc_rd_efuse_byte_margin_resps_t;
+
+
+/*********************************/
+/*** Blow Fuse Bit Structures  ***/
+/*********************************/
+
+/* Request Message */
+typedef struct
+{
+    uint32_t           : 8;
+    uint32_t bitAddr   : 3;
+    uint32_t           : 1;
+    uint32_t macroAddr : 4;
+    uint32_t byteAddr  : 8;
+    uint32_t Opcode    : 8;
+} cy_stc_wr_efuse_blow_bit_arg0_t;
+
+typedef struct
+{
+    cy_stc_wr_efuse_blow_bit_arg0_t     arg0;
+    uint32_t                            resv[3];
+} cy_stc_wr_efuse_blow_bit_args_t;
+
+/* Response Message */
+typedef struct
+{
+    uint32_t ErrorCode  : 24;
+    uint32_t            : 4;
+    uint32_t StatusCode : 4;
+} cy_stc_wr_efuse_blow_bit_resp0_t;
+
+typedef struct
+{
+    cy_stc_wr_efuse_blow_bit_resp0_t    resp0;
+    uint32_t                            resv[3];
+} cy_stc_wr_efuse_blow_bit_resps_t;
+
 
 /*********************************************************/
 /*** Configure & Switch Over Regulator Data Structures ***/
@@ -378,8 +457,8 @@ typedef struct
 /** Mode selection */ 
 typedef enum
 {
-    CY_SROM_LoadRegulatorTrim_LDO	= (0x00ul), /* Apply trim for internal regulator (LDO) */
-    CY_SROM_LoadRegulatorTrim_REGHC	= (0x01ul)  /* Apply trim for PMIC/REGHC */
+    CY_SROM_LoadRegulatorTrim_LDO   = (0x00ul), /* Apply trim for internal regulator (LDO) */
+    CY_SROM_LoadRegulatorTrim_REGHC = (0x01ul)  /* Apply trim for PMIC/REGHC */
 }cy_en_srom_LoadRegulatorTrim_TrimType_t;
 
 /** Use Case selection */
@@ -999,10 +1078,12 @@ typedef union
     cy_stc_silicon_id_args_t                SiId;
     cy_stc_rd_unique_id_args_t              RdUnId;
     cy_stc_rd_efuse_byte_args_t             RdFuse;
+    cy_stc_rd_efuse_byte_margin_args_t      RdFuseMargin;
     cy_stc_switch_regulator_args_t          SwitchRegulator;
     cy_stc_configure_regulator_args_t       ConfigureRegulator;
     cy_stc_configure_regulator2_args_t      ConfigureRegulator2;
     cy_stc_LoadRegulatorTrim_args_t         LoadRegulatorTrim;
+    cy_stc_wr_efuse_blow_bit_args_t         BlowFuseBit;
     cy_stc_program_row_args_t               ProgramRow;
     cy_stc_erase_sector_args_t              EraseSector;
     cy_stc_erase_all_args_t                 EraseAll;
@@ -1027,20 +1108,22 @@ typedef union
 /* SROM API response union */
 typedef union
 {
-    uint32_t                       resp[4];
-    cy_stc_slicon_id_resps_t       SiId;
-    cy_stc_rd_unique_id_resps_t    RdUnId;
-    cy_stc_rd_efuse_byte_resps_t   RdFuse;
-    cy_stc_program_row_resps_t     ProgramRow;
-    cy_stc_erase_sector_resps_t    EraseSector;
-    cy_stc_erase_all_resps_t       EraseAll;
-    cy_stc_check_fm_status_resps_t CheckFmStatus;
-    cy_stc_conf_fm_intr_resps_t    ConfigFmIntr;
-    cy_stc_checksum_resps_t        CheckSum;
-    cy_stc_compute_hash_resps_t    ComputeHash;
-    cy_stc_erase_suspend_resps_t   EraseSuspend;
-    cy_stc_erase_resume_resps_t    EraseResume;
-    cy_stc_blank_check_resps_t     BlankCheck;
+    uint32_t                                resp[4];
+    cy_stc_slicon_id_resps_t                SiId;
+    cy_stc_rd_unique_id_resps_t             RdUnId;
+    cy_stc_rd_efuse_byte_resps_t            RdFuse;
+    cy_stc_rd_efuse_byte_margin_resps_t     RdFuseMargin;
+    cy_stc_wr_efuse_blow_bit_resps_t        BlowFuseBit;
+    cy_stc_program_row_resps_t              ProgramRow;
+    cy_stc_erase_sector_resps_t             EraseSector;
+    cy_stc_erase_all_resps_t                EraseAll;
+    cy_stc_check_fm_status_resps_t          CheckFmStatus;
+    cy_stc_conf_fm_intr_resps_t             ConfigFmIntr;
+    cy_stc_checksum_resps_t                 CheckSum;
+    cy_stc_compute_hash_resps_t             ComputeHash;
+    cy_stc_erase_suspend_resps_t            EraseSuspend;
+    cy_stc_erase_resume_resps_t             EraseResume;
+    cy_stc_blank_check_resps_t              BlankCheck;
 } un_srom_api_resps_t;
 
 typedef union

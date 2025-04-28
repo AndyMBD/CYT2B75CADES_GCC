@@ -314,7 +314,7 @@ typedef enum
 typedef enum
 {
     CY_FLASH_CHECKSUM_MAIN        = (0x00ul),
-    CY_FLASH_CHECKSUM_WOEK        = (0x01ul),
+    CY_FLASH_CHECKSUM_WORK        = (0x01ul),
     CY_FLASH_CHECKSUM_SUPERVISORY = (0x02ul)
 } cy_en_flash_checksum_region_t;
 
@@ -418,7 +418,8 @@ typedef struct
 
 typedef struct
 {
-    uint8_t                       rowId;  /**< Specifies the configuration of flash operation */
+    uint32_t                      rowAddr;/**< Specifies the configuration of flash operation */
+    uint16_t                      rowId;  /**< Specifies the configuration of flash operation */
     cy_en_flash_checksum_bank_t   bank;   /**< Specifies the code of flash operation */
     cy_en_flash_checksum_scope_t  whole;  /**< Specifies the configuration of flash operation */
     cy_en_flash_checksum_region_t region; /**< Specifies the configuration of flash operation */
@@ -1607,6 +1608,7 @@ en_flash_bounds_t Cy_Flash_MainBoundsCheck(uint32_t address);
 bool Cy_Flash_IsMainSmallSector(uint32_t address);
 en_flash_bounds_t Cy_Flash_SupervisoryBoundsCheck(uint32_t address);
 en_flash_bounds_t Cy_Flash_BoundsCheck(uint32_t flashAddr);
+uint32_t Cy_Flash_GetRowId(uint32_t rowAddress);
 cy_en_flashdrv_status_t Cy_Flash_ProcessOpcode(uint32_t opcode);
 
 #if defined (tviibh16m)

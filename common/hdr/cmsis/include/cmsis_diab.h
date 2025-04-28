@@ -25,6 +25,9 @@
 #ifndef   __RESTRICT
   #define __RESTRICT                restrict
 #endif
+#ifndef   __NO_INLINE
+  #define __NO_INLINE               __attribute__((noinline))
+#endif
 #ifndef   __INLINE
   #define __INLINE                  __inline__
 #endif
@@ -39,6 +42,9 @@
 #endif
 #ifndef   __USED
   #define __USED                    __attribute__((used))
+#endif
+#ifndef   __EXT_VISIBLE
+  #define __EXT_VISIBLE             // not supported/required?
 #endif
 #ifndef   __WEAK
   #define __WEAK                    __attribute__((weak))

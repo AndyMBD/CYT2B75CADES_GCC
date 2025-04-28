@@ -8,6 +8,8 @@
 
 set(C_COMPILER_OPTIONS
     -std=c99
+    -ffunction-sections
+    -fdata-sections
     -Wall
 )
 
@@ -73,10 +75,12 @@ set(ASSEMBLER_OPTIONS_cm7
 set(LINKER_OPTIONS
     ${C_COMPILER_OPTIONS}
     -nostartfiles
-    --specs=nano.specs # Link with 'newlib-nano', comment this line to link with regular 'newlib' that provides more features, but requires more ROM/RAM
     -Wl,-Map=%
     -Wl,-e_start
+    -Wl,--gc-sections
+    #--specs=nano.specs # Uncomment this line to link with 'newlib-nano' which has less features than the regular 'newlib' but needs less ROM/RAM
 )
+
 set(LINKER_OPTIONS_cm0plus
     ${C_COMPILER_OPTIONS_cm0plus}
 )

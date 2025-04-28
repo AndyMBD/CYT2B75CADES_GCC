@@ -562,6 +562,10 @@ typedef void (* cyisraddress)(void);
 #else
     #define CY_ASSERT(x)    do  \
                             {   \
+                                if(0u == (uint32_t)(x))                                                 \
+                                {                                                                       \
+                                    Cy_SysLib_Halt((uint32_t)0u);                                       \
+                                }                                                                       \
                             }   \
                             while(0u)
 #endif  /* !defined(NDEBUG) */
@@ -893,7 +897,7 @@ void Cy_SysLib_ExitCriticalSection(uint32_t savedIntrStatus);
 *       and CY_SYSLIB_CORE_D_CACHE_MAINTENANCE == CY_SYSLIB_CORE_D_CACHE_MAINTENANCE_ON.
 *
 *******************************************************************************/
-void Cy_SysLib_InvalidateCoreDCacheByAddr(uint32_t *addr, int32_t dsize);
+void Cy_SysLib_InvalidateCoreDCacheByAddr(void *addr, int32_t dsize);
 
 /*******************************************************************************
 * Function Name: Cy_SysLib_CleanCoreDCacheByAddr
@@ -909,7 +913,7 @@ void Cy_SysLib_InvalidateCoreDCacheByAddr(uint32_t *addr, int32_t dsize);
 *       and CY_SYSLIB_CORE_D_CACHE_MAINTENANCE == CY_SYSLIB_CORE_D_CACHE_MAINTENANCE_ON.
 *
 *******************************************************************************/
-void Cy_SysLib_CleanCoreDCacheByAddr(uint32_t *addr, int32_t dsize);
+void Cy_SysLib_CleanCoreDCacheByAddr(void *addr, int32_t dsize);
 
 /*******************************************************************************
 * Function Name: Cy_SysLib_CleanInvalidateCoreDCacheByAddr
@@ -926,7 +930,7 @@ void Cy_SysLib_CleanCoreDCacheByAddr(uint32_t *addr, int32_t dsize);
 *       and CY_SYSLIB_CORE_D_CACHE_MAINTENANCE == CY_SYSLIB_CORE_D_CACHE_MAINTENANCE_ON.
 *
 *******************************************************************************/
-void Cy_SysLib_CleanInvalidateCoreDCacheByAddr(uint32_t *addr, int32_t dsize);
+void Cy_SysLib_CleanInvalidateCoreDCacheByAddr(void *addr, int32_t dsize);
 
 /** \} group_syslib_functions */
 

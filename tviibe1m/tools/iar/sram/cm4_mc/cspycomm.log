@@ -1,0 +1,547 @@
+nov 10/21:59:46.996 DEBUG2 : 		
+
+StartSession()
+
+nov 10/21:59:46.996 INFO   : Debug Log(info): Loading the I-jet driver
+nov 10/21:59:46.996 DEBUG2 : 		-> ConnectToHardware()
+nov 10/21:59:46.996 DEBUG2 : 		-> CreateJetTerminal()
+nov 10/21:59:46.996 DEBUG2 : 		<- CreateJetTerminal()
+nov 10/21:59:46.996 DEBUG2 : 		-> AcquireSigAPIPtr()
+nov 10/21:59:46.996 DEBUG2 : 		  SigAPISetPath('C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\bin\jet\bin')
+nov 10/21:59:46.998 DEBUG2 : 		<- AcquireSigAPIPtr()
+nov 10/21:59:46.998 DEBUG2 : 		-> CreateSigProbe()
+nov 10/21:59:46.999 DEBUG2 : 		  SigProbe version: 1.66
+nov 10/21:59:46.999 DEBUG2 : 		<- CreateSigProbe()
+nov 10/21:59:46.999 DEBUG2 : 		-> SigProbeInit()
+nov 10/21:59:46.999 DEBUG2 : 		<- SigProbeInit()
+nov 10/21:59:46.999 INFO   : Debug Log(info): Probe: Probe SW module ver 1.66
+
+nov 10/21:59:46.999 INFO   : Probe: Probe SW module ver 1.66
+
+nov 10/21:59:46.999 INFO   : Debug Log(info): Probe: Option: trace(Auto,size_limit=100%)
+
+nov 10/21:59:46.999 INFO   : Probe: Option: trace(Auto,size_limit=100%)
+
+nov 10/21:59:46.999 DEBUG2 : 		-> ConnectToProbe()
+nov 10/21:59:46.999 DEBUG2 : 		  ISigProbe::EnumScan()
+nov 10/21:59:47.005 INFO   : Debug Log(info): Probe: Found I-jet, SN=91736
+
+nov 10/21:59:47.005 INFO   : Probe: Found I-jet, SN=91736
+
+nov 10/21:59:47.005 DEBUG2 : 		  scanning finished: found 1 probes
+nov 10/21:59:47.006 DEBUG2 : 		    connection Serial No: 91736
+nov 10/21:59:47.006 DEBUG2 : 		    connection found probes: 
+nov 10/21:59:47.016 INFO   : Debug Log(info): Probe: Opened connection to I-jet:91736
+
+nov 10/21:59:47.016 INFO   : Probe: Opened connection to I-jet:91736
+
+nov 10/21:59:47.042 INFO   : Debug Log(info): Probe: USB connection verified (13328 packets/s)
+
+nov 10/21:59:47.042 INFO   : Probe: USB connection verified (13328 packets/s)
+
+nov 10/21:59:47.042 INFO   : Debug Log(info): Probe: I-jet, FW ver 8.2, HW Ver:B
+
+nov 10/21:59:47.042 INFO   : Probe: I-jet, FW ver 8.2, HW Ver:B
+
+nov 10/21:59:47.045 INFO   : Debug Log(info): Probe: None or IJET-MIPI10 adapter detected
+
+nov 10/21:59:47.045 INFO   : Probe: None or IJET-MIPI10 adapter detected
+
+nov 10/21:59:47.045 INFO   : Debug Log(info): Probe: Versions: JTAG=1.92 SWO=1.41 A2D=1.74 Stream=1.52 SigCom=2.46
+
+nov 10/21:59:47.045 INFO   : Probe: Versions: JTAG=1.92 SWO=1.41 A2D=1.74 Stream=1.52 SigCom=2.46
+
+nov 10/21:59:47.045 DEBUG2 : 		<- ConnectToProbe()
+nov 10/21:59:47.045 DEBUG2 : 		-> CreateSigEmus()
+nov 10/21:59:47.045 DEBUG2 : 		  ISigAPI::CreateInstance('ISigEmu', 'EARM', '')
+nov 10/21:59:47.045 DEBUG2 : 		Core 0: sigEmu->LinkAttach(ISigProbe)
+nov 10/21:59:47.045 DEBUG2 : 		  core 0: IsigEmu::ParamSet('Emulator', 'ijet')
+nov 10/21:59:47.045 DEBUG2 : 		  core 0: IsigEmu::ParamSet('Processor', 'Cortex-M4')
+nov 10/21:59:47.045 DEBUG2 : 		  core 0: IsigEmu::ParamSet('JtagHeader', 'ARM-SWD')
+nov 10/21:59:47.045 DEBUG2 : 		  core 0: IsigEmu::ParamSet('CoreSightSWJ', 'SWD')
+nov 10/21:59:47.045 DEBUG2 : 		  core 0: IsigEmu::ParamSet('JTagSpeed', 'auto')
+nov 10/21:59:47.045 DEBUG2 : 		  core 0: IsigEmu::ParamSet('BoardCfg', 'C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm/config/debugger/Infineon/CYT2.ProbeConfig')
+nov 10/21:59:47.045 DEBUG2 : 		  core 0: IsigEmu::ParamSet('JtagInitDelay', '200,r:300')
+nov 10/21:59:47.046 DEBUG2 : 		  core 0: IsigEmu::ParamSet('BigEndian', '0')
+nov 10/21:59:47.046 DEBUG2 : 		  ISigEmu::LinkAttach('SigTerminalLog'...)
+nov 10/21:59:47.046 DEBUG2 : 		Core 0: sigEmu->LinkAttach(SigTerminalLog)
+nov 10/21:59:47.046 DEBUG2 : 		<- CreateSigEmus()
+nov 10/21:59:47.046 DEBUG2 : 		-> CreateInterfaceComProtocol()
+nov 10/21:59:47.046 DEBUG2 : 		  ISigProbe::AcquireInterface('ComProtocol')
+nov 10/21:59:47.046 DEBUG2 : 		<- CreateInterfaceComProtocol()
+nov 10/21:59:47.046 DEBUG2 : 		-> CollectCoreNames()
+nov 10/21:59:47.046 DEBUG2 : 		<- CollectCoreNames()
+nov 10/21:59:47.046 DEBUG2 : 		-> DoIceConnect()
+nov 10/21:59:47.046 DEBUG2 : 		  core 0: IsigEmu::ParamSet('BoardDID', 'M4')
+nov 10/21:59:47.046 DEBUG2 : 		Core 0: IceConnect(...)
+nov 10/21:59:47.046 DEBUG2 : 		<- DoIceConnect()
+nov 10/21:59:47.046 DEBUG2 : 		-> DoIceInit()
+nov 10/21:59:47.046 DEBUG2 : 		Core 0: IceInit(...)
+nov 10/21:59:47.047 DEBUG2 : 		ISigEmu::IceVersion(1ff)
+nov 10/21:59:47.047 INFO   : Debug Log(info): Emulation layer version 5.11
+nov 10/21:59:47.047 DEBUG2 : 		ISigEmu::IceStatus(0)
+nov 10/21:59:47.047 DEBUG2 : 		<- DoIceInit()
+nov 10/21:59:47.047 DEBUG2 : 		-> CreateCmdInterpreter()
+nov 10/21:59:47.047 DEBUG2 : 		  ISigProbe::CreateInstance(..., 'SigCmdInterpreter', '')
+nov 10/21:59:47.048 DEBUG2 : 		<- CreateCmdInterpreter()
+nov 10/21:59:47.048 DEBUG2 : 		  ISigCmdInterpreter::LinkAttach('ISigEmu',...)
+nov 10/21:59:47.048 DEBUG2 : 		-> AcquireA2DInterface()
+nov 10/21:59:47.048 DEBUG2 : 		  ISigProbe::AcquireInterface('ISigA2D')
+nov 10/21:59:47.048 DEBUG2 : 		  ISigA2D::LinkAttach('SigEmu',...)
+nov 10/21:59:47.048 DEBUG2 : 		  ISigA2D::LinkAttach('SigTerminalLog',...)
+nov 10/21:59:47.048 DEBUG2 : 		  ISigA2D::Init('null')
+nov 10/21:59:47.296 INFO   : Debug Log(info): SWD clock detected: 12MHz
+
+nov 10/21:59:47.296 INFO   : SWD clock detected: 12MHz
+
+nov 10/21:59:47.296 INFO   : Debug Log(info): Notification to core-connect hookup.
+
+nov 10/21:59:47.296 INFO   : Notification to core-connect hookup.
+
+nov 10/21:59:47.296 DEBUG2 : 		>Calling _ExecDeviceCoreConnect
+nov 10/21:59:47.296 DEBUG2 : 		ISigCmdInterpreter::Execute('/noerror dap.RDPr 0')
+nov 10/21:59:47.297 INFO   : Debug Log(info): Connected DAP v2 on SWD. Detected DP ID=0x6ba02477.
+
+nov 10/21:59:47.297 INFO   : Connected DAP v2 on SWD. Detected DP ID=0x6ba02477.
+
+nov 10/21:59:47.298 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.APr 0 0x1')
+nov 10/21:59:47.298 DEBUG2 : 		<Call to _ExecDeviceCoreConnect completed successfully
+nov 10/21:59:47.298 DEBUG2 : 		<Call to execUserCoreConnect: macro undefined
+nov 10/21:59:47.299 INFO   : Debug Log(info): Connecting to TAP#0 DAP AHB-AP-CM port 0x2 (IDR=0x2477'0011).
+
+nov 10/21:59:47.299 INFO   : Connecting to TAP#0 DAP AHB-AP-CM port 0x2 (IDR=0x2477'0011).
+
+nov 10/21:59:47.300 INFO   : Debug Log(info): Recognized CPUID=0x410fc241 Cortex-M4 r0p1 arch ARMv7-M
+
+nov 10/21:59:47.300 INFO   : Recognized CPUID=0x410fc241 Cortex-M4 r0p1 arch ARMv7-M
+
+nov 10/21:59:47.301 INFO   : Debug Log(info): Debug resources: 6 instruction comparators, 4 data watchpoints.
+
+nov 10/21:59:47.301 INFO   : Debug resources: 6 instruction comparators, 4 data watchpoints.
+
+nov 10/21:59:47.306 DEBUG2 : 		  ConnectToHardware(), checking status (#1): Core 0: CpuStatus(status = <0x1: CPU_STATUS_MPOWER>) = 0
+nov 10/21:59:47.306 INFO   : Debug Log(minor): CPU status OK
+nov 10/21:59:47.306 DEBUG2 : 		<- AcquireA2DInterface()
+nov 10/21:59:47.306 DEBUG2 : 		-> AcquireEmuVectInterface()
+nov 10/21:59:47.306 DEBUG2 : 		  ISigEmu::AcquireInterface('ISigEmuVect') (core 0)
+nov 10/21:59:47.306 DEBUG2 : 		<- AcquireEmuVectInterface()
+nov 10/21:59:47.306 DEBUG2 : 		-> AcquireEmuWptInterface()
+nov 10/21:59:47.306 DEBUG2 : 		  ISigEmu::AcquireInterface('ISigEmuWpt')
+nov 10/21:59:47.306 DEBUG2 : 		<- AcquireEmuWptInterface()
+nov 10/21:59:47.306 DEBUG2 : 		-> AcquirePcSamplerInterface()
+nov 10/21:59:47.306 DEBUG2 : 		  ISigEmu::AcquireInterface('ISigPcSampler')
+nov 10/21:59:47.306 DEBUG2 : 		<- AcquirePcSamplerInterface()
+nov 10/21:59:47.306 DEBUG2 : 		<- ConnectToHardware()
+nov 10/21:59:47.306 DEBUG2 : 		>Calling _ExecDevicePreReset
+nov 10/21:59:47.306 DEBUG2 : 		ISigCmdInterpreter::Execute('/noerror dap.r 0x17000000 1')
+nov 10/21:59:47.307 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.r 0xf0000fec 0x01')
+nov 10/21:59:47.307 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.r 0x17002004 0x01')
+nov 10/21:59:47.308 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.r 0x17007df8 0x01')
+nov 10/21:59:47.308 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.r 0x402020c4 0x01')
+nov 10/21:59:47.308 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.r 0x17002018 0x01')
+nov 10/21:59:47.308 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.r 0xf0000fe0 0x01')
+nov 10/21:59:47.309 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.r 0xf0000fe4 0x01')
+nov 10/21:59:47.309 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.r 0xf0000fe8 0x01')
+nov 10/21:59:47.309 INFO   : Debug Log(user): DMAC: Family ID: 0x101, Series: CYT2B6/CYT2B7, Major.Minor Rev.: 2.3, Silicon ID: 0xe3da
+nov 10/21:59:47.309 INFO   : Debug Log(user): DMAC: FlashBoot Ver.: 3.1.0.556, TOC2 Flags: 0x243, Protection: NORMAL
+nov 10/21:59:47.309 DEBUG2 : 		<Call to _ExecDevicePreReset completed successfully
+nov 10/21:59:47.309 DEBUG2 : 		<Call to execUserPreReset: macro undefined
+nov 10/21:59:47.309 DEBUG2 : 		->   LowLevelReset(system, delay 200)
+nov 10/21:59:47.309 INFO   : Debug Log(info): LowLevelReset(system, delay 200)
+nov 10/21:59:47.309 INFO   : Debug Log(info): Calling reset script: Traveo2_CM4_SystemReset
+nov 10/21:59:47.309 DEBUG2 : 		>Calling Traveo2_CM4_SystemReset
+nov 10/21:59:47.309 DEBUG2 : 		ISigCmdInterpreter::Execute('/noerror reset system')
+nov 10/21:59:47.513 INFO   : Debug Log(info): The processor cannot be debugged.
+
+nov 10/21:59:47.514 INFO   : The processor cannot be debugged.
+
+nov 10/21:59:47.514 INFO   : Debug Log(info): The debug registers are not accessible or
+
+nov 10/21:59:47.514 INFO   : The debug registers are not accessible or
+
+nov 10/21:59:47.514 INFO   : Debug Log(info): the CPU clock is stalled by the memory controller.
+
+nov 10/21:59:47.514 INFO   : the CPU clock is stalled by the memory controller.
+
+nov 10/21:59:47.514 INFO   : Debug Log(info): Reset or power cycle the board.
+
+nov 10/21:59:47.514 INFO   : Reset or power cycle the board.
+
+nov 10/21:59:47.614 DEBUG2 : 		ISigCmdInterpreter::Execute('refresh')
+nov 10/21:59:47.614 DEBUG2 : 		>Calling _ExecDeviceCoreConnect
+nov 10/21:59:47.614 DEBUG2 : 		ISigCmdInterpreter::Execute('/noerror dap.RDPr 0')
+nov 10/21:59:47.616 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.APr 0 0x1')
+nov 10/21:59:47.616 DEBUG2 : 		<Call to _ExecDeviceCoreConnect completed successfully
+nov 10/21:59:47.616 DEBUG2 : 		<Call to execUserCoreConnect: macro undefined
+nov 10/21:59:47.616 INFO   : Debug Log(info): Connecting to TAP#0 DAP AHB-AP-CM port 0x2 (IDR=0x2477'0011).
+
+nov 10/21:59:47.616 INFO   : Connecting to TAP#0 DAP AHB-AP-CM port 0x2 (IDR=0x2477'0011).
+
+nov 10/21:59:47.616 INFO   : Debug Log(info): Recognized CPUID=0x410fc241 Cortex-M4 r0p1 arch ARMv7-M
+
+nov 10/21:59:47.617 INFO   : Recognized CPUID=0x410fc241 Cortex-M4 r0p1 arch ARMv7-M
+
+nov 10/21:59:47.618 INFO   : Debug Log(info): Debug resources: 6 instruction comparators, 4 data watchpoints.
+
+nov 10/21:59:47.618 INFO   : Debug resources: 6 instruction comparators, 4 data watchpoints.
+
+nov 10/21:59:47.622 DEBUG2 : 		ISigCmdInterpreter::Execute('refresh')
+nov 10/21:59:47.622 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.r 0x40201200 0x01')
+nov 10/21:59:47.622 DEBUG2 : 		ISigCmdInterpreter::Execute('stop')
+nov 10/21:59:47.623 DEBUG2 : 		<Call to Traveo2_CM4_SystemReset completed successfully
+nov 10/21:59:47.623 DEBUG2 : 		ISigPcSampler::GetSample(SIGAPIARM_SAMPLE_CYCLE) = 0x9cbe3371
+nov 10/21:59:47.623 DEBUG2 : 		<-   LowLevelReset(system, delay 200)
+nov 10/21:59:47.623 DEBUG2 : 		->   StartSession(): WaitForCpuResetToComplete(core 0)
+nov 10/21:59:47.624 DEBUG2 : 		  StartSession(): Core 0: CpuStatus(status = <0x1: CPU_STATUS_MPOWER>) = 0
+nov 10/21:59:47.624 DEBUG2 : 		<-   StartSession(): WaitForCpuResetToComplete(core 0)
+nov 10/21:59:47.624 DEBUG2 : 		StartSession() checking powerCore 0: CpuStatus(status = <0x1: CPU_STATUS_MPOWER>) = 0
+nov 10/21:59:47.624 DEBUG2 : 		Core 0: IceInfo(0, ...)
+nov 10/21:59:47.625 DEBUG2 : 		>Calling _ExecDevicePreload
+nov 10/21:59:47.625 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x40240000, 4 bytes [by 4] = [ 01 00 11 00 ])
+nov 10/21:59:47.625 DEBUG2 : 		<Call to _ExecDevicePreload completed successfully
+nov 10/21:59:47.625 DEBUG2 : 		<Call to execUserPreload: macro undefined
+nov 10/21:59:47.857 INFO   : Debug Log(info): Loaded debugee: D:\Traveo\T2G_Sample_Driver_Library_8.3.0\tviibe1m\tools\iar\sram\cm4_mc\rev_d\Exe\cm4.out
+nov 10/21:59:47.876 DEBUG2 : 		-------------- Download, suppress = 0
+nov 10/21:59:47.876 DEBUG2 : 		  WritePostCache(): MemWrite(core 0, 0:0x8010000, 6432 bytes [by 0] = [ 00 e8 01 08 01 11 01 08 ... ])
+nov 10/21:59:47.888 DEBUG2 : 		  WritePostCache(): MemWrite(core 0, 0:0x8011c80, 245 bytes [by 0] = [ f0 02 ff d5 0a 01 08 04 ... ])
+nov 10/21:59:47.889 DEBUG2 : 		StopDownload()
+nov 10/21:59:47.890 DEBUG2 : 		VectorCatchGet(core 0, allowed mask 0xff, current mask 0x0)
+nov 10/21:59:47.890 DEBUG2 : 		VectorCatchSet(core 0, mask 0x1fe)
+nov 10/21:59:47.974 INFO   : Debug Log(info): 6677 bytes downloaded (501.58 Kbytes/sec)
+nov 10/21:59:47.975 INFO   : Debug Log(info): Download completed.
+nov 10/21:59:47.975 DEBUG2 : 		============== Finished loading application. Now online.
+nov 10/21:59:47.988 DEBUG2 : 		>Calling _ExecDevicePreReset
+nov 10/21:59:47.988 DEBUG2 : 		<Call to _ExecDevicePreReset completed successfully
+nov 10/21:59:47.988 DEBUG2 : 		<Call to execUserPreReset: macro undefined
+nov 10/21:59:47.988 DEBUG2 : 		-> LowLevelReset(1)
+nov 10/21:59:47.988 DEBUG2 : 		->   LowLevelReset(software, delay 200)
+nov 10/21:59:47.989 INFO   : Debug Log(info): LowLevelReset(software, delay 200)
+nov 10/21:59:47.989 DEBUG2 : 		  core 0: IsigEmu::ParamSet('JtagInitDelay', '200,r:300')
+nov 10/21:59:47.989 DEBUG2 : 		LowLevelSoftwareReset(): Core 0: CpuStatus(status = <0x1: CPU_STATUS_MPOWER>) = 0
+nov 10/21:59:47.989 DEBUG2 : 		  core 0: IsigEmu::ParamSet('ResetStyle', 'SOFTWARE')
+nov 10/21:59:47.989 DEBUG2 : 		Core 0: LowLevelSoftwareReset()
+nov 10/21:59:47.996 DEBUG2 : 		->   LowLevelSoftwareReset(): WaitForCpuResetToComplete(core 0)
+nov 10/21:59:48.000 DEBUG2 : 		  LowLevelSoftwareReset(): Core 0: CpuStatus(status = <0x1: CPU_STATUS_MPOWER>) = 0
+nov 10/21:59:48.000 DEBUG2 : 		<-   LowLevelSoftwareReset(): WaitForCpuResetToComplete(core 0)
+nov 10/21:59:48.200 DEBUG2 : 		->   LowLevelReset(): WaitForCpuResetToComplete(core 0)
+nov 10/21:59:48.200 DEBUG2 : 		  LowLevelReset(): Core 0: CpuStatus(status = <0x1: CPU_STATUS_MPOWER>) = 0
+nov 10/21:59:48.200 DEBUG2 : 		<-   LowLevelReset(): WaitForCpuResetToComplete(core 0)
+nov 10/21:59:48.201 DEBUG2 : 		ISigPcSampler::GetSample(SIGAPIARM_SAMPLE_CYCLE) = 0x9cbe3378
+nov 10/21:59:48.201 DEBUG2 : 		<-   LowLevelReset(software, delay 200)
+nov 10/21:59:48.201 DEBUG2 : 		<- LowLevelReset(1)
+nov 10/21:59:48.201 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8010000, 4 bytes [by 4] = [ 00 e8 01 08 ])
+nov 10/21:59:48.201 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8010004, 4 bytes [by 4] = [ 01 11 01 08 ])
+nov 10/21:59:48.201 DEBUG2 : 		CpuRegSet(Core 0, SP_Main ->17) = 0x801e800 (134342656)
+nov 10/21:59:48.202 DEBUG2 : 		CpuRegSet(Core 0, PC ->15) = 0x8011100 (134287616)
+nov 10/21:59:48.203 DEBUG2 : 		CpuRegGet(Core 0, XPSR ->16) = 0x1000000 (16777216)
+nov 10/21:59:48.203 DEBUG2 : 		CpuRegSet(Core 0, XPSR ->16) = 0x1000000 (16777216)
+nov 10/21:59:48.203 DEBUG2 : 		CpuRegGet(Core 0, PC -> 15) = 0x8011100 (134287616)
+nov 10/21:59:48.203 INFO   : Debug Log(info): Target reset
+nov 10/21:59:48.203 DEBUG2 : 		>Calling _ExecDeviceReset
+nov 10/21:59:48.203 DEBUG2 : 		<Call to _ExecDeviceReset completed successfully
+nov 10/21:59:48.203 DEBUG2 : 		<Call to execUserReset: macro undefined
+nov 10/21:59:48.204 DEBUG2 : 		SetCodeBreak(<0:0x801114e>, 1 units, 'Stack window trigger')
+nov 10/21:59:48.204 DEBUG2 : 		  SetCodeBreak(): BreakSetAttr(bank 0, count 1, addr 0x801114e, attr <0x2000d: CPUMODE(THUMB) | SIGEMU_BRK_ATTR_SET | SIGEMU_BRK_ATTR_SW | SIGEMU_BRK_ATTR_HW>)
+nov 10/21:59:48.204 DEBUG2 : 		  SetBreakpoint(): BreakGetAttr(bank 0, count 1, addr 0x801114e, attr <0x20405: CPUMODE(THUMB) | SIGEMU_BRK_ATTR_SET | SIGEMU_BRK_ATTR_SW | SIGEMU_BRK_ATTR_LITTLEENDIAN>)
+nov 10/21:59:48.207 DEBUG2 : 		-> SetupTrace()
+nov 10/21:59:48.207 DEBUG2 : 		-> AcquireXTrace()
+nov 10/21:59:48.207 DEBUG2 : 		  ISigProbe::AcquireInterface('ISigXTrace')
+nov 10/21:59:48.207 DEBUG2 : 		  ISigAPI::CreateInstance('ISigXTrace')
+nov 10/21:59:48.208 DEBUG2 : 		<- AcquireXTrace()
+nov 10/21:59:48.208 DEBUG2 : 		  ISigXTrace::LinkAttach('SigTerminalLog',...)
+nov 10/21:59:48.208 DEBUG2 : 		  ISigXTrace::LinkAttach('ISigXTraceClient',...)
+nov 10/21:59:48.208 DEBUG2 : 		  ISigXTrace::LinkAttach('SigEmu',...)
+nov 10/21:59:48.208 DEBUG2 : 		  ISigXTrace::LinkAttach('SigProbe',...)
+nov 10/21:59:48.208 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.r 0xe008e0f0 0x02')
+nov 10/21:59:48.208 DEBUG2 : 		ISigCmdInterpreter::Execute('dap.w 0xe008e304 0x00000100 0x02')
+nov 10/21:59:48.208 INFO   : Debug Log(user): DMAC/Trace: Configuring platform side SWO component.
+nov 10/21:59:48.208 DEBUG2 : 		ISigCmdInterpreter::Execute('trace -opt +swoinit(baseswo=0xE008_E002,baseitm=0xE000_0002)')
+nov 10/21:59:48.208 DEBUG2 : 		-> SetupLowLevelTrace()
+nov 10/21:59:48.208 DEBUG2 : 		  ISigXTrace::Init('SWO,ETB')
+nov 10/21:59:48.210 INFO   : Debug Log(info): INFO: Configuring trace using 'Auto,size_limit=100%,swoinit(baseswo=0xE008_E002,baseitm=0xE000_0002)' setting...
+
+nov 10/21:59:48.210 INFO   : INFO: Configuring trace using 'Auto,size_limit=100%,swoinit(baseswo=0xE008_E002,baseitm=0xE000_0002)' setting...
+
+nov 10/21:59:48.211 INFO   : Debug Log(info): Trace: Using detected ETMv3CM at address 0xe0041000
+
+nov 10/21:59:48.211 INFO   : Trace: Using detected ETMv3CM at address 0xe0041000
+
+nov 10/21:59:48.212 INFO   : Debug Log(info): Trace: Access to detected ETMv3CM(architecture=3.5) initialized (CONF=0x8c842000, CTRL=0xc10, IDR=0x4114f250)
+
+nov 10/21:59:48.212 INFO   : Trace: Access to detected ETMv3CM(architecture=3.5) initialized (CONF=0x8c842000, CTRL=0xc10, IDR=0x4114f250)
+
+nov 10/21:59:48.212 INFO   : Debug Log(info): Trace: Using detected ETB at address 0xe008d000, RAM size 0x800 words (8KB)
+
+nov 10/21:59:48.212 INFO   : Trace: Using detected ETB at address 0xe008d000, RAM size 0x800 words (8KB)
+
+nov 10/21:59:48.213 INFO   : Debug Log(info): Trace: Configured as 'ETMv3 to ETB' (SW ver:  Trace2=1.38 ETM=1.00 ETB=1.05 Deco=1.43)
+nov 10/21:59:48.213 DEBUG2 : 		<- SetupLowLevelTrace()
+nov 10/21:59:48.213 DEBUG2 : 		-> AcquireSWOInterface()
+nov 10/21:59:48.213 DEBUG2 : 		  ISigProbe::AcquireInterface('ISigSWO')
+nov 10/21:59:48.213 DEBUG2 : 		  ISigSWO::LinkAttach('SigEmu',...)
+nov 10/21:59:48.213 DEBUG2 : 		  ISigSWO::LinkAttach('SigTerminalLog',...)
+nov 10/21:59:48.213 DEBUG2 : 		  ISigSWO::Init('')
+nov 10/21:59:48.214 ERROR  : ISigSWO::Init() failed
+nov 10/21:59:48.214 DEBUG2 : 		<- AcquireSWOInterface()
+nov 10/21:59:48.214 DEBUG2 : 		-> CreateSigChanInterface()
+nov 10/21:59:48.214 DEBUG2 : 		  ISigProbe::AcquireInterface('ISigChan')
+nov 10/21:59:48.214 DEBUG2 : 		<- CreateSigChanInterface()
+nov 10/21:59:48.214 DEBUG2 : 		-> SetupSigChanInterface()
+nov 10/21:59:48.214 DEBUG2 : 		  ISigChan::LinkAttach('SigEmu',...)
+nov 10/21:59:48.214 DEBUG2 : 		  ISigChan::LinkAttach('SigTerminalLog',...)
+nov 10/21:59:48.214 DEBUG2 : 		  ISigChan::LinkAttach('SigXTrace',...)
+nov 10/21:59:48.214 DEBUG2 : 		  ISigChan::Init('null')
+nov 10/21:59:48.214 DEBUG2 : 		  ISigChan::AcquireInterface('ISigChanReader')
+nov 10/21:59:48.214 DEBUG2 : 		  ISigChanReader::GotoBegin()
+nov 10/21:59:48.214 DEBUG2 : 		<- SetupSigChanInterface()
+nov 10/21:59:48.215 DEBUG2 : 		  ISigXTrace::ExecuteCmd('etm portsize=4') -> This trace does not allow to define capture width
+nov 10/21:59:48.215 DEBUG2 : 		  ISigXTrace::ExecuteCmd('etm halfrate=off') -> Ok
+nov 10/21:59:48.215 DEBUG2 : 		  ISigXTrace::ExecuteCmd('etm portmode=1:1') -> Ok
+nov 10/21:59:48.215 DEBUG2 : 		  ISigXTrace::ExecuteCmd('etm data=none') -> Ok
+nov 10/21:59:48.215 DEBUG2 : 		  ISigXTrace::ExecuteCmd('ctrl stop=cpustop') -> Ok
+nov 10/21:59:48.215 DEBUG2 : 		  ISigXTrace::ExecuteCmd('etm stall=off') -> Ok
+nov 10/21:59:48.215 DEBUG2 : 		  ISigXTrace::ExecuteCmd('etm pc=all') -> Ok
+nov 10/21:59:48.215 DEBUG2 : 		  ISigXTrace::ExecuteCmd('etm update') -> Ok
+nov 10/21:59:48.215 DEBUG2 : 		ISigA2d::ChanCnt(0) = 1
+nov 10/21:59:48.215 DEBUG2 : 		ISigA2d::ChanName(0) = ITrgPwr
+nov 10/21:59:48.215 DEBUG2 : 		ISigA2D::ChanAttr(0) = 311a1
+nov 10/21:59:48.215 DEBUG2 : 		ISigA2D::ChanUnit(0) = 1
+nov 10/21:59:48.215 DEBUG2 : 		ISigA2D::ChanMax(0) = 700000
+nov 10/21:59:48.215 DEBUG2 : 		ISigA2D::ChanOffset(0) = 0
+nov 10/21:59:48.215 DEBUG2 : 		ISigA2D::ChanOffset(0) = 12
+nov 10/21:59:48.215 DEBUG2 : 		ISigA2D::ChanID(0) = 0x200
+nov 10/21:59:48.216 DEBUG2 : 		ISigA2D::StreamAdd(0) = -5 [TdJetPower::SendLogsForId(0)]
+nov 10/21:59:48.216 INFO   : Debug Log(warning): Could not measure 'ITrgPwr' when ETM/ETB mode is active.
+nov 10/21:59:48.216 DEBUG2 : 		ISigA2D::StreamEnumFreq(0,0) = 200000
+nov 10/21:59:48.216 DEBUG2 : 		<- SetupTrace()
+nov 10/21:59:48.216 DEBUG2 : 		-> SetupProfiling()
+nov 10/21:59:48.218 DEBUG2 : 		<- SetupProfiling()
+nov 10/21:59:48.219 DEBUG2 : 		SetCodeBreak(<9:0xf000000000000000>, 1 units, 'C-SPY Terminal I/O && library support module')
+nov 10/21:59:48.219 DEBUG2 : 		>Calling _ExecDeviceSetup
+nov 10/21:59:48.219 DEBUG2 : 		<Call to _ExecDeviceSetup completed successfully
+nov 10/21:59:48.219 DEBUG2 : 		<Call to execUserSetup: macro undefined
+nov 10/21:59:48.221 INFO   : Debug Log(warning): There was 1 warning during the initialization of the debugging session.
+nov 10/21:59:48.239 DEBUG2 : 		PlDriver::Go(core 0): mIsExecuting[0] = true
+nov 10/21:59:48.239 DEBUG2 : 		-> LowLevelGo(core 0)
+nov 10/21:59:48.239 DEBUG2 : 		CpuRegGet(Core 0, PC ->15) = 0x8011100 (134287616)
+nov 10/21:59:48.239 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011100, 2 bytes [by 2] = [ 72 b6 ])
+nov 10/21:59:48.239 DEBUG2 : 		<Call to _ExecDeviceExecutionStarted: macro undefined
+nov 10/21:59:48.239 DEBUG2 : 		<Call to execUserExecutionStarted: macro undefined
+nov 10/21:59:48.239 DEBUG2 : 		  LowLevelGo(core 0), calling ISigChan::Start()
+nov 10/21:59:48.240 DEBUG2 : 		  LowLevelGo(core 0) [multi = false], CpuStatus(): Core 0: CpuStatus(status = <0x1: CPU_STATUS_MPOWER>) = 0
+nov 10/21:59:48.240 DEBUG2 : 		Core 0:   LowLevelGo(core 0) [multi = false], CpuGo()
+nov 10/21:59:48.250 DEBUG2 : 		CpuRegGet(Core 0, PC -> 15) = 0x801114e (134287694)
+nov 10/21:59:48.250 DEBUG2 : 		LowLevelGo(core 0): errNo == ERR_OK, cpu status = not running, not sleeping, cpu power = 1 --> Exit LowLevelGo loop
+nov 10/21:59:48.250 DEBUG2 : 		LowLevelGo(core 0): Setting single mIsExecuting[0] = false [multi == false]
+nov 10/21:59:48.250 DEBUG2 : 		LowLevelGo(core 0): CPU core 0 is now stopped, after 2 polls in 0.001s
+nov 10/21:59:48.250 DEBUG2 : 		<Call to _ExecDeviceExecutionStopped: macro undefined
+nov 10/21:59:48.250 DEBUG2 : 		<Call to execUserExecutionStopped: macro undefined
+nov 10/21:59:48.250 DEBUG2 : 		    XTRACE postgo (status = 0x102) dump -> ok
+nov 10/21:59:48.256 DEBUG2 : 		  ISigChan::Stop()
+nov 10/21:59:48.256 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801114e, 2 bytes [by 2] = [ 10 b5 ])
+nov 10/21:59:48.256 DEBUG2 : 		  GetStopBreaks(): BreakGetAttr(bank 0, count 1, addr 0x801114e, attr <0x20405: CPUMODE(THUMB) | SIGEMU_BRK_ATTR_SET | SIGEMU_BRK_ATTR_SW | SIGEMU_BRK_ATTR_LITTLEENDIAN>)
+nov 10/21:59:48.256 DEBUG2 : 		LowLevelGo(core 0): Stopped at breakpoint
+nov 10/21:59:48.256 DEBUG2 : 		<- LowLevelGo(core 0)
+nov 10/21:59:48.256 DEBUG2 : 		PlDriver::Go(core 0): goStatus = 0
+nov 10/21:59:48.257 DEBUG2 : 		ISigPcSampler::GetSample(SIGAPIARM_SAMPLE_CYCLE) = 0x9cbe6e02
+nov 10/21:59:48.257 DEBUG2 : 		ClearCodeBreak(<0:0x801114e>, 1 units)
+nov 10/21:59:48.257 DEBUG2 : 		  ClearCodeBreak(): BreakClr(bank 0, count 1, addr 0x801114e)
+nov 10/21:59:48.258 DEBUG2 : 		CpuRegGet(Core 0, LR -> 14) = 0x801127b (134287995)
+nov 10/21:59:48.258 DEBUG2 : 		CpuRegGet(Core 0, XPSR -> 16) = 0x61000000 (1627389952)
+nov 10/21:59:48.258 DEBUG2 : 		CpuRegGet(Core 0, SP_Main -> 17) = 0x801e7f8 (134342648)
+nov 10/21:59:54.275 DEBUG2 : 		CpuRegGet(Core 0, CTRL_PRI -> 20) = 0x4000001 (67108865)
+nov 10/21:59:54.285 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801110e, 2 bytes [by 2] = [ 00 21 ])
+nov 10/21:59:54.285 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011110, 2 bytes [by 2] = [ 0a 4a ])
+nov 10/21:59:54.285 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801113c, 4 bytes [by 4] = [ 00 e7 01 08 ])
+nov 10/21:59:54.285 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011112, 2 bytes [by 2] = [ e2 e8 ])
+nov 10/21:59:54.286 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011112, 4 bytes [by 4] = [ e2 e8 02 01 ])
+nov 10/21:59:54.286 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011116, 2 bytes [by 2] = [ 6a 45 ])
+nov 10/21:59:54.286 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011118, 2 bytes [by 2] = [ fb d1 ])
+nov 10/21:59:54.286 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801111a, 2 bytes [by 2] = [ 05 4f ])
+nov 10/21:59:54.287 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011130, 4 bytes [by 4] = [ 51 0c 01 08 ])
+nov 10/21:59:54.287 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801111c, 2 bytes [by 2] = [ b8 47 ])
+nov 10/21:59:54.287 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801111e, 2 bytes [by 2] = [ 05 4f ])
+nov 10/21:59:54.287 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011134, 4 bytes [by 4] = [ b5 11 01 08 ])
+nov 10/21:59:54.287 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011120, 2 bytes [by 2] = [ b8 47 ])
+nov 10/21:59:54.288 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011122, 2 bytes [by 2] = [ 05 4f ])
+nov 10/21:59:54.288 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011138, 4 bytes [by 4] = [ c5 12 01 08 ])
+nov 10/21:59:54.289 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011124, 2 bytes [by 2] = [ b8 47 ])
+nov 10/21:59:54.289 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011126, 2 bytes [by 2] = [ fe e7 ])
+nov 10/21:59:54.289 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011128, 4 bytes [by 4] = [ 00 00 01 08 ])
+nov 10/21:59:54.289 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011128, 4 bytes [by 4] = [ 00 00 01 08 ])
+nov 10/21:59:54.289 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011128, 4 bytes [by 4] = [ 00 00 01 08 ])
+nov 10/21:59:54.289 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801112c, 4 bytes [by 4] = [ 08 ed 00 e0 ])
+nov 10/21:59:54.289 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801112c, 4 bytes [by 4] = [ 08 ed 00 e0 ])
+nov 10/21:59:54.289 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801112c, 4 bytes [by 4] = [ 08 ed 00 e0 ])
+nov 10/21:59:54.289 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011130, 4 bytes [by 4] = [ 51 0c 01 08 ])
+nov 10/21:59:54.290 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011130, 4 bytes [by 4] = [ 51 0c 01 08 ])
+nov 10/21:59:54.290 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011130, 4 bytes [by 4] = [ 51 0c 01 08 ])
+nov 10/21:59:54.290 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011134, 4 bytes [by 4] = [ b5 11 01 08 ])
+nov 10/21:59:54.291 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011134, 4 bytes [by 4] = [ b5 11 01 08 ])
+nov 10/21:59:54.291 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011134, 4 bytes [by 4] = [ b5 11 01 08 ])
+nov 10/21:59:54.291 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011138, 4 bytes [by 4] = [ c5 12 01 08 ])
+nov 10/21:59:54.291 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011138, 4 bytes [by 4] = [ c5 12 01 08 ])
+nov 10/21:59:54.291 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011138, 4 bytes [by 4] = [ c5 12 01 08 ])
+nov 10/21:59:54.291 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801113c, 4 bytes [by 4] = [ 00 e7 01 08 ])
+nov 10/21:59:54.292 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801113c, 4 bytes [by 4] = [ 00 e7 01 08 ])
+nov 10/21:59:54.292 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801113c, 4 bytes [by 4] = [ 00 e7 01 08 ])
+nov 10/21:59:54.292 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011140, 4 bytes [by 4] = [ ff e7 01 08 ])
+nov 10/21:59:54.292 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011140, 4 bytes [by 4] = [ ff e7 01 08 ])
+nov 10/21:59:54.292 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011140, 4 bytes [by 4] = [ ff e7 01 08 ])
+nov 10/21:59:54.324 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011144, 2 bytes [by 2] = [ 01 22 ])
+nov 10/21:59:54.324 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011146, 2 bytes [by 2] = [ 12 fa ])
+nov 10/21:59:54.324 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011146, 4 bytes [by 4] = [ 12 fa 01 f1 ])
+nov 10/21:59:54.325 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801114a, 2 bytes [by 2] = [ c1 60 ])
+nov 10/21:59:54.325 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801114c, 2 bytes [by 2] = [ 70 47 ])
+nov 10/21:59:54.327 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801114e, 2 bytes [by 2] = [ 10 b5 ])
+nov 10/21:59:54.327 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011150, 2 bytes [by 2] = [ 62 b6 ])
+nov 10/21:59:54.327 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011152, 2 bytes [by 2] = [ ff f7 ])
+nov 10/21:59:54.328 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011152, 4 bytes [by 4] = [ ff f7 35 fe ])
+nov 10/21:59:54.328 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011156, 2 bytes [by 2] = [ 07 4c ])
+nov 10/21:59:54.329 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011174, 4 bytes [by 4] = [ 80 09 31 40 ])
+nov 10/21:59:54.329 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011158, 2 bytes [by 2] = [ 07 4a ])
+nov 10/21:59:54.329 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011178, 4 bytes [by 4] = [ ec 18 01 08 ])
+nov 10/21:59:54.329 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801115a, 2 bytes [by 2] = [ 03 21 ])
+nov 10/21:59:54.330 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801115c, 2 bytes [by 2] = [ 20 00 ])
+nov 10/21:59:54.330 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801115e, 2 bytes [by 2] = [ ff f7 ])
+nov 10/21:59:54.330 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801115e, 4 bytes [by 4] = [ ff f7 6c fc ])
+nov 10/21:59:54.331 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011162, 2 bytes [by 2] = [ 4c f2 ])
+nov 10/21:59:54.331 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011162, 4 bytes [by 4] = [ 4c f2 50 30 ])
+nov 10/21:59:54.331 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011166, 2 bytes [by 2] = [ ff f7 ])
+nov 10/21:59:54.331 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011166, 4 bytes [by 4] = [ ff f7 ec fe ])
+nov 10/21:59:54.331 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801116a, 2 bytes [by 2] = [ 03 21 ])
+nov 10/21:59:54.331 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801116c, 2 bytes [by 2] = [ 20 00 ])
+nov 10/21:59:54.332 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801116e, 2 bytes [by 2] = [ ff f7 ])
+nov 10/21:59:54.332 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801116e, 4 bytes [by 4] = [ ff f7 e9 ff ])
+nov 10/21:59:54.332 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011172, 2 bytes [by 2] = [ f6 e7 ])
+nov 10/21:59:54.332 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011174, 4 bytes [by 4] = [ 80 09 31 40 ])
+nov 10/21:59:54.332 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011174, 4 bytes [by 4] = [ 80 09 31 40 ])
+nov 10/21:59:54.332 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011174, 4 bytes [by 4] = [ 80 09 31 40 ])
+nov 10/21:59:54.333 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011178, 4 bytes [by 4] = [ ec 18 01 08 ])
+nov 10/21:59:54.333 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011178, 4 bytes [by 4] = [ ec 18 01 08 ])
+nov 10/21:59:54.333 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011178, 4 bytes [by 4] = [ ec 18 01 08 ])
+nov 10/21:59:54.333 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801117c, 2 bytes [by 2] = [ 30 b4 ])
+nov 10/21:59:54.334 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801117e, 2 bytes [by 2] = [ 00 25 ])
+nov 10/21:59:54.334 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011180, 2 bytes [by 2] = [ 12 e0 ])
+nov 10/21:59:54.334 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011182, 2 bytes [by 2] = [ 50 f8 ])
+nov 10/21:59:54.335 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011182, 4 bytes [by 4] = [ 50 f8 04 2b ])
+nov 10/21:59:54.335 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011186, 2 bytes [by 2] = [ d3 07 ])
+nov 10/21:59:54.335 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011188, 2 bytes [by 2] = [ 44 bf ])
+nov 10/21:59:54.335 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801118a, 2 bytes [by 2] = [ 4a 44 ])
+nov 10/21:59:54.335 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801118c, 2 bytes [by 2] = [ 52 1e ])
+nov 10/21:59:54.336 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801118e, 2 bytes [by 2] = [ 09 1f ])
+nov 10/21:59:54.336 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011190, 2 bytes [by 2] = [ 04 29 ])
+nov 10/21:59:54.336 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011192, 2 bytes [by 2] = [ 42 f8 ])
+nov 10/21:59:54.336 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011192, 4 bytes [by 4] = [ 42 f8 04 5b ])
+nov 10/21:59:54.336 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011196, 2 bytes [by 2] = [ fa d2 ])
+nov 10/21:59:54.337 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011198, 2 bytes [by 2] = [ 13 46 ])
+nov 10/21:59:54.337 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801119a, 2 bytes [by 2] = [ 8c 07 ])
+nov 10/21:59:54.337 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801119c, 2 bytes [by 2] = [ 44 bf ])
+nov 10/21:59:54.337 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801119e, 2 bytes [by 2] = [ 15 80 ])
+nov 10/21:59:54.337 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111a0, 2 bytes [by 2] = [ 9b 1c ])
+nov 10/21:59:54.338 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111a2, 2 bytes [by 2] = [ c9 07 ])
+nov 10/21:59:54.338 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111a4, 2 bytes [by 2] = [ 48 bf ])
+nov 10/21:59:54.338 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111a6, 2 bytes [by 2] = [ 1d 70 ])
+nov 10/21:59:54.338 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111a8, 2 bytes [by 2] = [ 50 f8 ])
+nov 10/21:59:54.339 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111a8, 4 bytes [by 4] = [ 50 f8 04 1b ])
+nov 10/21:59:54.339 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111ac, 2 bytes [by 2] = [ 00 29 ])
+nov 10/21:59:54.340 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111ae, 2 bytes [by 2] = [ e8 d1 ])
+nov 10/21:59:54.340 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111b0, 2 bytes [by 2] = [ 30 bc ])
+nov 10/21:59:54.341 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111b2, 2 bytes [by 2] = [ 70 47 ])
+nov 10/21:59:54.341 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111b4, 2 bytes [by 2] = [ 10 b5 ])
+nov 10/21:59:54.342 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111b6, 2 bytes [by 2] = [ 07 49 ])
+nov 10/21:59:54.342 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111d4, 4 bytes [by 4] = [ 2c 00 00 00 ])
+nov 10/21:59:54.342 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111b8, 2 bytes [by 2] = [ 79 44 ])
+nov 10/21:59:54.342 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111ba, 2 bytes [by 2] = [ 18 31 ])
+nov 10/21:59:54.343 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111bc, 2 bytes [by 2] = [ 06 4c ])
+nov 10/21:59:54.343 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111d8, 4 bytes [by 4] = [ 48 00 00 00 ])
+nov 10/21:59:54.343 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111be, 2 bytes [by 2] = [ 7c 44 ])
+nov 10/21:59:54.343 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111c0, 2 bytes [by 2] = [ 16 34 ])
+nov 10/21:59:54.343 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111c2, 2 bytes [by 2] = [ 04 e0 ])
+nov 10/21:59:54.344 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111c4, 2 bytes [by 2] = [ 0a 68 ])
+nov 10/21:59:54.344 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111c6, 2 bytes [by 2] = [ 08 1d ])
+nov 10/21:59:54.344 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111c8, 2 bytes [by 2] = [ 11 44 ])
+nov 10/21:59:54.344 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111ca, 2 bytes [by 2] = [ 88 47 ])
+nov 10/21:59:54.345 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111cc, 2 bytes [by 2] = [ 01 46 ])
+nov 10/21:59:54.345 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111ce, 2 bytes [by 2] = [ a1 42 ])
+nov 10/21:59:54.345 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111d0, 2 bytes [by 2] = [ f8 d1 ])
+nov 10/21:59:54.345 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111d2, 2 bytes [by 2] = [ 10 bd ])
+nov 10/21:59:54.346 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111d4, 4 bytes [by 4] = [ 2c 00 00 00 ])
+nov 10/21:59:54.346 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111d4, 4 bytes [by 4] = [ 2c 00 00 00 ])
+nov 10/21:59:54.346 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111d4, 4 bytes [by 4] = [ 2c 00 00 00 ])
+nov 10/21:59:54.346 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111d8, 4 bytes [by 4] = [ 48 00 00 00 ])
+nov 10/21:59:54.346 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111d8, 4 bytes [by 4] = [ 48 00 00 00 ])
+nov 10/21:59:54.346 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111d8, 4 bytes [by 4] = [ 48 00 00 00 ])
+nov 10/21:59:54.346 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111dc, 2 bytes [by 2] = [ 4e f6 ])
+nov 10/21:59:54.346 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111dc, 4 bytes [by 4] = [ 4e f6 88 51 ])
+nov 10/21:59:54.347 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111e0, 2 bytes [by 2] = [ ce f2 ])
+nov 10/21:59:54.347 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111e0, 4 bytes [by 4] = [ ce f2 00 01 ])
+nov 10/21:59:54.347 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111e4, 2 bytes [by 2] = [ 08 68 ])
+nov 10/21:59:54.347 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111e6, 2 bytes [by 2] = [ 40 f4 ])
+nov 10/21:59:54.348 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111e6, 4 bytes [by 4] = [ 40 f4 70 00 ])
+nov 10/21:59:54.348 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111ea, 2 bytes [by 2] = [ 08 60 ])
+nov 10/21:59:54.348 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111ec, 2 bytes [by 2] = [ bf f3 ])
+nov 10/21:59:54.348 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111ec, 4 bytes [by 4] = [ bf f3 4f 8f ])
+nov 10/21:59:54.348 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111f0, 2 bytes [by 2] = [ bf f3 ])
+nov 10/21:59:54.349 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111f0, 4 bytes [by 4] = [ bf f3 6f 8f ])
+nov 10/21:59:54.349 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111f4, 2 bytes [by 2] = [ 4f f0 ])
+nov 10/21:59:54.349 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111f4, 4 bytes [by 4] = [ 4f f0 01 70 ])
+nov 10/21:59:54.349 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111f8, 2 bytes [by 2] = [ e1 ee ])
+nov 10/21:59:54.349 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111f8, 4 bytes [by 4] = [ e1 ee 10 0a ])
+nov 10/21:59:54.349 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111fc, 2 bytes [by 2] = [ 70 47 ])
+nov 10/21:59:54.350 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x80111fe, 2 bytes [by 2] = [ 00 00 ])
+nov 10/21:59:54.350 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011200, 4 bytes [by 4] = [ 7d ff ff ff ])
+nov 10/21:59:54.350 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011200, 4 bytes [by 4] = [ 7d ff ff ff ])
+nov 10/21:59:54.350 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011200, 4 bytes [by 4] = [ 7d ff ff ff ])
+nov 10/21:59:54.350 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011204, 4 bytes [by 4] = [ bc 00 00 00 ])
+nov 10/21:59:54.350 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011204, 4 bytes [by 4] = [ bc 00 00 00 ])
+nov 10/21:59:54.351 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011204, 4 bytes [by 4] = [ bc 00 00 00 ])
+nov 10/21:59:54.351 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011208, 4 bytes [by 4] = [ 20 19 01 08 ])
+nov 10/21:59:54.351 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011208, 4 bytes [by 4] = [ 20 19 01 08 ])
+nov 10/21:59:54.351 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011208, 4 bytes [by 4] = [ 20 19 01 08 ])
+nov 10/21:59:54.351 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801120c, 4 bytes [by 4] = [ 00 00 00 00 ])
+nov 10/21:59:54.351 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801120c, 4 bytes [by 4] = [ 00 00 00 00 ])
+nov 10/21:59:54.351 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801120c, 4 bytes [by 4] = [ 00 00 00 00 ])
+nov 10/21:59:54.351 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011210, 4 bytes [by 4] = [ 23 f6 ff ff ])
+nov 10/21:59:54.352 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011210, 4 bytes [by 4] = [ 23 f6 ff ff ])
+nov 10/21:59:54.352 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011210, 4 bytes [by 4] = [ 23 f6 ff ff ])
+nov 10/21:59:54.352 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011214, 4 bytes [by 4] = [ 6c 0a 00 00 ])
+nov 10/21:59:54.352 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011214, 4 bytes [by 4] = [ 6c 0a 00 00 ])
+nov 10/21:59:54.352 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011214, 4 bytes [by 4] = [ 6c 0a 00 00 ])
+nov 10/21:59:54.352 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011218, 4 bytes [by 4] = [ 3e 00 00 00 ])
+nov 10/21:59:54.352 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011218, 4 bytes [by 4] = [ 3e 00 00 00 ])
+nov 10/21:59:54.353 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011218, 4 bytes [by 4] = [ 3e 00 00 00 ])
+nov 10/21:59:54.353 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801121c, 4 bytes [by 4] = [ 68 13 01 08 ])
+nov 10/21:59:54.353 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801121c, 4 bytes [by 4] = [ 68 13 01 08 ])
+nov 10/21:59:54.353 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x801121c, 4 bytes [by 4] = [ 68 13 01 08 ])
+nov 10/21:59:54.353 DEBUG2 : 		  ReadPostCache(): MemRead(core 0, 0:0x8011220, 2 bytes [by 2] = [ 04 20 ])
+nov 10/22:00:09.748 DEBUG2 : 		-> AboutToStopSession()
+nov 10/22:00:09.748 DEBUG2 : 		  Exiting SWO reading thread
+nov 10/22:00:09.749 DEBUG2 : 		<- AboutToStopSession()
+nov 10/22:00:09.749 DEBUG2 : 		<Call to _ExecDeviceExit: macro undefined
+nov 10/22:00:09.749 DEBUG2 : 		<Call to execUserExit: macro undefined
+nov 10/22:00:09.751 DEBUG2 : 		-> PrepareStopSession()
+nov 10/22:00:10.281 DEBUG2 : 		<- PrepareStopSession()
+nov 10/22:00:10.281 DEBUG2 : 		ClearCodeBreak(<9:0xf000000000000000>, 1 units)
+nov 10/22:00:10.282 DEBUG2 : 		StopGui()
+nov 10/22:00:10.329 DEBUG2 : 		-> StopSession()
+nov 10/22:00:10.332 DEBUG2 : 		-> TerminateHardware()
+nov 10/22:00:10.332 DEBUG2 : 		  ISigXTrace::Term()
+nov 10/22:00:10.332 DEBUG2 : 		  ISigEmu::ReleaseInterface(pcSampler)
+nov 10/22:00:10.332 DEBUG2 : 		  ISigEmu::ReleaseInterface(sigWpt)
+nov 10/22:00:10.332 DEBUG2 : 		  ISigEmu::ReleaseInterface(sigVect)
+nov 10/22:00:10.332 DEBUG2 : 		  ISigEmu::IceTerm()
+nov 10/22:00:10.333 DEBUG2 : 		  ISigChan::ReleaseInterface(chanReader)
+nov 10/22:00:10.333 DEBUG2 : 		  ISigChan::Term()
+nov 10/22:00:10.333 DEBUG2 : 		  ISigXTrace::Term()
+nov 10/22:00:10.333 DEBUG2 : 		  ISigAPI::ReleaseInstance(sigXTrace)
+nov 10/22:00:10.333 DEBUG2 : 		  ISigA2D::Term()
+nov 10/22:00:10.333 DEBUG2 : 		  ISigProbe::ReleaseInterface(sigA2D)
+nov 10/22:00:10.333 DEBUG2 : 		Core 0: sigEmu->LinkAttach(ISigProbe)
+nov 10/22:00:10.333 DEBUG2 : 		  ISigApi::ReleaseInstance(sigEmu)
+nov 10/22:00:10.345 DEBUG2 : 		  SigAPITerm()
+nov 10/22:00:10.345 DEBUG2 : 		<- TerminateHardware()
+nov 10/22:00:10.345 DEBUG2 : 		<- StopSession()
+nov 10/22:00:10.345 DEBUG2 : 		-> ~TdJetDriver()
+nov 10/22:00:10.345 DEBUG2 : 		-> TerminateHardware()
+nov 10/22:00:10.345 DEBUG2 : 		<- TerminateHardware()

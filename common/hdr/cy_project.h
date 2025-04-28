@@ -213,6 +213,11 @@ extern "C" {
 #if defined (tviic2d4m)
     #include "mw/eth_phy/cy_dp83848q_q1.h"
 #endif
+  
+#if defined (tviic2d6m)
+    #include "mw/lvds_hdmi/cy_lvds_hdmi.h"
+    #include "mw/eth_phy/cy_rtl8211f.h"
+#endif
 
 #if defined (tviic2d6m) || defined (tviic2d6mddr)
     #include "mw/eth_phy/cy_dp83867.h"

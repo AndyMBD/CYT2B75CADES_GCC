@@ -64,42 +64,45 @@ MEMMAP_INCLUDE_DIR              := $(TRESOS_DIR)/plugins/MemMap_TS_T40D13M0I0R0/
 PLATFORMS_TEMPLATES_INCLUDE_DIR := $(TRESOS_DIR)/plugins/Platforms_$(Platforms_VARIANT)/templates
 
 
-# General string modifications: Replace backshlashes with slashes, strip redundant whitespace, sort alphabetically
+# General string modifications: Replace backslashes with slashes, strip redundant whitespace, sort alphabetically
 # For CMAKE_SOURCE_FILES we remove non *.c/*.s files and single slash entries which might have caused by wrong Makefiles from plugins that used a backslash as line separator but with
 # subsequent whitespace which results in Make treating it as a regular string, e.g. refer $(Icu_OUTPUT_PATH)\src\Icu_PBCfg.c \ in Icu_TS_T40D13M1I0R0\make\Icu_rules.mak
 # For CMAKE_COMPILER_DEFS we remove plugins that dont produce code or are mandatory anyway
 
-CMAKE_XDM_CFG_FILES = $(sort $(strip $(subst \,/,$(foreach plugin,$(filter-out $(PLUGINS_FILTER_LIST_FOR_XDM_CFG_FILES),$(PLUGINS)), $(TRESOS_PROJECT_DIR)/config/$(plugin).xdm))))
-CMAKE_COMPILER_DEFS = $(sort $(foreach plugin,$(filter-out $(PLUGINS_FILTER_LIST_FOR_COMPILER_DEFS),$(PLUGINS)), CY_MCAL_MODULE_ENABLED_$(call uppercase,$(plugin))))
-CMAKE_ADDL_LIBS     = $(sort $(strip $(subst \,/,$(LIBRARIES_LINK_ONLY))))
-CMAKE_INCLUDE_DIRS  = $(sort $(MEMMAP_INCLUDE_DIR) $(PLATFORMS_TEMPLATES_INCLUDE_DIR) $(strip $(subst \,/,$(CC_INCLUDE_PATH_WITHOUT_TOOLCHAIN))))
-CMAKE_SOURCE_FILES  = $(sort $(strip $(filter %.c %.s,$(filter-out /,$(subst \,/,$(foreach lib,$(LIBRARIES_TO_BUILD),$($(lib)_FILES)))))))
+CMAKE_XDM_CFG_FILES := $(sort $(strip $(subst \,/,$(foreach plugin,$(filter-out $(PLUGINS_FILTER_LIST_FOR_XDM_CFG_FILES),$(PLUGINS)), $(TRESOS_PROJECT_DIR)/config/$(plugin).xdm))))
+CMAKE_COMPILER_DEFS := $(sort $(foreach plugin,$(filter-out $(PLUGINS_FILTER_LIST_FOR_COMPILER_DEFS),$(PLUGINS)), CY_MCAL_MODULE_ENABLED_$(call uppercase,$(plugin))))
+CMAKE_ADDL_LIBS     := $(sort $(strip $(subst \,/,$(LIBRARIES_LINK_ONLY))))
+CMAKE_INCLUDE_DIRS  := $(sort $(MEMMAP_INCLUDE_DIR) $(PLATFORMS_TEMPLATES_INCLUDE_DIR) $(strip $(subst \,/,$(CC_INCLUDE_PATH_WITHOUT_TOOLCHAIN))))
+CMAKE_SOURCE_FILES  := $(sort $(strip $(filter %.c %.s,$(filter-out /,$(subst \,/,$(foreach lib,$(LIBRARIES_TO_BUILD),$($(lib)_FILES)))))))
+# Filter out known issues in MCAL Makefiles:
+# - Gpt_PBCfg.c is part of Gpt_src_FILES and Gpt_PBcfg.h is part of Gpt_GEN_FILES (also notice the case difference of 'c'), the latter one is correct, the first one is removed
+CMAKE_SOURCE_FILES  := $(filter-out %/src/Gpt_PBCfg.c,$(CMAKE_SOURCE_FILES))
 
 # Only files that are generated
-CMAKE_SOURCE_FILES_GENERATED = $(sort $(strip $(filter %.c %.s,$(filter-out /,$(subst \,/,$(foreach plugin,$(PLUGINS),$($(plugin)_GEN_FILES)))))))
+CMAKE_SOURCE_FILES_GENERATED := $(sort $(strip $(filter %.c %.s,$(filter-out /,$(subst \,/,$(foreach plugin,$(PLUGINS),$($(plugin)_GEN_FILES)))))))
 # Only static files from the plugins folder
-CMAKE_SOURCE_FILES_STATIC = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/,$(file)),$(file))))
 
 # Split static source files into files of the individual plugins because echoing CMAKE_SOURCE_FILES later could otherwise exceed the Windows command line limit (8KB) if many plugins are enabled
-CMAKE_SOURCE_FILES_STATIC_ADC    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Adc,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_CAN    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Can,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_CORTST = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/CorTst,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_DIO    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Dio,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_FEE    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Fee,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_FLS    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Fls,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_FLSTST = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/FlsTst,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_GPT    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Gpt,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_ICU    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Icu,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_LIN    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Lin,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_MCU    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Mcu,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_OCU    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Ocu,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_PORT   = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Port,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_PWM    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Pwm,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_RAMTST = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/RamTst,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_SPI    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Spi,$(file)),$(file))))
-CMAKE_SOURCE_FILES_STATIC_WDG    = $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Wdg,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_ADC    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Adc,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_CAN    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Can,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_CORTST := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/CorTst,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_DIO    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Dio,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_FEE    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Fee,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_FLS    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Fls,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_FLSTST := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/FlsTst,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_GPT    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Gpt,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_ICU    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Icu,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_LIN    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Lin,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_MCU    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Mcu,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_OCU    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Ocu,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_PORT   := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Port,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_PWM    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Pwm,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_RAMTST := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/RamTst,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_SPI    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Spi,$(file)),$(file))))
+CMAKE_SOURCE_FILES_STATIC_WDG    := $(strip $(foreach file,$(CMAKE_SOURCE_FILES),$(if $(findstring /plugins/Wdg,$(file)),$(file))))
 # Fallback case for unknown modules at the time of writing this Makefile
-CMAKE_SOURCE_FILES_STATIC_UNKNOWN = $(strip $(filter-out $(CMAKE_SOURCE_FILES_STATIC_ADC) \
+CMAKE_SOURCE_FILES_STATIC_UNKNOWN := $(strip $(filter-out $(CMAKE_SOURCE_FILES_STATIC_ADC) \
 														 $(CMAKE_SOURCE_FILES_STATIC_CAN) \
 														 $(CMAKE_SOURCE_FILES_STATIC_CORTST) \
 														 $(CMAKE_SOURCE_FILES_STATIC_DIO) \
@@ -116,6 +119,14 @@ CMAKE_SOURCE_FILES_STATIC_UNKNOWN = $(strip $(filter-out $(CMAKE_SOURCE_FILES_ST
 														 $(CMAKE_SOURCE_FILES_STATIC_RAMTST) \
 														 $(CMAKE_SOURCE_FILES_STATIC_SPI) \
 														 $(CMAKE_SOURCE_FILES_STATIC_WDG),$(CMAKE_SOURCE_FILES_STATIC)))
+
+# Some miscellaneous "hacks":
+# - 1st statement adds files from ASM_FILES_TO_BUILD if they are not yet in CMAKE_SOURCE_FILES, e.g. Wdg does not add its generated assembly file to Wdg_GEN_FILES but to ASM_FILES_TO_BUILD instead.
+# - 2nd statement adds remaining files that are in our CMAKE_SOURCE_FILES input but not in the filtered CMAKE_SOURCE_FILES_STATIC or CMAKE_SOURCE_FILES_GENERATED,
+#   e.g. CorTst_Test_Irq.s is only part of CorTst_src_FILES 
+CMAKE_SOURCE_FILES_MISC := $(filter-out $(CMAKE_SOURCE_FILES),$(subst \,/,$(ASM_FILES_TO_BUILD)))
+CMAKE_SOURCE_FILES_MISC := $(CMAKE_SOURCE_FILES_MISC) $(filter-out $(CMAKE_SOURCE_FILES_STATIC),$(filter-out $(CMAKE_SOURCE_FILES_GENERATED),$(CMAKE_SOURCE_FILES)))
+CMAKE_SOURCE_FILES_MISC := $(sort $(strip $(CMAKE_SOURCE_FILES_MISC)))
 
 ##################################################################
 # Targets for SDL CMake integation
@@ -138,18 +149,6 @@ endif
 	@echo ****************************************
 
 
-# generate_cmake_file:
-# 	@echo:> $(GENERATED_CMAKE_FILE)
-# 	@echo set(MCAL_CFG_DEPENDENT_XDM_CFG_FILES $(CMAKE_XDM_CFG_FILES))  >> $(GENERATED_CMAKE_FILE)
-# 	@echo:>> $(GENERATED_CMAKE_FILE)
-# 	@echo set(MCAL_CFG_DEPENDENT_COMPILER_DEFS $(CMAKE_COMPILER_DEFS))  >> $(GENERATED_CMAKE_FILE)
-# 	@echo:>> $(GENERATED_CMAKE_FILE)
-# 	@echo set(MCAL_CFG_DEPENDENT_INCLUDE_DIRS  $(CMAKE_INCLUDE_DIRS))   >> $(GENERATED_CMAKE_FILE)
-# 	@echo:>> $(GENERATED_CMAKE_FILE)
-# 	@echo set(MCAL_CFG_DEPENDENT_ADDL_LIBS     $(CMAKE_ADDL_LIBS))      >> $(GENERATED_CMAKE_FILE)
-# 	@echo:>> $(GENERATED_CMAKE_FILE)
-# 	@echo set(MCAL_CFG_DEPENDENT_SOURCE_FILES  $(CMAKE_SOURCE_FILES_GENERATED) $(CMAKE_SOURCE_FILES_STATIC))   >> $(GENERATED_CMAKE_FILE)
-# 	@echo:>> $(GENERATED_CMAKE_FILE)
 
 generate_cmake_file:
 	@echo:> $(GENERATED_CMAKE_FILE)
@@ -182,6 +181,7 @@ generate_cmake_file:
 	$(if $(CMAKE_SOURCE_FILES_STATIC_SPI),    @echo     $(CMAKE_SOURCE_FILES_STATIC_SPI) >> $(GENERATED_CMAKE_FILE))
 	$(if $(CMAKE_SOURCE_FILES_STATIC_WDG),    @echo     $(CMAKE_SOURCE_FILES_STATIC_WDG) >> $(GENERATED_CMAKE_FILE))
 	$(if $(CMAKE_SOURCE_FILES_STATIC_UNKNOWN),@echo     $(CMAKE_SOURCE_FILES_STATIC_UNKNOWN) >> $(GENERATED_CMAKE_FILE))
+	$(if $(CMAKE_SOURCE_FILES_MISC),          @echo     $(CMAKE_SOURCE_FILES_MISC) >> $(GENERATED_CMAKE_FILE))
 	@echo ) >> $(GENERATED_CMAKE_FILE)
 	@echo:>> $(GENERATED_CMAKE_FILE)
 
@@ -207,6 +207,9 @@ print_cmake_vars:
 	@echo $(CMAKE_SOURCE_FILES_GENERATED)
 	@echo ################## All static files ######################################
 	@echo $(CMAKE_SOURCE_FILES_STATIC)
+	@echo ################## All misc files ########################################
+	@echo $(CMAKE_SOURCE_FILES_MISC)
 	@echo ##########################################################################
+	
 
 

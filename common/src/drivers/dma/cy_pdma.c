@@ -207,6 +207,13 @@ cy_en_pdma_status_t Cy_PDMA_Chnl_Init(volatile stc_DW_t *pstcPDMA, uint32_t chNu
 
     if ((pstcPDMA != NULL) && (chnlConfig != NULL))
     {
+        /* Write this channel's SRAM data to initialize ECC properly */
+        pstcPDMA->CH_STRUCT[chNum].unSRAM_DATA0.u32Register             =  0;
+        pstcPDMA->CH_STRUCT[chNum].unSRAM_DATA1.u32Register             =  0;
+
+        /* Initialize the X/Y indices (which are undefined after reset) */
+        pstcPDMA->CH_STRUCT[chNum].unCH_IDX.u32Register                 =  0;
+        
         /* Set current descriptor */
         pstcPDMA->CH_STRUCT[chNum].unCH_CURR_PTR.u32Register            =  (uint32_t)chnlConfig->PDMA_Descriptor;
 

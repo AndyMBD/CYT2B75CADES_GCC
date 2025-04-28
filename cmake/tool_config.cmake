@@ -17,52 +17,107 @@
 
 
 ######################################################################################
+# GreenHills
+######################################################################################
+if(DEFINED ENV{SDL_CMAKE_GHS_COMPILER_ROOT_DIR})
+    set(defaultGhsCompilerRootDir $ENV{SDL_CMAKE_GHS_COMPILER_ROOT_DIR})
+else()
+    set(defaultGhsCompilerRootDir "C:/ghs/comp_201714")
+endif()
+set(GHS_COMPILER_ROOT_DIR ${defaultGhsCompilerRootDir} CACHE PATH "Path to GHS compiler folder")
+
+
+if(DEFINED ENV{SDL_CMAKE_GHS_MULTI_ROOT_DIR})
+    set(defaultGhsMultiRootDir $ENV{SDL_CMAKE_GHS_MULTI_ROOT_DIR})
+else()
+    set(defaultGhsMultiRootDir "C:/ghs/multi_716d")
+endif()
+set(GHS_MULTI_ROOT_DIR ${defaultGhsMultiRootDir}  CACHE PATH "Path to GHS MULTI folder")
+
+
+######################################################################################
+# IAR Systems
+######################################################################################
+if(DEFINED ENV{SDL_CMAKE_IAR_COMPILER_ROOT_DIR})
+    set(defaultIarCompilerRootDir $ENV{SDL_CMAKE_IAR_COMPILER_ROOT_DIR})
+else()
+    set(defaultIarCompilerRootDir "C:/Program Files/IAR Systems/Embedded Workbench 9.1")
+endif()
+set(IAR_COMPILER_ROOT_DIR ${defaultIarCompilerRootDir} CACHE PATH "Path to IAR root folder used for compiling")
+
+
+if(DEFINED ENV{SDL_CMAKE_IAR_DEBUG_ROOT_DIR})
+    set(defaultIarDebugRootDir $ENV{SDL_CMAKE_IAR_DEBUG_ROOT_DIR})
+else()
+    set(defaultIarDebugRootDir "C:/Program Files (x86)/IAR Systems/Embedded Workbench 9.1")
+endif()
+set(IAR_DEBUG_ROOT_DIR ${defaultIarDebugRootDir} CACHE PATH "Path to IAR root folder used for debugging")
+
+
+# Specify the hardware adapter to be used for IAR debug targets (dbg_iar_*), "I-jet" and "CMSIS-DAP" are supported.
+# Please note that the setting here will be ignored if it has already been set in CMakePresets.json for the currently used preset.
+# Some special presets (e.g. tviibe1m-sk, tviic2d4m-lk) default to "CMSIS-DAP" because they target boards that come with onboard
+# CMSIS-DAP compatible debugger (KitProg3). Please change CMakePresets.json if those presets shall be debugged with I-jet.
+if(DEFINED ENV{SDL_CMAKE_IAR_DEBUG_HW_ADAPTER})
+    set(defaultIarDebugHwAdapter $ENV{SDL_CMAKE_IAR_DEBUG_HW_ADAPTER})
+else()
+    set(defaultIarDebugHwAdapter "I-jet")
+endif()
+set(IAR_DEBUG_HW_ADAPTER ${defaultIarDebugHwAdapter} CACHE STRING "IAR Debug HW Adapter ('I-jet' and 'CMSIS-DAP' are supported)")
+
+
+######################################################################################
+# Wind River
+######################################################################################
+if(DEFINED ENV{SDL_CMAKE_DIAB_COMPILER_ROOT_DIR})
+    set(defaultDiabCompilerRootDir $ENV{SDL_CMAKE_DIAB_COMPILER_ROOT_DIR})
+else()
+    set(defaultDiabCompilerRootDir "C:/WindRiver/compilers/diab-5.9.8.1")
+endif()
+set(DIAB_COMPILER_ROOT_DIR ${defaultDiabCompilerRootDir} CACHE PATH "Path to Windriver root folder used for compiling")
+
+
+######################################################################################
 # ARM GNU Toolchain (e.g. GCC for building, GDB for debugging with VS Code, ...)
 ######################################################################################
-set(ENV{SDL_CMAKE_GCC_COMPILER_ROOT_DIR} "C:/msys64/ucrt64")
 if(DEFINED ENV{SDL_CMAKE_GCC_COMPILER_ROOT_DIR})
-set(defaultGccCompilerRootDir $ENV{SDL_CMAKE_GCC_COMPILER_ROOT_DIR})
+    set(defaultGccCompilerRootDir $ENV{SDL_CMAKE_GCC_COMPILER_ROOT_DIR})
 else()
-set(defaultGccCompilerRootDir "C:/msys64/ucrt64")
+    set(defaultGccCompilerRootDir "C:/SW_Tool/arm-gnu-toolchain")
 endif()
 set(GCC_COMPILER_ROOT_DIR ${defaultGccCompilerRootDir} CACHE PATH "Path to GNU C Compiler root folder used for compiling/debugging")
 
-######################################################################################
-# Set Debug tool one from "jlink" "kitprog3" 
-######################################################################################
-set(DEBUGGER_INTERFACE "kitprog3")#"jlink" "kitprog3"
 
-if("${DEBUGGER_INTERFACE}" STREQUAL "jlink")
 ######################################################################################
-# JLINK
+# Lauterbach
 ######################################################################################
-# set(ENV{MTB_JLINK_DIR} "C:/SW_Tool/SEGGER/JLink_V796")
-set(JLINK_DIR "C:/SW_Tool/SEGGER/JLink")
-set(JLINK_INTERFACE "swd") #jtag cjtag
+if(DEFINED ENV{SDL_CMAKE_T32_EXE_DIR})
+    set(defaultT32ExeDir $ENV{SDL_CMAKE_T32_EXE_DIR})
+else()
+    set(defaultT32ExeDir "C:/T32/bin/windows64")
+endif()
+set(T32_EXE_DIR ${defaultT32ExeDir} CACHE PATH "Path to Lauterbach Trace32 folder with the 't32start', 't32marm' and other executables")
 
-else()#"kitprog3" and default setting
 
 ######################################################################################
 # Infineon Auto Flash Utility (AFU) / OpenOCD (OOCD)
 ######################################################################################
-set(ENV{SDL_CMAKE_AFU_OOCD_ROOT_DIR} "C:/SW_Tool/Cypress Auto Flash Utility 1.0")
 if(DEFINED ENV{SDL_CMAKE_AFU_OOCD_ROOT_DIR})
-set(defaultAfuOocdRootDir $ENV{SDL_CMAKE_AFU_OOCD_ROOT_DIR})
+    set(defaultAfuOocdRootDir $ENV{SDL_CMAKE_AFU_OOCD_ROOT_DIR})
 else()
-set(defaultAfuOocdRootDir "C:/SW_Tool/Cypress Auto Flash Utility 1.0")
+    set(defaultAfuOocdRootDir "C:/Program Files (x86)/Cypress/Cypress Auto Flash Utility 1.0")
 endif()
 set(AFU_OOCD_ROOT_DIR ${defaultAfuOocdRootDir} CACHE PATH "Path to Infineon Auto Flash Utility / OpenOCD")
 
 
 # Specify the hardware interface to be used with AFU/OOCD, typically 'kitprog3.cfg' for Cypress/Infineon MiniProg4/KitProg3 or 'jlink.cfg' for SEGGER J-Link
 if(DEFINED ENV{SDL_CMAKE_AFU_OOCD_INTERFACE_CFG_FILE})
-set(defaultAfuOocdInterfaceCfgFile $ENV{SDL_CMAKE_AFU_OOCD_INTERFACE_CFG_FILE})
+    set(defaultAfuOocdInterfaceCfgFile $ENV{SDL_CMAKE_AFU_OOCD_INTERFACE_CFG_FILE})
 else()
-set(defaultAfuOocdInterfaceCfgFile "kitprog3.cfg")
+    set(defaultAfuOocdInterfaceCfgFile "kitprog3.cfg")
 endif()
 set(AFU_OOCD_INTERFACE_CFG_FILE ${defaultAfuOocdInterfaceCfgFile} CACHE STRING "Infineon Auto Flash Utility / OpenOCD interface configuration file name (typically kitprog3.cfg or jlink.cfg)")
 
-endif() 
 
 ######################################################################################
 # MCAL / Tresos (only relevant if USE_MCAL is true)

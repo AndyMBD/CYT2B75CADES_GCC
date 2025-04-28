@@ -96,6 +96,8 @@ function(create_libmcalstubs)
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_FlsTst.h
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Gpt.c
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Gpt.h
+            ${PATH_COMMON_SRC_MCALSTUBS}/SchM_I2c.c
+            ${PATH_COMMON_SRC_MCALSTUBS}/SchM_I2c.h
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Icu.c
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Icu.h
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Lin.c
@@ -113,6 +115,8 @@ function(create_libmcalstubs)
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_RamTst.h
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Spi.c
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Spi.h
+            ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Uart.c
+            ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Uart.h
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Wdg_66_IA.c
             ${PATH_COMMON_SRC_MCALSTUBS}/SchM_Wdg_66_IA.h
             ${PATH_COMMON_SRC_MCALSTUBS}/WdgIf_Types.h

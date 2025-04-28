@@ -22,149 +22,39 @@
       "toolchainFile": "${sourceDir}/cmake/toolchains/toolchain-gcc.cmake"
     },
     {
+      "name": "tviibe1m",
+      "hidden": true,
+      "cacheVariables": {
+        "DIE": "tviibe1m",
+        "BOARD_REV": "CPU_BOARD_REVC"
+      }
+    },
+    {
       "name": "tviibe1m-sk",
       "hidden": true,
       "cacheVariables": {
         "DIE": "tviibe1m",
         "BOARD_REV": "STARTER_KIT_REV3",
-        "DEVICE": "CYT2B75CAE"
+        "DEVICE": "CYT2B75CAE",
+        "IAR_DEBUG_HW_ADAPTER": "CMSIS-DAP"
       }
     },
-    
+     
     {
-      "name": "led_blink",
-      "hidden": true,
-      "cacheVariables": {
-        "PROJECT_SRC_PATH": "led_blink"
-      }
+      "name": "tviibe1m-gcc",
+      "inherits": [ "default", "tviibe1m", "toolchain-gcc" ],
+      "displayName": "T2G-B-E-1M (GCC)",
+      "description": "Configure T2G-B-E-1M (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
     },
     {
-      "name": "tviibe1m-sk-gcc_led_blink",
-      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc", "led_blink" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) led_blink",
-      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' led_blink (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
-    },
-
-    {
-      "name": "adc_DieTempCalculation",
-      "hidden": true,
-      "cacheVariables": {
-        "PROJECT_SRC_PATH": "adc_DieTempCalculation"
-      }
-    },
-    {
-      "name": "tviibe1m-sk-gcc_adc_DieTempCalculation",
-      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","adc_DieTempCalculation" ],
-      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) adc_DieTempCalculation",
-      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' adc_DieTempCalculation (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
-    },
-    
-    {
-      "name": "adc_GroupConversion_SwTrigger",
-      "hidden": true,
-      "cacheVariables": {
-        "PROJECT_SRC_PATH": "adc_GroupConversion_SwTrigger"
-      }
-    },
-    {
-      "name": "tviibe1m-sk-gcc_adc_GroupConversion_SwTrigger",
-      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","adc_GroupConversion_SwTrigger" ],
-      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) adc_GroupConversion_SwTrigger",
-      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' adc_GroupConversion_SwTrigger (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
-    },
-    
-    {
-      "name": "adc_OneChannelConversion_SwTrigger",
-      "hidden": true,
-      "cacheVariables": {
-        "PROJECT_SRC_PATH": "adc_OneChannelConversion_SwTrigger"
-      }
-    },
-    {
-      "name": "tviibe1m-sk-gcc_adc_OneChannelConversion_SwTrigger",
-      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","adc_OneChannelConversion_SwTrigger" ],
-      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) adc_OneChannelConversion_SwTrigger",
-      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' adc_OneChannelConversion_SwTrigger (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
-    },
-    {
-      "name": "lin_slave",
-      "hidden": true,
-      "cacheVariables": {
-        "PROJECT_SRC_PATH": "lin_slave"
-      }
-    },
-    {
-      "name": "tviibe1m-sk-gcc_lin_slave",
-      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","lin_slave" ],
-      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) lin_slave",
-      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' lin_slave (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
-    },
-    {
-      "name": "gpio_button",
-      "hidden": true,
-      "cacheVariables": {
-        "PROJECT_SRC_PATH": "gpio_button"
-      }
-    },
-    {
-      "name": "tviibe1m-sk-gcc_gpio_button",
-      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","gpio_button" ],
-      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) gpio_button",
-      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' gpio_button (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
-    },
-    {
-      "name": "gpio_interrupt",
-      "hidden": true,
-      "cacheVariables": {
-        "PROJECT_SRC_PATH": "gpio_interrupt"
-      }
-    },
-    {
-      "name": "tviibe1m-sk-gcc_gpio_interrupt",
-      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","gpio_interrupt" ],
-      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) gpio_interrupt",
-      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' gpio_interrupt (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
-    },
-    {
-      "name": "gpio_led",
-      "hidden": true,
-      "cacheVariables": {
-        "PROJECT_SRC_PATH": "gpio_led"
-      }
-    },
-    {
-      "name": "tviibe1m-sk-gcc_gpio_led",
-      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","gpio_led" ],
-      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) gpio_led",
-      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' gpio_led (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
-    },
-    {
-      "name": "canfd_Classic_CAN",
-      "hidden": true,
-      "cacheVariables": {
-        "PROJECT_SRC_PATH": "canfd_Classic_CAN"
-      }
-    },
-    {
-      "name": "tviibe1m-sk-gcc_canfd_Classic_CAN",
-      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","canfd_Classic_CAN" ],
-      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) canfd_Classic_CAN",
-      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' canfd_Classic_CAN (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
-    },
-    {
-      "name": "canfd_UseAsCANFDMode",
-      "hidden": true,
-      "cacheVariables": {
-        "PROJECT_SRC_PATH": "canfd_UseAsCANFDMode"
-      }
-    },
-    {
-      "name": "tviibe1m-sk-gcc_canfd_UseAsCANFDMode",
-      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc","canfd_UseAsCANFDMode" ],
-      "displayName": "CYTVII-B-E-1M-SK_ADC (GCC) canfd_UseAsCANFDMode",
-      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' canfd_UseAsCANFDMode (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
+      "name": "tviibe1m-sk-gcc",
+      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC)",
+      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
     }
+    
   ],
+
 
   "buildPresets": [
     {
@@ -186,220 +76,74 @@
       "hidden": true,
       "configuration" : "RelWithDebInfo"
     },
+    {
+      "name": "cfg-minsizerel",
+      "hidden": true,
+      "configuration" : "MinSizeRel"
+    },
+	
+    
 
     {
-      "name": "tviibe1m-sk-gcc-debug_led_blink",
-      "configurePreset": "tviibe1m-sk-gcc_led_blink",
+      "name": "tviibe1m-gcc",
+      "configurePreset": "tviibe1m-gcc",
       "inherits": [ "default", "cfg-debug" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) led_blink 'Debug' Cfg",
+      "displayName": "T2G-B-E-1M (GCC), 'Debug' Cfg",
+      "description": "Build 'Debug' configuration of T2G-B-E-1M (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc",
+      "configurePreset": "tviibe1m-sk-gcc",
+      "inherits": [ "default", "cfg-debug" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC), 'Debug' Cfg",
       "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
     },
-    {
-      "name": "tviibe1m-sk-gcc-release_led_blink",
-      "configurePreset": "tviibe1m-sk-gcc_led_blink",
-      "inherits": [ "default", "cfg-release" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) led_blink 'Release' Cfg",
-      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-relwithdebinfo_led_blink",
-      "configurePreset": "tviibe1m-sk-gcc_led_blink",
-      "inherits": [ "default", "cfg-relwithdebinfo" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) led_blink 'Release w/ Debug Info' Cfg",
-      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
+    
 
     {
-      "name": "tviibe1m-sk-gcc-debug_adc_DieTempCalculation",
-      "configurePreset":  "tviibe1m-sk-gcc_adc_DieTempCalculation" ,
-      "inherits": [ "default", "cfg-debug" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_DieTempCalculation 'Debug' Cfg",
-      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+      "name": "tviibe1m-gcc-release",
+      "configurePreset": "tviibe1m-gcc",
+      "inherits": [ "default", "cfg-release" ],
+      "displayName": "T2G-B-E-1M (GCC), 'Release' Cfg",
+      "description": "Build 'Release' configuration of T2G-B-E-1M (latest rev, flash linking) using GCC compiler and Ninja"
     },
     {
-      "name": "tviibe1m-sk-gcc-release_adc_DieTempCalculation",
-      "configurePreset": "tviibe1m-sk-gcc_adc_DieTempCalculation",
+      "name": "tviibe1m-sk-gcc-release",
+      "configurePreset": "tviibe1m-sk-gcc",
       "inherits": [ "default", "cfg-release" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_DieTempCalculation 'Release' Cfg",
+      "displayName": "CYTVII-B-E-1M-SK (GCC), 'Release' Cfg",
       "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
     },
-    {
-      "name": "tviibe1m-sk-gcc-relwithdebinfo_adc_DieTempCalculation",
-      "configurePreset": "tviibe1m-sk-gcc_adc_DieTempCalculation",
-      "inherits": [ "default", "cfg-relwithdebinfo" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_DieTempCalculation 'Release w/ Debug Info' Cfg",
-      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
+    
 
     {
-      "name": "tviibe1m-sk-gcc-debug_adc_GroupConversion_SwTrigger",
-      "configurePreset":  "tviibe1m-sk-gcc_adc_GroupConversion_SwTrigger" ,
-      "inherits": [ "default", "cfg-debug" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_GroupConversion_SwTrigger 'Debug' Cfg",
-      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-release_adc_GroupConversion_SwTrigger",
-      "configurePreset": "tviibe1m-sk-gcc_adc_GroupConversion_SwTrigger",
-      "inherits": [ "default", "cfg-release" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_GroupConversion_SwTrigger 'Release' Cfg",
-      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-relwithdebinfo_adc_GroupConversion_SwTrigger",
-      "configurePreset": "tviibe1m-sk-gcc_adc_GroupConversion_SwTrigger",
+      "name": "tviibe1m-gcc-relwithdebinfo",
+      "configurePreset": "tviibe1m-gcc",
       "inherits": [ "default", "cfg-relwithdebinfo" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_GroupConversion_SwTrigger 'Release w/ Debug Info' Cfg",
+      "displayName": "T2G-B-E-1M (GCC), 'Release w/ Debug Info' Cfg",
+      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-relwithdebinfo",
+      "configurePreset": "tviibe1m-sk-gcc",
+      "inherits": [ "default", "cfg-relwithdebinfo" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC), 'Release w/ Debug Info' Cfg",
       "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
     },
-
+   
     {
-      "name": "tviibe1m-sk-gcc-debug_adc_OneChannelConversion_SwTrigger",
-      "configurePreset":  "tviibe1m-sk-gcc_adc_OneChannelConversion_SwTrigger" ,
-      "inherits": [ "default", "cfg-debug" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_OneChannelConversion_SwTrigger 'Debug' Cfg",
-      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+      "name": "tviibe1m-gcc-minsizerel",
+      "configurePreset": "tviibe1m-gcc",
+      "inherits": [ "default", "cfg-minsizerel" ],
+      "displayName": "T2G-B-E-1M (GCC), 'MinSizeRel' Cfg",
+      "description": "Build 'MinSizeRel' configuration of T2G-B-E-1M (latest rev, flash linking) using GCC compiler and Ninja"
     },
     {
-      "name": "tviibe1m-sk-gcc-release_adc_OneChannelConversion_SwTrigger",
-      "configurePreset": "tviibe1m-sk-gcc_adc_OneChannelConversion_SwTrigger",
-      "inherits": [ "default", "cfg-release" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_OneChannelConversion_SwTrigger 'Release' Cfg",
-      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-relwithdebinfo_adc_OneChannelConversion_SwTrigger",
-      "configurePreset": "tviibe1m-sk-gcc_adc_OneChannelConversion_SwTrigger",
-      "inherits": [ "default", "cfg-relwithdebinfo" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_OneChannelConversion_SwTrigger 'Release w/ Debug Info' Cfg",
-      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-debug_lin_slave",
-      "configurePreset":  "tviibe1m-sk-gcc_lin_slave" ,
-      "inherits": [ "default", "cfg-debug" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_lin_slave 'Debug' Cfg",
-      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-release_lin_slave",
-      "configurePreset": "tviibe1m-sk-gcc_lin_slave",
-      "inherits": [ "default", "cfg-release" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_lin_slave 'Release' Cfg",
-      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-relwithdebinfo_lin_slave",
-      "configurePreset": "tviibe1m-sk-gcc_lin_slave",
-      "inherits": [ "default", "cfg-relwithdebinfo" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_lin_slave 'Release w/ Debug Info' Cfg",
-      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-debug_gpio_button",
-      "configurePreset":  "tviibe1m-sk-gcc_gpio_button" ,
-      "inherits": [ "default", "cfg-debug" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_button 'Debug' Cfg",
-      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-release_gpio_button",
-      "configurePreset": "tviibe1m-sk-gcc_gpio_button",
-      "inherits": [ "default", "cfg-release" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_button 'Release' Cfg",
-      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-relwithdebinfo_gpio_button",
-      "configurePreset": "tviibe1m-sk-gcc_gpio_button",
-      "inherits": [ "default", "cfg-relwithdebinfo" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_button 'Release w/ Debug Info' Cfg",
-      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-debug_gpio_interrupt",
-      "configurePreset":  "tviibe1m-sk-gcc_gpio_interrupt" ,
-      "inherits": [ "default", "cfg-debug" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_interrupt 'Debug' Cfg",
-      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-release_gpio_interrupt",
-      "configurePreset": "tviibe1m-sk-gcc_gpio_interrupt",
-      "inherits": [ "default", "cfg-release" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_interrupt 'Release' Cfg",
-      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-relwithdebinfo_gpio_interrupt",
-      "configurePreset": "tviibe1m-sk-gcc_gpio_interrupt",
-      "inherits": [ "default", "cfg-relwithdebinfo" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_interrupt 'Release w/ Debug Info' Cfg",
-      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-debug_gpio_led",
-      "configurePreset":  "tviibe1m-sk-gcc_gpio_led" ,
-      "inherits": [ "default", "cfg-debug" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_led 'Debug' Cfg",
-      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-release_gpio_led",
-      "configurePreset": "tviibe1m-sk-gcc_gpio_led",
-      "inherits": [ "default", "cfg-release" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_led 'Release' Cfg",
-      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-relwithdebinfo_gpio_led",
-      "configurePreset": "tviibe1m-sk-gcc_gpio_led",
-      "inherits": [ "default", "cfg-relwithdebinfo" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_gpio_led 'Release w/ Debug Info' Cfg",
-      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-debug_canfd_Classic_CAN",
-      "configurePreset":  "tviibe1m-sk-gcc_canfd_Classic_CAN" ,
-      "inherits": [ "default", "cfg-debug" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_Classic_CAN 'Debug' Cfg",
-      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-release_canfd_Classic_CAN",
-      "configurePreset": "tviibe1m-sk-gcc_canfd_Classic_CAN",
-      "inherits": [ "default", "cfg-release" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_Classic_CAN 'Release' Cfg",
-      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-relwithdebinfo_canfd_Classic_CAN",
-      "configurePreset": "tviibe1m-sk-gcc_canfd_Classic_CAN",
-      "inherits": [ "default", "cfg-relwithdebinfo" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_Classic_CAN 'Release w/ Debug Info' Cfg",
-      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-debug_canfd_UseAsCANFDMode",
-      "configurePreset":  "tviibe1m-sk-gcc_canfd_UseAsCANFDMode" ,
-      "inherits": [ "default", "cfg-debug" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_UseAsCANFDMode 'Debug' Cfg",
-      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-release_canfd_UseAsCANFDMode",
-      "configurePreset": "tviibe1m-sk-gcc_canfd_UseAsCANFDMode",
-      "inherits": [ "default", "cfg-release" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_UseAsCANFDMode 'Release' Cfg",
-      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
-    },
-    {
-      "name": "tviibe1m-sk-gcc-relwithdebinfo_canfd_UseAsCANFDMode",
-      "configurePreset": "tviibe1m-sk-gcc_canfd_UseAsCANFDMode",
-      "inherits": [ "default", "cfg-relwithdebinfo" ],
-      "displayName": "CYTVII-B-E-1M-SK (GCC) adc_canfd_UseAsCANFDMode 'Release w/ Debug Info' Cfg",
-      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+      "name": "tviibe1m-sk-gcc-minsizerel",
+      "configurePreset": "tviibe1m-sk-gcc",
+      "inherits": [ "default", "cfg-minsizerel" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC), 'MinSizeRel' Cfg",
+      "description": "Build 'MinSizeRel' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
     }
-
   ]
 }

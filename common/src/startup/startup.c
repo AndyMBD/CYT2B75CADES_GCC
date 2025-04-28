@@ -289,6 +289,9 @@ static void CopyVectorTable(void)
  *****************************************************************************
  ** Prepares necessary settings to get SROM system calls working
  **
+ ** Refer TRM chapter "Nonvolatile Memory Programming" for constraints,
+ ** limitations and alternative implementations (System Call Manager).
+ **
  ** \return none
  *****************************************************************************/
 static void PrepareSystemCallInfrastructure(void)
@@ -306,6 +309,19 @@ static void PrepareSystemCallInfrastructure(void)
     NVIC_SetPriority(CPUIntIdx1_IRQn, 0);
     NVIC_EnableIRQ(CPUIntIdx0_IRQn);
     NVIC_EnableIRQ(CPUIntIdx1_IRQn);
+
+    // Change default priority of all other interrupts to the same value like IRQ0.
+    // This avoids the preemption of an ongoing system call by these sources if the user forgets to set the priority correctly.
+    // Preemption of a system call will restore the previous Protection Context (PC) and requires special handling (e.g. stack pointer)
+    NVIC_SetPriority(CPUIntIdx2_IRQn, 1);
+    NVIC_SetPriority(CPUIntIdx3_IRQn, 1);
+    NVIC_SetPriority(CPUIntIdx4_IRQn, 1);
+    NVIC_SetPriority(CPUIntIdx5_IRQn, 1);
+    NVIC_SetPriority(CPUIntIdx6_IRQn, 1);
+    NVIC_SetPriority(CPUIntIdx7_IRQn, 1);
+    NVIC_SetPriority(SVCall_IRQn, 1);
+    NVIC_SetPriority(PendSV_IRQn, 1);
+    NVIC_SetPriority(SysTick_IRQn, 1);
     
     // Only item left is clearing of PRIMASK:
     // This should be done by the application at a later point in time (e.g. in main())    

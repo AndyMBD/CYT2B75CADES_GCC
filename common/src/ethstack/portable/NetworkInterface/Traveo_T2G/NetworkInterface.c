@@ -514,7 +514,7 @@ BaseType_t xNetworkInterfaceInitialise( void )
     cy_stc_eth_filter_config_t dstMacFilter =
     {
         .typeFilter = CY_ETH_FILTER_TYPE_DESTINATION,
-        .filterAddr = (CEDI_MacAddress) OWN_MAC_ADDRESS,
+        .filterAddr = (CEDI_MacAddress) { OWN_MAC_ADDRESS },
         .ignoreBytes = 0x00,
     };
     Cy_EthIf_SetFilterAddress(ETH_REG_BASE, CY_ETH_FILTER_NUM_1, &dstMacFilter);

@@ -494,7 +494,7 @@ static void Cy_SysLib_SetWaitStates_LP(uint32_t clkHfMHz)
 *       and CY_SYSLIB_CORE_D_CACHE_MAINTENANCE == CY_SYSLIB_CORE_D_CACHE_MAINTENANCE_ON.
 *
 *******************************************************************************/
-void Cy_SysLib_InvalidateCoreDCacheByAddr(uint32_t *addr, int32_t dsize)
+void Cy_SysLib_InvalidateCoreDCacheByAddr(void *addr, int32_t dsize)
 {
 #if (CY_CPU_CORTEX_M7) && (CY_SYSLIB_CORE_D_CACHE_MAINTENANCE == CY_SYSLIB_CORE_D_CACHE_MAINTENANCE_ON)
     /** Call the ARM cache maintenance function. */
@@ -516,7 +516,7 @@ void Cy_SysLib_InvalidateCoreDCacheByAddr(uint32_t *addr, int32_t dsize)
 *       and CY_SYSLIB_CORE_D_CACHE_MAINTENANCE == CY_SYSLIB_CORE_D_CACHE_MAINTENANCE_ON.
 *
 *******************************************************************************/
-void Cy_SysLib_CleanCoreDCacheByAddr(uint32_t *addr, int32_t dsize)
+void Cy_SysLib_CleanCoreDCacheByAddr(void *addr, int32_t dsize)
 {
 #if (CY_CPU_CORTEX_M7) && (CY_SYSLIB_CORE_D_CACHE_MAINTENANCE == CY_SYSLIB_CORE_D_CACHE_MAINTENANCE_ON)
     /** Call the ARM cache maintenance function. */
@@ -539,7 +539,7 @@ void Cy_SysLib_CleanCoreDCacheByAddr(uint32_t *addr, int32_t dsize)
 *       and CY_SYSLIB_CORE_D_CACHE_MAINTENANCE == CY_SYSLIB_CORE_D_CACHE_MAINTENANCE_ON.
 *
 *******************************************************************************/
-void Cy_SysLib_CleanInvalidateCoreDCacheByAddr(uint32_t *addr, int32_t dsize)
+void Cy_SysLib_CleanInvalidateCoreDCacheByAddr(void *addr, int32_t dsize)
 {
 #if (CY_CPU_CORTEX_M7) && (CY_SYSLIB_CORE_D_CACHE_MAINTENANCE == CY_SYSLIB_CORE_D_CACHE_MAINTENANCE_ON)
     /** Call the ARM cache maintenance function. */

@@ -117,13 +117,21 @@
   #define __COMPILER_BARRIER() __ASM volatile("":::"memory")
 #endif
 
+#ifndef   __NO_INLINE
+  #if __ICCARM_V8
+    #define __NO_INLINE __attribute__((noinline))
+  #else
+    #define __NO_INLINE _Pragma("inline=never")
+  #endif
+#endif
+
 #ifndef __INLINE
   #define __INLINE inline
 #endif
 
 #ifndef   __NO_RETURN
   #if __ICCARM_V8
-    #define __NO_RETURN __attribute__((__noreturn__))
+    #define __NO_RETURN __attribute__((noreturn))
   #else
     #define __NO_RETURN _Pragma("object_attribute=__noreturn")
   #endif
@@ -236,6 +244,10 @@ __packed struct  __iar_u32 { uint32_t v; };
   #else
     #define __USED _Pragma("__root")
   #endif
+#endif
+
+#ifndef   __EXT_VISIBLE
+  #define __EXT_VISIBLE  // not supported/required by IAR
 #endif
 
 #undef __WEAK                           /* undo the definition from DLib_Defaults.h */

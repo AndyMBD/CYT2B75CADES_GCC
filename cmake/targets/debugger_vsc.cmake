@@ -19,212 +19,113 @@ function(create_vsc_launch_json)
 
     # Check presence of mandatory arguments
     if(NOT DEFINED ARG_EXE_NAME_CM0PLUS)
-    message(FATAL_ERROR "EXE_NAME_CM0PLUS is not specified and is required for debugger targets at the moment!")
+        message(FATAL_ERROR "EXE_NAME_CM0PLUS is not specified and is required for debugger targets at the moment!")
     endif()
-    
-    
+
+
     set(LAUNCH_JSON_CONTENT) # explicit init, this string will be used in the end to configure the launch.json template file
-    set(SETTINGS_JSON_CONTENT) # explicit init, this string will be used in the end to configure the launch.json template file
-    
-    if("${DEBUGGER_INTERFACE}" STREQUAL "jlink")
-# Jlink launch.json setting template
-set(jsonMainCpuTemplateString
+
+
+    ######################################################################################
+    # Template strings for later processing by 'string(CONFIGURE ...)' function
+    ######################################################################################
+
+    # The templates below contain "static" variables and "dynamic" variables which are both enclosed by @@ characters
+    # to avoid conflicts with JSON syntax.
+    # Dynamic variable names start with TEMPLATE_VAR_... and will be updated by the later code based on the currently
+    # processed debug configuration. Static variables originate from various places (e.g. tool configuration) and are
+    # identical for each debug configuration.
+
+
+    set(jsonMainCpuTemplateString
 [==[
-{
-    "name": "@TEMPLATE_VAR_MAIN_CFG_NAME@ (jlink)",
-    "type": "cortex-debug",
-    "cwd": "${workspaceFolder}",
-    "armToolchainPath": "@GCC_COMPILER_ROOT_DIR@/bin",
-    "svdFile": "${workspaceFolder}/misc/tools/svd/@DIE@/@MCU_REV_STRING@/@SERIES@.svd",
-    "servertype": "jlink",
-    "serverpath": "@JLINK_DIR@/JLinkGDBServerCL.exe",
-    "device": "@DEVICE@",
-    "interface": "@JLINK_INTERFACE@",
-    "serverArgs": ["-speed", "8000"],
-    "showDevDebugOutput": "raw",
-    //Default start from M0
-    "jlinkscript":"@CMAKE_SOURCE_DIR@/@DIE@/tools/jlink/TRAVEO2_1M_@ARG_EXE_NAME_CM0PLUS@.JLinkScript",
-    "numberOfProcessors": @TEMPLATE_VAR_NR_OF_CPUS@,
-    "targetProcessor": 0,            
-    "executable": "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
-    "request": "launch",
-    "loadFiles": [
-    "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
-    @TEMPLATE_VAR_ADDL_LOAD_FILES@
-    ],
-    "runToEntryPoint": "main",
-    "liveWatch": { "enabled": true, "samplesPerSecond": 4 },
-    @TEMPLATE_VAR_CHAINED_CFG@            
-},
+        {
+            "name": "@TEMPLATE_VAR_MAIN_CFG_NAME@ (OpenOCD)",
+            "type": "cortex-debug",
+            "cwd": "${workspaceFolder}",
+            "armToolchainPath": "@GCC_COMPILER_ROOT_DIR@/bin",
+            "svdFile": "${workspaceFolder}/misc/tools/svd/@DIE@/@MCU_REV_STRING@/@SERIES@.svd",
+            "servertype": "openocd",
+            "serverpath": "@AFU_OOCD_ROOT_DIR@/bin/openocd.exe",
+            "searchDir": [
+                "@AFU_OOCD_ROOT_DIR@/scripts"
+            ],
+            "configFiles": [
+                "interface/@AFU_OOCD_INTERFACE_CFG_FILE@",
+                "target/@AFU_OOCD_TARGET_CFG_FILE@",
+            ],
+            "openOCDPreConfigLaunchCommands": [
+                "set ENABLE_ACQUIRE 0" // Ensure regular boot flow (prevent entering of "TEST_MODE")
+            ],
+            "numberOfProcessors": @TEMPLATE_VAR_NR_OF_CPUS@,
+            "targetProcessor": 0,            
+            "executable": "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
+            "request": "launch",
+            "loadFiles": [
+                "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
+@TEMPLATE_VAR_ADDL_LOAD_FILES@
+            ],
+            "runToEntryPoint": "main",
+@TEMPLATE_VAR_CHAINED_CFG@            
+        },
 ]==])
 
 
-set(jsonChainedConfigurationsTemplateString
+    set(jsonChainedConfigurationsTemplateString
 [==[
-"chainedConfigurations": {
-    "enabled": true,
-    "waitOnEvent": "postInit",
-    "detached": true, // jlink requires true
-    "lifecycleManagedByParent": true,
-    "launches": [
-    @TEMPLATE_VAR_LAUNCH_ENTRIES@
-    ]
-},
+            "chainedConfigurations": {
+                "enabled": true,
+                "waitOnEvent": "postInit",
+                "detached": false, // OpenOCD requires false
+                "lifecycleManagedByParent": true,
+                "launches": [
+@TEMPLATE_VAR_LAUNCH_ENTRIES@
+                ]
+            },
 ]==])
 
-set(jsonAppCpuTemplateString
+    set(jsonAppCpuTemplateString
 [==[
-{
-    "name": "@TEMPLATE_VAR_SUB_CFG_NAME@ (jlink)",
-    "type": "cortex-debug",
-    "presentation": {
-        "hidden": true,
-    },
-    "cwd": "${workspaceFolder}",
-    "servertype": "jlink",
-    "targetProcessor": @TEMPLATE_VAR_TARGET_CPU_INDEX@,            
-    "jlinkscript":"@CMAKE_SOURCE_DIR@/@DIE@/tools/jlink/TRAVEO2_1M_@ARG_EXE_NAME_CM4@.JLinkScript",
-    "executable": "${command:cmake.getLaunchTargetDirectory}/@TEMPLATE_VAR_SUB_CFG_EXE_NAME@@CMAKE_EXECUTABLE_SUFFIX@",
-    "request": "launch", // 'attach' does not work properly, therefore use 'launch' and override the launch commands 
-    "overrideLaunchCommands": [],
-    "runToEntryPoint": "main",
-    "liveWatch": { "enabled": true, "samplesPerSecond": 4 },
-    "device": "@DEVICE@",
-    "showDevDebugOutput": "none",
-},
+        {
+            "name": "@TEMPLATE_VAR_SUB_CFG_NAME@ (OpenOCD)",
+            "type": "cortex-debug",
+            "presentation": {
+                "hidden": true,
+            },
+            "cwd": "${workspaceFolder}",
+            "servertype": "openocd",
+            "targetProcessor": @TEMPLATE_VAR_TARGET_CPU_INDEX@,            
+            "executable": "${command:cmake.getLaunchTargetDirectory}/@TEMPLATE_VAR_SUB_CFG_EXE_NAME@@CMAKE_EXECUTABLE_SUFFIX@",
+            "request": "launch", // 'attach' does not work properly, therefore use 'launch' and override the launch commands 
+            "overrideLaunchCommands": [],
+            "runToEntryPoint": "main",
+        },
 ]==])
 
 
-set(jsonLoadFileEntryTemplateString
+    set(jsonLoadFileEntryTemplateString
 [==[
-"${command:cmake.getLaunchTargetDirectory}/@TEMPLATE_VAR_LOAD_FILE_EXE_NAME@@CMAKE_EXECUTABLE_SUFFIX@",
+                "${command:cmake.getLaunchTargetDirectory}/@TEMPLATE_VAR_LOAD_FILE_EXE_NAME@@CMAKE_EXECUTABLE_SUFFIX@",
 ]==])
 
-set(jsonLaunchEntryTemplateString
+    set(jsonLaunchEntryTemplateString
 [==[
-{
-    "name": "@TEMPLATE_VAR_LAUNCH_CFG_NAME@ (jlink)",
-},
-]==])
-    
-    else() # openocd launch.json setting template
-######################################################################################
-# Template strings for later processing by 'string(CONFIGURE ...)' function
-######################################################################################
-                
-# The templates below contain "static" variables and "dynamic" variables which are both enclosed by @@ characters
-# to avoid conflicts with JSON syntax.
-# Dynamic variable names start with TEMPLATE_VAR_... and will be updated by the later code based on the currently
-# processed debug configuration. Static variables originate from various places (e.g. tool configuration) and are
-# identical for each debug configuration.
-
-
-set(jsonMainCpuTemplateString
-[==[
-{
-        "name": "@TEMPLATE_VAR_MAIN_CFG_NAME@ (OpenOCD)",
-        "type": "cortex-debug",
-        "cwd": "${workspaceFolder}",
-        "armToolchainPath": "@GCC_COMPILER_ROOT_DIR@/bin",
-        "svdFile": "${workspaceFolder}/misc/tools/svd/@DIE@/@MCU_REV_STRING@/@SERIES@.svd",
-        "servertype": "openocd",
-        "serverpath": "@AFU_OOCD_ROOT_DIR@/bin/openocd.exe",
-        "searchDir": [
-        "@AFU_OOCD_ROOT_DIR@/scripts"
-        ],
-        "configFiles": [
-        "interface/@AFU_OOCD_INTERFACE_CFG_FILE@",
-        "target/@AFU_OOCD_TARGET_CFG_FILE@",
-        ],
-        "openOCDPreConfigLaunchCommands": [
-        "set ENABLE_ACQUIRE 0" // Ensure regular boot flow (prevent entering of "TEST_MODE")
-        ],
-        "numberOfProcessors": @TEMPLATE_VAR_NR_OF_CPUS@,
-        "targetProcessor": 0,            
-        "executable": "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
-        "request": "launch",
-        "loadFiles": [
-        "${command:cmake.getLaunchTargetDirectory}/@ARG_EXE_NAME_CM0PLUS@@CMAKE_EXECUTABLE_SUFFIX@",
-        @TEMPLATE_VAR_ADDL_LOAD_FILES@
-        ],
-        "runToEntryPoint": "main",
-        //liveWatch
-        "liveWatch": { "enabled": true, "samplesPerSecond": 4 },
-        @TEMPLATE_VAR_CHAINED_CFG@            
-    },
+                    {
+                        "name": "@TEMPLATE_VAR_LAUNCH_CFG_NAME@ (OpenOCD)",
+                    },
 ]==])
 
 
-set(jsonChainedConfigurationsTemplateString
-[==[
-"chainedConfigurations": {
-        "enabled": true,
-        "waitOnEvent": "postInit",
-        "detached": false, // OpenOCD requires false
-        "lifecycleManagedByParent": true,
-        "launches": [
-        @TEMPLATE_VAR_LAUNCH_ENTRIES@
-            ]
-},
-]==])
-        
-set(jsonAppCpuTemplateString
-[==[
-    {
-    "name": "@TEMPLATE_VAR_SUB_CFG_NAME@ (OpenOCD)",
-    "type": "cortex-debug",
-    "presentation": {
-        "hidden": true,
-    },
-    "cwd": "${workspaceFolder}",
-    "servertype": "openocd",
-    "targetProcessor": @TEMPLATE_VAR_TARGET_CPU_INDEX@,            
-    "executable": "${command:cmake.getLaunchTargetDirectory}/@TEMPLATE_VAR_SUB_CFG_EXE_NAME@@CMAKE_EXECUTABLE_SUFFIX@",
-    "request": "launch", // 'attach' does not work properly, therefore use 'launch' and override the launch commands 
-    "overrideLaunchCommands": [],
-    "runToEntryPoint": "main",
-    },
-]==])
+    ######################################################################################
+    # Misc
+    ######################################################################################
 
-
-set(jsonLoadFileEntryTemplateString
-[==[
-            "${command:cmake.getLaunchTargetDirectory}/@TEMPLATE_VAR_LOAD_FILE_EXE_NAME@@CMAKE_EXECUTABLE_SUFFIX@",
-]==])
-
-set(jsonLaunchEntryTemplateString
-[==[
-{
-    "name": "@TEMPLATE_VAR_LAUNCH_CFG_NAME@ (OpenOCD)",
-},
-]==])
-endif()
-
-set(jsonSettingsTemplateString
-[==[
-{
-    "files.exclude": {
-        "**/.git": true,
-        
-    },
-    "search.exclude": {
-        "@CMAKE_SOURCE_DIR@/common/": false,
-        "@CMAKE_SOURCE_DIR@/@DIE@/hdr/": false,
-        "@PATH_DIE_SRC@/": true,
-    }
-}
-]==])
-
-######################################################################################
-# Misc
-######################################################################################
-
-# Determinate derivate specific total amount of CPU cores
-if(HAVE_CM7_3)
-set(TEMPLATE_VAR_NR_OF_CPUS 5)
-elseif(HAVE_CM7_1)
-set(TEMPLATE_VAR_NR_OF_CPUS 3)
-else()
+    # Determinate derivate specific total amount of CPU cores
+    if(HAVE_CM7_3)
+        set(TEMPLATE_VAR_NR_OF_CPUS 5)
+    elseif(HAVE_CM7_1)
+        set(TEMPLATE_VAR_NR_OF_CPUS 3)
+    else()
         set(TEMPLATE_VAR_NR_OF_CPUS 2)
     endif()
 
@@ -375,23 +276,6 @@ else()
     message(STATUS "Creating Visual Studio Code debugger launch configuration")
     message(STATUS "  Writing file ${configureFileDst}")
     configure_file(${configureFileSrc} ${configureFileDst} @ONLY)
-    
-    ######################################################################################
-    # Create actual settings.json file
-    ######################################################################################
-    # Now that all relevant template vars have there right value, the current main configuration can be added to the var
-    # that represents the final file launch.json content.
-
-    # string(CONFIGURE ${jsonSettingsTemplateString} tempString @ONLY)
-    # string(APPEND SETTINGS_JSON_CONTENT ${tempString})
-
-    # set(configureFileName settings.json)
-    # set(configureFileSrc  ${CMAKE_SOURCE_DIR}/cmake/template_files/dbg_vsc/${configureFileName})
-    # set(configureFileDst  ${CMAKE_SOURCE_DIR}/.vscode/${configureFileName})    
-
-    # message(STATUS "Creating Visual Studio Code debugger launch configuration")
-    # message(STATUS "  Writing file ${configureFileDst}")
-    # configure_file(${configureFileSrc} ${configureFileDst} @ONLY)
 
 endfunction()
 

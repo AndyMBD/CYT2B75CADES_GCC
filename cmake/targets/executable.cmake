@@ -148,9 +148,6 @@ function(create_executable)
             COMMAND     ${TOOLCHAIN_ELF_CONVERTER}
             ARGS        ${elfConverterArgs}
             BYPRODUCTS  ${CMAKE_BINARY_DIR}/$<CONFIG>/${ARG_EXE_NAME}${CMAKE_EXECUTABLE_SUFFIX}.srec  # Does not (yet?) support Target-dependent generator expressions
-            COMMAND     echo "-----------${ARG_EXE_NAME}${CMAKE_EXECUTABLE_SUFFIX}--------------------"
-            COMMAND     ${TOOLCHAIN_EXE_INFO} ${CMAKE_BINARY_DIR}/$<CONFIG>/${ARG_EXE_NAME}${CMAKE_EXECUTABLE_SUFFIX}
-
         )
 
     endif()

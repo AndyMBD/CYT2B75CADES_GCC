@@ -1,8 +1,12 @@
 #include "cy_srom.h"
 
-static un_srom_api_scrach_sram_t g_scratch __ALIGNED(4); // This must locate on SRAM.
-static un_srom_api_args_2_t      g_scratch2 __ALIGNED(4); // This must locate on SRAM.
+static un_srom_api_scrach_sram_t g_scratch __ALIGNED(32); // This must locate on SRAM and align with cache line size (in case device has cache)
+static un_srom_api_args_2_t      g_scratch2 __ALIGNED(32); // This must locate on SRAM and align with cache line size (in case device has cache)
 static cy_srom_handler gp_srom_resp_handler = NULL;
+
+// Dummy var that might be needed as workaround
+static uint32_t g_dummy = 0ul;
+
 
 static void Cy_Srom_ISR_ResponseIPC(void);
 
@@ -51,12 +55,14 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi(const un_srom_api_args_t* params, un_
     // Make Bit[0] to 0, it indicates all arguments are passed through scratch address
     g_scratch.u32[0] = g_scratch.u32[0] & 0xFFFFFFFEul;
 
+    // Clean scratch RAM in case current core has a D-Cache, so that CM0+ SROM handler reads correct data
+    Cy_SysLib_CleanCoreDCacheByAddr(&g_scratch, sizeof(g_scratch));
+
     // Send a message by IPC
     // Workaround: Because some SROM APIs read memory area pointed by IPC_DATA1 even if
     // IPC_DATA0[0] == 0 (indicating the API arguments are passed through SRAM scratch),
     // it's safe to set dummy readable address to the IPC_DATA1.
-    static uint32_t dummy = 0ul;
-    if (Cy_IPC_Drv_SendMsgWord_2(syscall_ipc_struct, CY_SROM_DR_IPC_NOTIFY_STRUCT, (uint32_t)&g_scratch, (uint32_t)&dummy) != CY_IPC_DRV_SUCCESS)
+    if (Cy_IPC_Drv_SendMsgWord_2(syscall_ipc_struct, CY_SROM_DR_IPC_NOTIFY_STRUCT, (uint32_t)&g_scratch, (uint32_t)&g_dummy) != CY_IPC_DRV_SUCCESS)
     {
         // The IPC structure is already locked by another process
         return CY_SROM_DR_IPC_BUSY;
@@ -71,6 +77,8 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi(const un_srom_api_args_t* params, un_
             // Copy the contents to the memory pointed by input pointer
             if(resp != NULL)
             {
+                // Invalidate scratch RAM in case current core has a D-Cache, so that updates from CM0+ SROM handler are read correctly
+                Cy_SysLib_InvalidateCoreDCacheByAddr(&g_scratch, sizeof(g_scratch));
                 *resp = g_scratch.resps;
             }
             break;
@@ -141,12 +149,14 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi_NonBlock(const un_srom_api_args_t* pa
     // Make Bit[0] to 0, it indicates all arguments are passed through scratch address
     g_scratch.u32[0] = g_scratch.u32[0] & 0xFFFFFFFEul;
 
+    // Clean scratch RAM in case current core has a D-Cache, so that CM0+ SROM handler reads correct data
+    Cy_SysLib_CleanCoreDCacheByAddr(&g_scratch, sizeof(g_scratch));
+
     // Send a message by IPC
     // Workaround: Because some SROM APIs read memory area pointed by IPC_DATA1 even if
     // IPC_DATA0[0] == 0 (indicating the API arguments are passed through SRAM scratch),
     // it's safe to set dummy readable address to the IPC_DATA1.
-    static uint32_t dummy = 0ul;
-    if (Cy_IPC_Drv_SendMsgWord_2(syscall_ipc_struct, CY_SROM_DR_IPC_NOTIFY_STRUCT, (uint32_t)&g_scratch, (uint32_t)&dummy) != CY_IPC_DRV_SUCCESS)
+    if (Cy_IPC_Drv_SendMsgWord_2(syscall_ipc_struct, CY_SROM_DR_IPC_NOTIFY_STRUCT, (uint32_t)&g_scratch, (uint32_t)&g_dummy) != CY_IPC_DRV_SUCCESS)
     {
         // The IPC structure is already locked by another process
         return CY_SROM_DR_IPC_BUSY;
@@ -198,6 +208,10 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi_2(const un_srom_api_args_t* params, c
     g_scratch.u32[0]  = g_scratch.u32[0]  & 0xFFFFFFFEul;
     g_scratch2.arg[0] = g_scratch2.arg[0] & 0xFFFFFFFEul;
 
+    // Clean scratch RAM in case current core has a D-Cache, so that CM0+ SROM handler reads correct data
+    Cy_SysLib_CleanCoreDCacheByAddr(&g_scratch,  sizeof(g_scratch));
+    Cy_SysLib_CleanCoreDCacheByAddr(&g_scratch2, sizeof(g_scratch2));
+
     // Send message by IPC
     if (Cy_IPC_Drv_SendMsgWord_2(syscall_ipc_struct, CY_SROM_DR_IPC_NOTIFY_STRUCT, (uint32_t)&g_scratch, (uint32_t)&g_scratch2) != CY_IPC_DRV_SUCCESS)
     {
@@ -213,7 +227,9 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi_2(const un_srom_api_args_t* params, c
             // The result of SROM API calling is in the SRAM reserved.
             // Copy the contents to the memory pointed by input pointer
             if(resp != NULL)
-            {
+            {                
+                // Invalidate scratch RAM in case current core has a D-Cache, so that updates from CM0+ SROM handler are read correctly
+                Cy_SysLib_InvalidateCoreDCacheByAddr(&g_scratch, sizeof(g_scratch));
                 *resp = g_scratch.resps;
             }
             break;
@@ -282,6 +298,10 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi_NonBlock_2(const un_srom_api_args_t* 
     g_scratch.u32[0]  = g_scratch.u32[0]  & 0xFFFFFFFEul;
     g_scratch2.arg[0] = g_scratch2.arg[0] & 0xFFFFFFFEul;
 
+    // Clean scratch RAM in case current core has a D-Cache, so that CM0+ SROM handler reads correct data
+    Cy_SysLib_CleanCoreDCacheByAddr(&g_scratch,  sizeof(g_scratch));
+    Cy_SysLib_CleanCoreDCacheByAddr(&g_scratch2, sizeof(g_scratch2));
+
     // Send message by IPC
     if (Cy_IPC_Drv_SendMsgWord_2(syscall_ipc_struct, CY_SROM_DR_IPC_NOTIFY_STRUCT, (uint32_t)&g_scratch, (uint32_t)&g_scratch2) != CY_IPC_DRV_SUCCESS)
     {
@@ -307,6 +327,9 @@ cy_en_srom_driver_status_t Cy_Srom_CallApi_NonBlock_2(const un_srom_api_args_t* 
 *******************************************************************************/
 cy_en_srom_response_type_t Cy_Srom_GetResponseType(void)
 {
+    // Invalidate scratch RAM in case current core has a D-Cache, so that updates from CM0+ SROM handler are read correctly
+    Cy_SysLib_InvalidateCoreDCacheByAddr(&g_scratch, sizeof(g_scratch));
+
     if((g_scratch.u32[0] & 0xF0000000ul) == 0xA0000000ul)
     {
         return CY_SROM_RESPONSE_SUCCESS;

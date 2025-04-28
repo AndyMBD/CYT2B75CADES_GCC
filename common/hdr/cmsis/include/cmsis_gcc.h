@@ -40,6 +40,9 @@
 #ifndef   __ASM
   #define __ASM                                  __asm
 #endif
+#ifndef   __NO_INLINE
+  #define __NO_INLINE                            __attribute__((noinline))
+#endif
 #ifndef   __INLINE
   #define __INLINE                               inline
 #endif
@@ -54,6 +57,9 @@
 #endif
 #ifndef   __USED
   #define __USED                                 __attribute__((used))
+#endif
+#ifndef   __EXT_VISIBLE
+  #define __EXT_VISIBLE                          __attribute__((externally_visible))
 #endif
 #ifndef   __WEAK
   #define __WEAK                                 __attribute__((weak))

@@ -35,6 +35,9 @@ include(${CMAKE_SOURCE_DIR}/cmake/tool_config.cmake)
 # Note: Toolchain files are only processed after project() call, no access to vars that are defined in them is possible before that point
 project(T2G-SDL-CMake-${DIE}  DESCRIPTION "CMake variant of T2G SDL"  LANGUAGES C ASM)
 
+# Add "MinSizeRel" build configuration to default configurations
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo;MinSizeRel" CACHE STRING "" FORCE)
+
 # Now after toolchain processing explicitly set this CMake internal variable because its default value varies between the toolchains
 # (due to CMake internal hardcoding, e.g. IAR -> ".elf", others -> "") and would not allow a generic handling in our CMake scripts
 set(CMAKE_EXECUTABLE_SUFFIX .elf)
@@ -60,9 +63,9 @@ endif()
 set(PATH_COMMON_SRC                  ${CMAKE_SOURCE_DIR}/common/src)
 set(PATH_COMMON_SRC_DRIVERS          ${CMAKE_SOURCE_DIR}/common/src/drivers)
 set(PATH_COMMON_SRC_MW               ${CMAKE_SOURCE_DIR}/common/src/mw)
-set(PATH_DIE_SRC                     ${CMAKE_SOURCE_DIR}/${DIE}/${PROJECT_SRC_PATH})
-set(PATH_DIE_SRC_DRIVERS             ${CMAKE_SOURCE_DIR}/${DIE}/${PROJECT_SRC_PATH}/drivers)
-set(PATH_DIE_SRC_MW                  ${CMAKE_SOURCE_DIR}/${DIE}/${PROJECT_SRC_PATH}/mw)
+set(PATH_DIE_SRC                     ${CMAKE_SOURCE_DIR}/${DIE}/src)
+set(PATH_DIE_SRC_DRIVERS             ${CMAKE_SOURCE_DIR}/${DIE}/src/drivers)
+set(PATH_DIE_SRC_MW                  ${CMAKE_SOURCE_DIR}/${DIE}/src/mw)
 if(USE_RTOS)
     set(PATH_COMMON_SRC_RTOS         ${CMAKE_SOURCE_DIR}/common/src/rtos)
 endif()
@@ -79,11 +82,11 @@ set(INCLUDE_DIRS
     ${DIE}/hdr/${MCU_REV_STRING}
     ${DIE}/hdr/${MCU_REV_STRING}/ip
     ${DIE}/hdr/${MCU_REV_STRING}/mcureg
-    ${DIE}/${PROJECT_SRC_PATH}
-    ${DIE}/${PROJECT_SRC_PATH}/drivers
-    ${DIE}/${PROJECT_SRC_PATH}/mw
-    ${DIE}/${PROJECT_SRC_PATH}/interrupts/${MCU_REV_STRING}
-    ${DIE}/${PROJECT_SRC_PATH}/system/${MCU_REV_STRING}
+    ${DIE}/src
+    ${DIE}/src/drivers
+    ${DIE}/src/mw
+    ${DIE}/src/interrupts/${MCU_REV_STRING}
+    ${DIE}/src/system/${MCU_REV_STRING}
     common/hdr
     common/hdr/cmsis/include
     common/src/drivers
@@ -256,6 +259,36 @@ endif()
 # Debugging (add custom targets for invoking a debugger, create VS Code files, ...)
 ###################################################################################################
 
+include(${CMAKE_SOURCE_DIR}/cmake/targets/debugger_ghs.cmake)
+create_ghs_debugger_targets(
+    EXE_NAME_CM0PLUS ${EXE_NAME_CM0PLUS}
+    EXE_NAME_CM4     ${EXE_NAME_CM4}
+    EXE_NAME_CM7_0   ${EXE_NAME_CM7_0}
+    EXE_NAME_CM7_1   ${EXE_NAME_CM7_1}
+    EXE_NAME_CM7_2   ${EXE_NAME_CM7_2}
+    EXE_NAME_CM7_3   ${EXE_NAME_CM7_3}
+)
+
+include(${CMAKE_SOURCE_DIR}/cmake/targets/debugger_iar.cmake)
+create_iar_debugger_targets(
+    EXE_NAME_CM0PLUS ${EXE_NAME_CM0PLUS}
+    EXE_NAME_CM4     ${EXE_NAME_CM4}
+    EXE_NAME_CM7_0   ${EXE_NAME_CM7_0}
+    EXE_NAME_CM7_1   ${EXE_NAME_CM7_1}
+    EXE_NAME_CM7_2   ${EXE_NAME_CM7_2}
+    EXE_NAME_CM7_3   ${EXE_NAME_CM7_3}
+)
+
+include(${CMAKE_SOURCE_DIR}/cmake/targets/debugger_t32.cmake)
+create_t32_debugger_targets(
+    EXE_NAME_CM0PLUS ${EXE_NAME_CM0PLUS}
+    EXE_NAME_CM4     ${EXE_NAME_CM4}
+    EXE_NAME_CM7_0   ${EXE_NAME_CM7_0}
+    EXE_NAME_CM7_1   ${EXE_NAME_CM7_1}
+    EXE_NAME_CM7_2   ${EXE_NAME_CM7_2}
+    EXE_NAME_CM7_3   ${EXE_NAME_CM7_3}
+)
+
 include(${CMAKE_SOURCE_DIR}/cmake/targets/debugger_vsc.cmake)
 create_vsc_launch_json(
     EXE_NAME_CM0PLUS ${EXE_NAME_CM0PLUS}
@@ -284,4 +317,3 @@ if(USE_MCAL)
     include(${CMAKE_SOURCE_DIR}/cmake/targets/util_tresos.cmake)
     create_tresos_utility_targets()
 endif()
-# {altium
