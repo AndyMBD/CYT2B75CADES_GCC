@@ -19,6 +19,7 @@
 
 #include "cy_project.h"
 #include "cy_device_headers.h"
+#include "add.h"
 
 /* Select UART Echo Type                                                   */
 /*                                                                         */
@@ -162,7 +163,7 @@ int main(void)
     /* (3) Interrupt & Receive by threshold byte unit (E_UART_RECV_THRESHOLD) */
     Cy_SCB_UART_Receive(CY_USB_SCB_UART_TYPE, g_uart_in_data, E_UART_RECV_THRESHOLD, &g_stc_uart_context);
 #endif
-
+  
     for(;;)
     {
 #if defined(E_UART_ECHO_POLLING_1BYTE)

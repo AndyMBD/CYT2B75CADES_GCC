@@ -48,7 +48,9 @@
       "name": "uart",
       "hidden": true,
       "cacheVariables": {
-        "PROJECT_SRC_PATH": "uart"
+        "PROJECT_SRC_PATH": "uart",
+        "PROJECT_CONTAIN_SUB_PATH": "true",
+        "PROJECT_SUB_PATH": "xcp_uart"
       }
     },
     {

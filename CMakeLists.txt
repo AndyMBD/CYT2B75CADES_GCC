@@ -71,10 +71,10 @@ if(USE_ETHSTACK)
 endif()
 if(USE_MCAL)
     set(PATH_COMMON_SRC_MCALSTUBS    ${CMAKE_SOURCE_DIR}/common/src/mcalstubs)
-endif()
-
-# Generic compiler/assember include directories (check CMake files that create executable or library targets for further specific include dirs)
-set(INCLUDE_DIRS
+    endif()
+    
+    # Generic compiler/assember include directories (check CMake files that create executable or library targets for further specific include dirs)
+    set(INCLUDE_DIRS
     ${TOOLCHAIN_INCLUDE_DIRS} # Explicitly adding the toolchain include dirs may help code indexers in 3rd party apps like VS Code
     ${DIE}/hdr/${MCU_REV_STRING}
     ${DIE}/hdr/${MCU_REV_STRING}/ip
@@ -88,7 +88,20 @@ set(INCLUDE_DIRS
     common/hdr/cmsis/include
     common/src/drivers
     common/src/mw
-)
+    )
+if(${PROJECT_CONTAIN_SUB_PATH} STREQUAL "true" )
+    set(PATH_SUB_SRC    ${CMAKE_SOURCE_DIR}/${DIE}/${PROJECT_SRC_PATH}/${PROJECT_SUB_PATH})
+    file(GLOB_RECURSE SUB_SRC_FILES
+        "${PATH_SUB_SRC}/*.c"
+        "${PATH_SUB_SRC}/*.h"
+    )
+    list(APPEND INCLUDE_DIRS ${PATH_SUB_SRC})
+message(STATUS "PROJECT_CONTAIN_SUB_PATH: ${PROJECT_CONTAIN_SUB_PATH}")
+message(STATUS "PATH_SUB_SRC: ${PATH_SUB_SRC}")
+message(STATUS "SUB_SRC_FILES: ${SUB_SRC_FILES}")
+message(STATUS "INCLUDE_DIRS: ${INCLUDE_DIRS}")
+endif()
+  
 
 # Generic compiler/assember defines (check CMake files that create executable or library targets for further specific defines)
 set(COMPILER_DEFINES
@@ -197,10 +210,12 @@ if(HAVE_CM4)
         CPU_TYPE ${APP_CPU_TYPE}
         EXE_NAME ${EXE_NAME_CM4}
         ADDL_SOURCES
-            ${PATH_DIE_SRC}/main_cm4.c
+                    ${PATH_DIE_SRC}/main_cm4.c
+                    ${SUB_SRC_FILES}
         ADDL_LIBS
-            ${ADDITIONAL_LIBS_TO_LINK_${APP_CPU_TYPE}}
-    )
+                ${ADDITIONAL_LIBS_TO_LINK_${APP_CPU_TYPE}}
+        )
+        message(STATUS "ADDL_SOURCES: ${ADDL_SOURCES}")
 endif()
 
 if(HAVE_CM7_0)
