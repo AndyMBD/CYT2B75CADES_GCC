@@ -44,6 +44,19 @@
       "displayName": "CYTVII-B-E-1M-SK (GCC) led_blink",
       "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' led_blink (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
     },
+    {
+      "name": "uart",
+      "hidden": true,
+      "cacheVariables": {
+        "PROJECT_SRC_PATH": "uart"
+      }
+    },
+    {
+      "name": "tviibe1m-sk-gcc_uart",
+      "inherits": [ "default", "tviibe1m-sk", "toolchain-gcc", "uart" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) uart",
+      "description": "Configure T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' uart (latest rev, flash linking) using GCC compiler and Ninja Multi-Config generator"
+    },
 
     {
       "name": "adc_DieTempCalculation",
@@ -206,6 +219,27 @@
       "configurePreset": "tviibe1m-sk-gcc_led_blink",
       "inherits": [ "default", "cfg-relwithdebinfo" ],
       "displayName": "CYTVII-B-E-1M-SK (GCC) led_blink 'Release w/ Debug Info' Cfg",
+      "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-debug_uart",
+      "configurePreset": "tviibe1m-sk-gcc_uart",
+      "inherits": [ "default", "cfg-debug" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) uart 'Debug' Cfg",
+      "description": "Build 'Debug' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-release_uart",
+      "configurePreset": "tviibe1m-sk-gcc_uart",
+      "inherits": [ "default", "cfg-release" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) uart 'Release' Cfg",
+      "description": "Build 'Release' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
+    },
+    {
+      "name": "tviibe1m-sk-gcc-relwithdebinfo_uart",
+      "configurePreset": "tviibe1m-sk-gcc_uart",
+      "inherits": [ "default", "cfg-relwithdebinfo" ],
+      "displayName": "CYTVII-B-E-1M-SK (GCC) uart 'Release w/ Debug Info' Cfg",
       "description": "Build 'Release w/ Debug Info' configuration of T2G-B-E-1M Starter Kit 'CYTVII-B-E-1M-SK' (latest rev, flash linking) using GCC compiler and Ninja"
     },
 
