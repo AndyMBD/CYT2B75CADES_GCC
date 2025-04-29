@@ -28,10 +28,10 @@
 /*  (2) Interrupt & Receive by 1 byte unit                                 */
 /*  (3) Interrupt & Receive by threshold byte unit (E_UART_RECV_THRESHOLD) */
 /*  (4) Interrupt & Receive using Ring Buffer (Half of RX FIFO size)       */
-//#define E_UART_ECHO_POLLING_1BYTE
-#define E_UART_ECHO_INTR_1BYTE
-//#define E_UART_ECHO_INTR_THRESHOLD
-//#define E_UART_ECHO_INTR_RINGBUF
+// #define E_UART_ECHO_POLLING_1BYTE
+// #define E_UART_ECHO_INTR_1BYTE
+// #define E_UART_ECHO_INTR_THRESHOLD
+#define E_UART_ECHO_INTR_RINGBUF
 
 /* Select Baud Rate */
 #define E_UART_BAUD_115200  115200
@@ -341,13 +341,13 @@ void Term_Input(void)
     cmd = Cy_SCB_UART_Get(CY_USB_SCB_UART_TYPE);
     while (0UL == Cy_SCB_UART_Put(CY_USB_SCB_UART_TYPE, cmd)) {}
 #endif
-#if 1
+#if 0
     Cy_SCB_UART_GetArray(CY_USB_SCB_UART_TYPE, g_uart_in_data, rx_num);
     Cy_SCB_UART_PutArray(CY_USB_SCB_UART_TYPE, g_uart_in_data, rx_num);
 #endif
-#if 0
+#if 1
     Cy_SCB_UART_GetArrayBlocking(CY_USB_SCB_UART_TYPE, g_uart_in_data, rx_num);
-    Cy_SCB_UART_PutArrayBlocking(CY_USB_SCB_UART_TYPE, g_uart_in_data, rx_num);
+    // Cy_SCB_UART_PutArrayBlocking(CY_USB_SCB_UART_TYPE, g_uart_in_data, rx_num);
     Cy_SCB_UART_PutString(CY_USB_SCB_UART_TYPE, (char_t *)g_uart_in_data);
 #endif
 }

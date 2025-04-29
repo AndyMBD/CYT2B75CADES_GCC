@@ -71,7 +71,7 @@ int main(void)
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
     Cy_GPIO_Pin_Init(USER_LED_PORT, USER_LED_PIN, &user_led_port_pin_cfg);
 
-    printf("-------------------------------\n\r");
+    //printf("-------------------------------\n\r");
     for(;;)
     {
         // Wait 0.05 [s]
@@ -87,14 +87,14 @@ int main(void)
         Cy_GPIO_Clr(USER_LED_PORT, USER_LED_PIN);
         demo.func=product;
         data_temp[0]=demo.func(3,4);
-        printf("-------------------------------\n\r");
-        printf("demo.func(3,4)=%ld\n",data_temp[0]);
-        printf("-------------------------------\n\r");
+        //printf("-------------------------------\n\r");
+        //printf("demo.func(3,4)=%ld\n",data_temp[0]);
+        //printf("-------------------------------\n\r");
         demo.func=add;
         data_temp[1]=demo.func(3,4);
-        printf("-------------------------------\n\r");
-        printf("demo.func(3,4)=%ld\n",data_temp[1]);
-        printf("-------------------------------\n\r");
+        //printf("-------------------------------\n\r");
+        //printf("demo.func(3,4)=%ld\n",data_temp[1]);
+        //printf("-------------------------------\n\r");
     }
 }
 
